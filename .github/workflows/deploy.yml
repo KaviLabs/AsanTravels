@@ -11,20 +11,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@v4
+
       - name: 📂 Sync files (excluding admin panel)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # server-dir: htdocs/
+          server-dir: htdocs/
           exclude: |
             **/.git*
             **/.git*/**
+            **/.github/**
+            *.zip
+            AI_PLANNER_GUIDE.md
             admin.php
+            admin.html
+            admin_bookings.php
             asn_Gallery.php
+            asn_galary.php
             asn_Bookings.php
             asn_Contact.php
             asn_Reviews.php
