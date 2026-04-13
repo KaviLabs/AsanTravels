@@ -4,21 +4,33 @@ on:
   push:
     branches:
       - main
-      # You can add other branches if needed, like 'master'
 
 jobs:
   deploy:
-    name: 🚀 Deploy
+    name: 🚀 Deploy (Public Site Only)
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
         
-      - name: 📂 Sync files
+      - name: 📂 Sync files (excluding admin panel)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # The remote directory might be something like htdocs/ depending on InfinityFree setup
           # server-dir: htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            admin.php
+            asn_Gallery.php
+            asn_Bookings.php
+            asn_Contact.php
+            asn_Reviews.php
+            asn_subscribers.php
+            asn_custom_admin.php
+            asn_admin_loging.php
+            custom_admin.php
+            custom_admin_old.php
+            logout.php
