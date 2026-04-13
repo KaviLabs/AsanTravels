@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Customization by Distance - Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #2d5a3d; margin-bottom: 30px; text-align: center; }
+        h2 { color: #667eea; margin-top: 30px; margin-bottom: 15px; font-size: 20px; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        
+        .demo-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .ai-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .route-item {
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .alt-location {
+            display: inline-block;
+            background: #e8ecff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 3px 3px 3px 0;
+            font-size: 13px;
+        }
+        
+        .activity-rec {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 8px 0;
+            border-left: 3px solid #4caf50;
+        }
+        
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .comparison > div {
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .comparison h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .comparison-bad { border-color: #ff6b6b; background: #fff5f5; }
+        .comparison-good { border-color: #4caf50; background: #f5fff5; }
+        
+        @media (max-width: 768px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+        
+        .code-block {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Tour Customization by Distance - Smart Features Demo</h1>
+        
+        <!-- Feature 1 -->
+        <div class="demo-section">
+            <h2><i class="fas fa-route me-2"></i>Feature 1: Route Distance Analysis</h2>
+            <p>When users select locations with long distances between them, the system detects it and shows warnings.</p>
+            
+            <h3 style="margin-top: 15px; font-size: 15px;">Example: Galle → Jaffna (800 km, 18 hours)</h3>
+            <div class="warning-box">
+                <strong><i class="fas fa-exclamation-triangle me-2"></i>Route Distance Analysis</strong>
+                <div style="margin-top: 10px;">
+                    <div class="route-item">
+                        <strong>Day 1 → Day 2:</strong> Galle <i class="fas fa-arrow-right mx-2"></i> Jaffna<br>
+                        <span style="color: #666; font-size: 13px;">
+                            📍 Distance: 800 km | ⏱️ Travel Time: 18 hours ⚠️ Exceeds 6-hour limit
+                        </span>
+                        <div style="margin-top: 8px;">
+                            <small><strong>Nearby alternatives for Day 2:</strong></small><br>
+                            <div class="alt-location">Matara (450 km)</div>
+                            <div class="alt-location">Mirissa (420 km)</div>
+                            <div class="alt-location">Balapitiya (380 km)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="demo-section">
+            <h2><i class="fas fa-brain me-2"></i>Feature 2: AI Smart Optimization</h2>
+            <p>System provides intelligent recommendations based on travel distances.</p>
+            
+            <div class="ai-box">
+                <strong style="color: #2e7d32;"><i class="fas fa-brain me-2"></i>🤖 AI Smart Optimization</strong>
+                <p style="margin-top: 10px; color: #1b5e20; font-size: 13px;">
+                    Based on your travel distances, here are AI-powered recommendations to optimize your trip:
+                </p>
+                
+                <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                    <strong style="color: #2e7d32; font-size: 14px;"><i class="fas fa-map-marker-alt me-2"></i>Consider Alternative Routing</strong>
+                    <small style="color: #666;">Instead of long drives, use nearby locations:</small>
+                    <ul style="margin-top: 8px; padding-left: 20px; color: #666; font-size: 13px;">
+                        <li><strong>Day 1:</strong> Visit <strong style="color: #4caf50;">Matara</strong> (450 km) instead of Jaffna (800 km)</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                    <strong style="color: #2e7d32; font-size: 14px;"><i class="fas fa-clock me-2"></i>Travel Day Suggestions</strong>
+                    <small style="color: #666;">For routes exceeding 6 hours, consider:</small>
+                    <ul style="margin-top: 8px; padding-left: 20px; color: #666; font-size: 13px;">
+                        <li>Include only 1-2 short activities (under 2 hours each)</li>
+                        <li>Schedule departure early morning (6-7 AM)</li>
+                        <li>Plan rest stops every 2 hours</li>
+                        <li>Consider overnight halts at midway locations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="demo-section">
+            <h2><i class="fas fa-bulb me-2"></i>Feature 3: Activity Adjustment Suggestions</h2>
+            <p>For days with long travels ahead, recommends shorter activities.</p>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ff6b6b; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+                <strong style="color: #856404;"><i class="fas fa-lightbulb me-2"></i>Activity Adjustment Suggestion</strong><br>
+                <small style="color: #666;">Since you have a long drive to Day 2, consider shorter activities for Day 1:
+                </small>
+                <div style="margin-top: 10px;">
+                    <div class="activity-rec">
+                        <strong>Whale Watching (Shared Boat)</strong>
+                        <span style="float: right; color: #667eea; font-weight: 700;">$45/adult</span>
+                        <br><small style="color: #999;">Duration: 120 mins</small>
+                    </div>
+                    <div class="activity-rec">
+                        <strong>Madu River Boat Safari</strong>
+                        <span style="float: right; color: #667eea; font-weight: 700;">$35/adult</span>
+                        <br><small style="color: #999;">Duration: 90 mins</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="demo-section">
+            <h2><i class="fas fa-map-marker me-2"></i>Feature 4: Per-Day Distance Indicators</h2>
+            <p>Each day shows distance to next location with color-coded feasibility.</p>
+            
+            <div class="success-box">
+                <i class="fas fa-road me-2"></i>
+                <strong>To Kandy:</strong> 115 km, 2.5 hrs
+                <span style="float: right;"><strong style="color: #28a745;">✅</strong></span>
+            </div>
+            
+            <div class="warning-box">
+                <i class="fas fa-road me-2"></i>
+                <strong>To Jaffna:</strong> 800 km, 18 hrs
+                <span style="float: right;"><strong style="color: #ff6b6b;">⚠️ Long drive</strong></span>
+            </div>
+        </div>
+        
+        <!-- Comparison -->
+        <div class="demo-section">
+            <h2><i class="fas fa-balance-scale me-2"></i>Before & After Comparison</h2>
+            
+            <div class="comparison">
+                <div class="comparison-bad">
+                    <h3>❌ Without Tour Customization</h3>
+                    <ul style="list-style: none; padding: 0; color: #555; font-size: 13px;">
+                        <li>✗ User books impractical route</li>
+                        <li>✗ 18-hour drive in one day</li>
+                        <li>✗ Exhausting itinerary</li>
+                        <li>✗ No alternative suggestions</li>
+                        <li>✗ Poor user experience</li>
+                        <li>✗ Risk of cancellations</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-good">
+                    <h3>✅ With AI Customization</h3>
+                    <ul style="list-style: none; padding: 0; color: #2e7d32; font-size: 13px;">
+                        <li>✓ Intelligent distance analysis</li>
+                        <li>✓ Practical route suggestions</li>
+                        <li>✓ Optimized itinerary</li>
+                        <li>✓ Better activity selection</li>
+                        <li>✓ Enhanced user experience</li>
+                        <li>✓ Higher customer satisfaction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works -->
+        <div class="demo-section">
+            <h2><i class="fas fa-cogs me-2"></i>How It Works</h2>
+            
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <strong>Step 1:</strong> User selects days and locations in <code>cust_new.php</code><br>
+                <strong>Step 2:</strong> Form submits to <code>booking_summary.php</code> with itinerary data<br>
+                <strong>Step 3:</strong> SmartTravelPlanner calculates distances and analyzes routes<br>
+                <strong>Step 4:</strong> Page displays route analysis, alternatives, and recommendations<br>
+                <strong>Step 5:</strong> User sees optimized itinerary before confirming booking
+            </div>
+            
+            <h3 style="margin-top: 20px; font-size: 14px;">SmartTravelPlanner Methods:</h3>
+            <div class="code-block">
+getDistance('Galle', 'Jaffna')           // Returns: ~800 km
+getTravelHours('Galle', 'Jaffna')        // Returns: ~18 hours
+isHopFeasible('Galle', 'Jaffna')         // Returns: false (> 6 hrs)
+getNearbyLocations('Galle', 80)          // Returns: [Matara, Mirissa, ...]
+            </div>
+        </div>
+        
+        <!-- Test It -->
+        <div class="demo-section">
+            <h2><i class="fas fa-flask me-2"></i>Test It Now</h2>
+            <p style="margin-bottom: 15px;">
+                Click the button below to see the full customization in action with a Galle → Jaffna itinerary:
+            </p>
+            <a href="test_booking_long_route.html" style="
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 30px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 700;
+                transition: transform 0.2s;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="fas fa-play me-2"></i>Test Long Route (Galle → Jaffna)
+            </a>
+        </div>
+        
+        <!-- Summary -->
+        <div class="demo-section">
+            <h2><i class="fas fa-check-circle me-2"></i>Summary</h2>
+            <p>
+                The tour customization system is now <strong>intelligent and AI-powered</strong>:
+            </p>
+            <ul style="padding-left: 20px; color: #555; line-height: 1.8;">
+                <li>✅ Automatically detects impractical travel routes</li>
+                <li>✅ Provides alternative location suggestions</li>
+                <li>✅ Recommends shorter activities for long-travel days</li>
+                <li>✅ Shows visual distance indicators (✅ green / ⚠️ yellow)</li>
+                <li>✅ Offers AI-powered optimization tips</li>
+                <li>✅ Enhances user experience and prevents booking mistakes</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<?php
+session_start();
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+if(!isset($_SESSION["booking"]))
+{
+    header('Location:loging.php');
+    exit();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted || window.performance.navigation.type === 2) {
+            // Reload to trigger PHP session check
+            window.location.reload();
+        }
+    });
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AsanTravel_admin_panel</title>
+  <!-- Google Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121212;
+      --surface: #1E1E1E;
+      --on-surface: #E0E0E0;
+      --primary: #00BFA5;
+      --secondary: #7C4DFF;
+      --accent-gradient: linear-gradient(45deg, #00BFA5, #7C4DFF);
+      --radius: 8px;
+      --transition: 0.4s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--on-surface);
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--surface);
+      display: flex; align-items: center; padding: 0 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+    header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent-gradient);
+      animation: slideGradient 3s infinite alternate;
+    }
+    @keyframes slideGradient {
+      from { background-position: 0% 50%; }
+      to   { background-position: 100% 50%; }
+    }
+    header .material-icons {
+      cursor: pointer;
+      margin-right: 24px;
+      font-size: 28px;
+      transition: transform var(--transition);
+      color: var(--primary);
+    }
+    header .material-icons:hover {
+      transform: rotate(20deg) scale(1.2);
+    }
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    nav {
+      position: fixed;
+      top: 56px; left: 0;
+      width: 260px; height: 100%;
+      background: var(--surface);
+      box-shadow: 2px 0 4px rgba(0,0,0,0.5);
+      transition: left var(--transition) ease;
+      padding-top: 16px;
+    }
+    nav a {
+      display: flex; align-items:center;
+      padding: 12px 24px;
+      margin: 4px 8px;
+      color: var(--on-surface);
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background var(--transition), transform var(--transition);
+    }
+    nav a .material-icons {
+      margin-right: 16px;
+      color: var(--primary);
+      transition: color var(--transition);
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateX(8px);
+    }
+
+    main {
+      margin-left: 260px;
+      padding: 80px 24px 24px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+      gap: 24px;
+      transition: filter 0.2s ease;
+    }
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .card .material-icons {
+      font-size: 40px;
+      color: var(--primary);
+      transition: transform var(--transition);
+    }
+    .card:hover .material-icons {
+      transform: rotate(360deg);
+    }
+    .card h2 {
+      margin-top: 16px;
+      font-size: 1rem; font-weight: 500;
+    }
+    .card p {
+      margin-top: 8px;
+      font-size: 1.25rem; font-weight: 300;
+      color: #ccc;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 56px; height: 56px;
+      background: var(--accent-gradient);
+      border: none; border-radius: 50%;
+      color: #121212;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    .btn {
+      position: relative; overflow: hidden;
+      padding: 10px 20px; margin-top: 16px;
+      background: var(--primary);
+      border: none; border-radius: var(--radius);
+      color: var(--bg); font-weight: 500;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .btn:hover { background: #009e8c; }
+    .ripple {
+      position: absolute; border-radius: 50%;
+      transform: scale(0);
+      background: rgba(0,0,0,0.2);
+      animation: ripple-effect 0.6s linear;
+    }
+    @keyframes ripple-effect {
+      to { transform: scale(4); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="material-icons" id="menu-btn">menu</span>
+    <h1>AsanTravel_Dashboard</h1>
+  </header>
+
+  <nav id="drawer">
+    <a href="admin.html"><span class="material-icons">dashboard</span>Dashboard</a>
+    <a href="asn_Gallery.php"><span class="material-icons">photo_library</span>Gallery</a>
+    <a href="asn_Bookings.php"><span class="material-icons">event</span>Bookings</a>
+    <a href="asn_Contact.php"><span class="material-icons">mail</span>Contacts</a>
+    <a href="asn_Reviews.php"><span class="material-icons">star</span>Reviews</a>
+    <a href="asn_subscribers.php"><span class="material-icons">people</span>Subscribers</a>
+  </nav>
+
+  <main>
+    <div class="card">
+      <span class="material-icons">people</span>
+      <h2>Users</h2>
+      <p>1,245</p>
+      
+    </div>
+    <div class="card">
+      <span class="material-icons">event_available</span>
+      <h2>Bookings</h2>
+      <p>320</p>
+      
+    </div>
+    <div class="card">
+      <span class="material-icons">chat</span>
+      <h2>Reviews</h2>
+      <p>89</p>
+      
+    </div>
+  </main>
+
+  <button class="fab">
+    <span class="material-icons">add</span>
+  </button>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const drawer = document.getElementById('drawer');
+    drawer.classList.add('open');
+
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const circle = document.createElement('span');
+        circle.classList.add('ripple');
+        this.appendChild(circle);
+        const d = Math.max(this.clientWidth, this.clientHeight);
+        circle.style.width = circle.style.height = d + 'px';
+        const rect = this.getBoundingClientRect();
+        circle.style.left = e.clientX - rect.left - d/2 + 'px';
+        circle.style.top = e.clientY - rect.top - d/2 + 'px';
+        circle.addEventListener('animationend', () => circle.remove());
+      });
+    });
+  </script>
+</body>
+</html>
