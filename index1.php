@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["submit4"])) {
     $email = $_POST["email"];
-    $con = mysqli_connect("localhost", "root", "", "asantravels_og") or die("Couldn't connect to server");
+    $con = mysqli_connect("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
     $query = mysqli_query($con, "INSERT INTO subscribe(email) VALUES('$email')");
     if ($query) {
         header('Location: thank_you-s.html');
@@ -271,7 +271,7 @@ if (isset($_POST["submit4"])) {
         </div>
 
         <?php
-        $conn = new mysqli("localhost", "root", "", "asantravels_og");
+        $conn = new mysqli("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
@@ -330,10 +330,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database connection parameters
-$servername = "localhost";
-$username = "root";       // default XAMPP username
-$password = "";           // default XAMPP password is blank
-$dbname = "asantravels_og";
+$servername = "sql205.infinityfree.com";
+$username = "if0_42342516";       // default XAMPP username
+$password = "cpzbjidK5h1";           // default XAMPP password is blank
+$dbname = "if0_42342516_asantravels_og";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
