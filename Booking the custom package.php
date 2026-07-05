@@ -1146,7 +1146,7 @@ if ($locs_result) {
             // Post to booking_summary.php for review
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = 'booking_summary.php';
+            form.action = 'custom booking summary.php';
             
             Object.entries({
                 'trip_days': document.getElementById('tripDays').value,

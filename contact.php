@@ -49,6 +49,200 @@ if (isset($_POST["submit1"])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #13357B;
+            --brand-blue-dark: #0F2A62;
+            --brand-gold: #dfc384;
+            --brand-surface: #ffffff;
+            --brand-muted: #6b7280;
+            --brand-border: #e7ebf2;
+        }
+
+        body {
+            background: var(--brand-surface);
+            color: var(--brand-blue-dark);
+        }
+
+        .bg-breadcrumb {
+            position: relative;
+            background-image: url('img/breadcrumb-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            transform-origin: center center;
+            min-height: 460px;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+            animation: kenBurns 18s ease-in-out infinite alternate;
+        }
+
+        .bg-breadcrumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 10, 20, 0.75), rgba(19, 53, 123, 0.7));
+        }
+
+        .bg-breadcrumb .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Jost', sans-serif;
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.02;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            animation: fadeUp 0.9s 0.1s ease both;
+            }
+
+        .hero-title span {
+            color: var(--brand-gold);
+        }
+
+        .hero-subtitle {
+            max-width: 680px;
+            margin: 0 auto 1.8rem;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            animation: fadeUp 0.9s 0.2s ease both;
+            }
+
+        .hero-cta-group {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: fadeUp 0.9s 0.4s ease both;
+            }
+
+        .btn-primary-alt,
+        .btn-secondary-alt {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.95rem 1.75rem;
+            border-radius: 999px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary-alt {
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-dark));
+            color: #fff;
+            box-shadow: 0 16px 28px rgba(19, 53, 123, 0.18);
+        }
+
+        .btn-primary-alt:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-alt {
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-secondary-alt:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes kenBurns {
+            from {
+                transform: scale(1.0);
+            }
+            to {
+                transform: scale(1.12);
+            }
+        }
+
+        .section-title,
+        .section-heading {
+            font-family: 'Jost', sans-serif;
+            font-weight: 800;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-blue);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-heading {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            margin-bottom: 1rem;
+            color: var(--brand-blue-dark);
+        }
+
+        .section-sub {
+            font-family: 'Roboto', sans-serif;
+            color: #526177;
+            font-size: 1rem;
+            max-width: 660px;
+            margin: 0 auto 2rem;
+            line-height: 1.75;
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border: 1px solid var(--brand-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .contact-card .form-control {
+            border: 1px solid var(--brand-border);
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            background: #f8fafc;
+        }
+
+        .contact-card .form-control:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 0.2rem rgba(19, 53, 123, 0.1);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .bg-breadcrumb {
+                min-height: 420px;
+                padding: 3rem 0;
+            }
+
+            .hero-title {
+                font-size: clamp(2.2rem, 6vw, 3.2rem);
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -74,6 +268,7 @@ if (isset($_POST["submit1"])) {
                 <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="packages.html" class="nav-item nav-link">Packages</a>
+                <a href="Custom_Packages.html" class="nav-item nav-link">Custom_Packages</a>
                 <a href="contact.php" class="nav-item nav-link active">Contact</a>
             </div>
         </div>
@@ -81,16 +276,19 @@ if (isset($_POST["submit1"])) {
 </div>
 <!-- Navbar & Hero End -->
 
-<!-- Header Start -->
-<div class="container-fluid bg-breadcrumb">
-    <div class="container text-center py-5" style="max-width: 900px;">
-        <h3 class="text-white display-3 mb-4">Contact Us</h3>
-        <ol class="breadcrumb justify-content-center mb-0">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        </ol>
+<!-- Hero Start -->
+<section class="container-fluid bg-breadcrumb">
+    <div class="container text-center text-white" style="max-width: 920px;">
+        <div style="height:1.8rem;"></div>
+        <h1 class="hero-title">Let’s plan your Sri Lanka journey together</h1>
+        <p class="hero-subtitle">Questions, requests, or custom tour ideas? Our local travel team is ready to help you build a seamless, unforgettable experience.</p>
+        <div class="hero-cta-group justify-content-center">
+            <a href="#contact-form" class="btn-primary-alt">Send a Message</a>
+            <a href="index1.php" class="btn-secondary-alt">Back to Home</a>
+        </div>
     </div>
-</div>
-<!-- Header End -->
+</section>
+<!-- Hero End -->
 
 <!-- Contact Start -->
 <div class="container-fluid contact bg-light py-5">
@@ -129,7 +327,7 @@ if (isset($_POST["submit1"])) {
                 </p>
 
                 <!-- FORM START -->
-                <form method="post" action="">
+                <form id="contact-form" method="post" action="">
                     <div class="row g-3">
                         <div class="col-12">
                             <input type="text" class="form-control border-0" id="name" name="name" placeholder="Your Name" required>
