@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraResume | Premium Portfolio & Resume Studio</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="css/portfolio_builder.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Editor Panel -->
+        <aside class="editor-panel no-print">
+            <header class="editor-header">
+                <div class="logo">
+                    <i class="fa-solid fa-wand-magic-sparkles logo-icon"></i>
+                    <div>
+                        <h1>AuraResume</h1>
+                        <p>Portfolio & CV Studio</p>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button id="btnPrint" class="btn btn-primary" title="Print or Save to PDF">
+                        <i class="fa-solid fa-print"></i> Save PDF
+                    </button>
+                    <button id="btnReset" class="btn btn-secondary" title="Load Sample Internship Data">
+                        <i class="fa-solid fa-rotate-left"></i> Load Template
+                    </button>
+                </div>
+            </header>
+
+            <!-- Control Tabs -->
+            <nav class="editor-tabs">
+                <button class="tab-btn active" data-tab="tab-profile">Profile</button>
+                <button class="tab-btn" data-tab="tab-experience">Jobs</button>
+                <button class="tab-btn" data-tab="tab-projects">Projects</button>
+                <button class="tab-btn" data-tab="tab-education">Education</button>
+                <button class="tab-btn" data-tab="tab-skills">Skills</button>
+                <button class="tab-btn" data-tab="tab-settings">Theme</button>
+            </nav>
+
+            <div class="tab-content-container">
+                <!-- Tab: Profile -->
+                <div id="tab-profile" class="tab-content active">
+                    <h2>Personal Information</h2>
+                    <p class="tab-desc">Provide your contact details. ATS parsers scan this section first to identify you.</p>
+                    
+                    <div class="form-group">
+                        <label for="prof-name">Full Name</label>
+                        <input type="text" id="prof-name" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="prof-title">Target Role / Subhead</label>
+                        <input type="text" id="prof-title" placeholder="Full-Stack Web Developer Intern">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-email">Email Address</label>
+                            <input type="email" id="prof-email" placeholder="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-phone">Phone Number</label>
+                            <input type="text" id="prof-phone" placeholder="+94 77 123 4567">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-location">Location</label>
+                            <input type="text" id="prof-location" placeholder="Colombo, Sri Lanka">
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-website">Portfolio Website</label>
+                            <input type="url" id="prof-website" placeholder="https://johndoe.dev">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-github">GitHub Link</label>
+                            <input type="text" id="prof-github" placeholder="github.com/johndoe">
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-linkedin">LinkedIn Link</label>
+                            <input type="text" id="prof-linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Experience -->
+                <div id="tab-experience" class="tab-content">
+                    <div class="section-header-row">
+                        <h2>Work Experience</h2>
+                        <button id="add-exp-btn" class="btn-circle" title="Add Experience">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <p class="tab-desc">Detail your professional jobs. Leave empty to hide this section if applying with projects only.</p>
+                    <div id="experience-list" class="dynamic-list"></div>
+                </div>
+
+                <!-- Tab: Projects -->
+                <div id="tab-projects" class="tab-content">
+                    <div class="section-header-row">
+                        <h2>Projects</h2>
+                        <button id="add-proj-btn" class="btn-circle" title="Add Project">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <p class="tab-desc">Showcase the software or process systems you built. Use bullets for tech stack and key achievements.</p>
+                    <div id="projects-list" class="dynamic-list"></div>
+                </div>
+
+                <!-- Tab: Education -->
+                <div id="tab-education" class="tab-content">
+                    <div class="section-header-row">
+                        <h2>Education</h2>
+                        <button id="add-edu-btn" class="btn-circle" title="Add Education">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <p class="tab-desc">Detail your college, university, or major training certifications.</p>
+                    <div id="education-list" class="dynamic-list"></div>
+                </div>
+
+                <!-- Tab: Skills -->
+                <div id="tab-skills" class="tab-content">
+                    <h2>Technical Skills</h2>
+                    <p class="tab-desc">Group your skills by category. Standard headers like "Languages" or "Frameworks" parse best.</p>
+                    <div id="skills-list" class="dynamic-list">
+                        <div class="form-group">
+                            <label for="skills-langs">Languages (e.g., PHP, JavaScript, SQL)</label>
+                            <input type="text" id="skills-langs" placeholder="PHP, JavaScript (ES6+), SQL (MySQL), HTML5, CSS3">
+                        </div>
+                        <div class="form-group">
+                            <label for="skills-tools">Developer Tools & Libraries (e.g., Git, XAMPP, Composer)</label>
+                            <input type="text" id="skills-tools" placeholder="Git, GitHub, XAMPP, PHPWord, VS Code, Composer">
+                        </div>
+                        <div class="form-group">
+                            <label for="skills-concepts">Concepts (e.g., OOP, Database Design, Document Automation)</label>
+                            <input type="text" id="skills-concepts" placeholder="Full-Stack Web Development, Database Schema Design, REST APIs, Security Best Practices">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Theme Settings -->
+                <div id="tab-settings" class="tab-content">
+                    <h2>Theme Settings</h2>
+                    <p class="tab-desc">Configure the look and feel of the printed document.</p>
+                    
+                    <div class="form-group">
+                        <label>Accent Tone</label>
+                        <div class="color-picker-grid">
+                            <button class="color-btn active" data-color="#dfc384" style="background-color: #dfc384;" title="Gold (Matches reference image)"></button>
+                            <button class="color-btn" data-color="#13357B" style="background-color: #13357B;" title="Asan Travel Blue"></button>
+                            <button class="color-btn" data-color="#10b981" style="background-color: #10b981;" title="Emerald"></button>
+                            <button class="color-btn" data-color="#3b82f6" style="background-color: #3b82f6;" title="Sapphire"></button>
+                            <button class="color-btn" data-color="#ef4444" style="background-color: #ef4444;" title="Rose Red"></button>
+                            <button class="color-btn" data-color="#374151" style="background-color: #374151;" title="Slate Gray"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="setting-font">Primary Typography</label>
+                        <select id="setting-font">
+                            <option value="font-sans">Inter (Modern Sans-Serif)</option>
+                            <option value="font-serif">Lora (Classic Academic Serif)</option>
+                            <option value="font-system">System UI (Calibri/Arial Fallback)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="setting-margin">Page Margins</label>
+                        <select id="setting-margin">
+                            <option value="margin-compact">Compact (0.5 inch)</option>
+                            <option value="margin-normal" selected>Normal (0.75 inch)</option>
+                            <option value="margin-wide">Wide (1.0 inch)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data Management</label>
+                        <div class="data-buttons-row">
+                            <button id="btnExportJSON" class="btn btn-secondary btn-sm" title="Export Resume Data to JSON file">
+                                <i class="fa-solid fa-file-export"></i> Backup JSON
+                            </button>
+                            <button id="btnImportJSON" class="btn btn-secondary btn-sm" title="Import Resume Data from JSON file">
+                                <i class="fa-solid fa-file-import"></i> Restore JSON
+                            </button>
+                            <input type="file" id="importFile" style="display: none;" accept=".json">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATS Analysis Scorecard -->
+            <footer class="ats-card">
+                <div class="ats-header">
+                    <div class="score-radial">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="score-circle" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>ATS Parser Score</h3>
+                        <p id="score-grade">Calculating...</p>
+                    </div>
+                </div>
+                <div class="ats-tips">
+                    <h4>Optimization Insights</h4>
+                    <ul id="ats-suggestions-list">
+                        <!-- Filled by JS -->
+                    </ul>
+                </div>
+            </footer>
+        </aside>
+
+        <!-- Right Preview Panel -->
+        <main class="preview-panel">
+            <div class="paper-container">
+                <!-- Page guidelines helper (No-print) -->
+                <div class="page-break-line no-print" title="Approximate page boundary indicator">
+                    <span>A4 PAGE LIMIT LIMIT</span>
+                </div>
+                
+                <!-- The Actual Document -->
+                <div id="resume-sheet" class="resume-sheet font-sans margin-normal">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

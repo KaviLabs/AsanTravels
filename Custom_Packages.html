@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- ══ SEO ══ -->
+    <title>Custom Sri Lanka Tour Packages | Asan Travels – Expert Local Guides</title>
+    <meta name="description"
+        content="Plan your perfect Sri Lanka holiday with Asan Travels. Custom itineraries covering beaches, ancient ruins, wildlife safaris & hill country tea estates. 10+ years experience, 700+ tours led.">
+    <meta name="keywords"
+        content="Sri Lanka tour packages, custom Sri Lanka holiday, Sri Lanka travel, Asan Travels, Sigiriya tour, Yala safari, Ella train, Kandy tour guide, Ceylon tea tour, Sri Lanka itinerary planner">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Asan Travels">
+    <link rel="canonical" href="https://www.asantravels.com/sri-lanka-tours.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Custom Sri Lanka Tour Packages | Asan Travels">
+    <meta property="og:description"
+        content="Explore Sri Lanka's most iconic destinations with a custom-built tour by Asan Travels. Beaches, wildlife, heritage & hill country — all in one trip.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img/sri lanka image 1.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Site stylesheets -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* ════════════════════════════════════════
+           HERO SECTION
+        ════════════════════════════════════════ */
+        .slt-hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #07090F;
+        }
+
+        .slt-hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('img/breadcrumb-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: kenBurns 18s ease-in-out infinite alternate;
+            transform-origin: center center;
+        }
+
+        @keyframes kenBurns {
+            from {
+                transform: scale(1.0);
+            }
+
+            to {
+                transform: scale(1.12);
+            }
+        }
+
+        .slt-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(3, 5, 12, 0.82) 0%,
+                    rgba(10, 20, 55, 0.72) 50%,
+                    rgba(3, 5, 12, 0.70) 100%);
+        }
+
+        .slt-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #C9A84C;
+            border: 1px solid rgba(201, 168, 76, 0.35);
+            border-radius: 30px;
+            padding: 5px 14px;
+            margin-bottom: 1.4rem;
+            background: rgba(201, 168, 76, 0.08);
+            backdrop-filter: blur(4px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero-eyebrow .dot-blink {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #C9A84C;
+            animation: blink 1.4s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(201, 168, 76, 0.8);
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .slt-hero h1 {
+            font-family: 'Jost', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.12;
+            margin-bottom: 1rem;
+            animation: fadeUp 0.9s 0.1s ease both;
+        }
+
+        .slt-hero h1 span.gold {
+            background: linear-gradient(90deg, #C9A84C, #E8C96A, #C9A84C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .hero-typewriter-wrap {
+            font-family: 'Jost', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 1.2rem;
+            min-height: 2em;
+            animation: fadeUp 0.9s 0.2s ease both;
+        }
+
+        .hero-typewriter-wrap .typed-word {
+            color: #E8C96A;
+            border-right: 2px solid #E8C96A;
+            padding-right: 2px;
+            animation: cursor 0.7s step-end infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes cursor {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #E8C96A;
+            }
+        }
+
+        .slt-hero p.hero-desc {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(210, 205, 195, 0.80);
+            line-height: 1.75;
+            max-width: 580px;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.9s 0.3s ease both;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: fadeUp 0.9s 0.4s ease both;
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.75rem 1.8rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #07090F;
+            background: linear-gradient(135deg, #C9A84C, #E8C96A);
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 22px rgba(201, 168, 76, 0.4);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 32px rgba(201, 168, 76, 0.6);
+            color: #07090F;
+        }
+
+        .btn-ghost-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.75rem 1.8rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.85);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-ghost-white:hover {
+            border-color: rgba(201, 168, 76, 0.6);
+            color: #E8C96A;
+        }
+
+        /* Hero stats row */
+        .hero-stats {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            background: rgba(7, 9, 15, 0.55);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(201, 168, 76, 0.12);
+        }
+
+        .hero-stat-item {
+            padding: 1.2rem 0;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .hero-stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #C9A84C, #E8C96A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.68rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(200, 195, 180, 0.6);
+            margin-top: 3px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ════════════════════════════════════════
+           WHY VISIT SECTION
+        ════════════════════════════════════════ */
+        .slt-why {
+            background: #f8f9fc;
+            padding: 90px 0 80px;
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #13357B;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-heading {
+            font-family: 'Jost', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 800;
+            color: #0d1a3a;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-heading span {
+            color: #13357B;
+        }
+
+        .section-sub {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            color: #6b7280;
+            max-width: 540px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .why-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.6rem;
+            text-align: center;
+            border: 1px solid #eef0f5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #C9A84C, #E8C96A);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(19, 53, 123, 0.1);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(19, 53, 123, 0.08), rgba(19, 53, 123, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.5rem;
+            color: #13357B;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .why-card:hover .why-icon {
+            background: linear-gradient(135deg, #C9A84C, #E8C96A);
+            color: #fff;
+            transform: scale(1.08) rotate(-4deg);
+        }
+
+        .why-title {
+            font-family: 'Jost', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0d1a3a;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-desc {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.84rem;
+            color: #6b7280;
+            line-height: 1.65;
+        }
+
+        /* ════════════════════════════════════════
+           MAP SECTION
+        ════════════════════════════════════════ */
+        .slt-map-section {
+            background: #07090F;
+            padding: 80px 0 0;
+        }
+
+        .map-section-header {
+            text-align: center;
+            padding: 0 1rem 3rem;
+        }
+
+        .map-section-header .section-eyebrow {
+            color: #C9A84C;
+        }
+
+        .map-section-header .section-heading {
+            color: #f1edd6;
+        }
+
+        .map-section-header .section-sub {
+            color: rgba(200, 195, 180, 0.6);
+            max-width: 580px;
+        }
+
+        #slt-map-wrap {
+            position: relative;
+            height: 520px;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+
+        #slt-map-wrap.visible {
+            opacity: 1;
+        }
+
+        #slt-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Leaflet overrides */
+        .leaflet-container {
+            background: #07090F !important;
+        }
+
+        /* Ensure Leaflet panes allow popups to overflow map bounds without clipping */
+        .leaflet-pane,
+        .leaflet-popup-pane,
+        .leaflet-map-pane {
+            overflow: visible !important;
+        }
+
+        /* Reset Leaflet popup default sizing to allow CSS responsive control */
+        .leaflet-popup {
+            min-width: auto !important;
+            max-width: none !important;
+        }
+
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-content {
+            margin: 0 !important;
+            width: auto !important;
+            min-width: auto !important;
+            max-width: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .leaflet-popup-tip {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .leaflet-popup-tip-container {
+            display: none;
+        }
+
+        .leaflet-popup-close-button {
+            color: rgba(201, 168, 76, 0.8) !important;
+            top: 10px !important;
+            right: 12px !important;
+        }
+
+        .leaflet-popup-close-button:hover {
+            color: #E8C96A !important;
+        }
+
+        /* Pulse marker */
+        .pulse-marker-wrap {
+            position: relative;
+            width: 28px;
+            height: 28px;
+        }
+
+        .p-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(201, 168, 76, 0.8);
+            animation: pRing 2.2s ease-out infinite;
+        }
+
+        .p-ring:nth-child(2) {
+            animation-delay: .7s;
+        }
+
+        .p-ring:nth-child(3) {
+            animation-delay: 1.4s;
+        }
+
+        .p-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #E8C96A 0%, #C9A84C 60%);
+            box-shadow: 0 0 12px rgba(201, 168, 76, .9), 0 0 24px rgba(201, 168, 76, .4);
+        }
+
+        @keyframes pRing {
+            0% {
+                transform: scale(0.4);
+                opacity: .9;
+            }
+
+            80% {
+                transform: scale(2.4);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(2.4);
+                opacity: 0;
+            }
+        }
+
+        .marker-drop {
+            opacity: 0;
+            transform: translateY(-40px) scale(.5);
+            transition: opacity .55s cubic-bezier(.34, 1.56, .64, 1),
+                transform .55s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .marker-drop.dropped {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Popup card */
+        .slt-popup-card {
+            width: 280px;
+            background: rgba(8, 10, 18, 0.90);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 14px;
+            overflow: hidden !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 40px rgba(201, 168, 76, 0.08);
+            animation: cardIn .25s ease forwards;
+            /* Safari hardware acceleration & rendering bug fixes */
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transform-origin: bottom center;
+        }
+
+        /* Flipped animation/origin for popups shown below markers */
+        .slt-popup-card.popup-below {
+            transform-origin: top center;
+            animation: cardInBelow .25s ease forwards;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: scale(.92) translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes cardInBelow {
+            from {
+                opacity: 0;
+                transform: scale(.92) translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .popup-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            object-position: center;
+            display: block !important;
+            margin: 0;
+            padding: 0;
+            background: rgba(10, 10, 10, 0.5);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            /* Safari border-radius clipping fixes */
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .popup-body {
+            padding: 0.9rem 1rem 1rem;
+        }
+
+        .popup-badge {
+            display: inline-block;
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #C9A84C;
+            background: rgba(201, 168, 76, .1);
+            border: 1px solid rgba(201, 168, 76, .25);
+            border-radius: 20px;
+            padding: 2px 8px;
+            margin-bottom: 5px;
+        }
+
+        .popup-name {
+            font-family: 'Jost', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            color: #F1EBD6;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .popup-tagline {
+            font-family: 'Roboto', sans-serif;
+            font-size: .7rem;
+            font-weight: 300;
+            color: rgba(200, 195, 180, .75);
+            line-height: 1.5;
+        }
+
+        /* Responsive Breakpoints for Popups */
+        @media (max-width: 1024px) {
+            .slt-popup-card {
+                width: 250px !important;
+            }
+
+            .popup-img {
+                height: 125px !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .slt-popup-card {
+                width: 220px !important;
+            }
+
+            .popup-img {
+                height: 110px !important;
+            }
+        }
+
+        /* ════════════════════════════════════════
+           INCLUSIONS SECTION
+        ════════════════════════════════════════ */
+        .slt-inclusions {
+            background: #07090F;
+            padding: 80px 0 90px;
+            border-top: 1px solid rgba(201, 168, 76, 0.10);
+        }
+
+        .slt-inclusions .section-eyebrow {
+            color: #C9A84C;
+        }
+
+        .slt-inclusions .section-heading {
+            color: #f1edd6;
+        }
+
+        .slt-inclusions .section-sub {
+            color: rgba(200, 195, 180, 0.6);
+        }
+
+        .incl-card {
+            background: rgba(15, 18, 30, 0.75);
+            border: 1px solid rgba(201, 168, 76, 0.14);
+            border-radius: 16px;
+            padding: 1.8rem 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.1rem;
+            height: 100%;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .incl-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 168, 76, 0.4);
+            box-shadow: 0 16px 40px rgba(201, 168, 76, 0.08);
+        }
+
+        .incl-icon-wrap {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.08));
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #C9A84C;
+            flex-shrink: 0;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .incl-card:hover .incl-icon-wrap {
+            background: linear-gradient(135deg, #C9A84C, #E8C96A);
+            color: #07090F;
+            transform: scale(1.05) rotate(-3deg);
+        }
+
+        .incl-text h6 {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #F1EBD6;
+            margin-bottom: 3px;
+        }
+
+        .incl-text p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.76rem;
+            color: rgba(200, 195, 180, 0.6);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ════════════════════════════════════════
+           SCROLL REVEAL UTILITY
+        ════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ════════════════════════════════════════
+           RESPONSIVE
+        ════════════════════════════════════════ */
+        @media (max-width: 767px) {
+            .slt-hero {
+                min-height: 100vh;
+            }
+
+            #slt-map-wrap {
+                height: 380px;
+            }
+
+            .hero-stat-item {
+                padding: 0.9rem 0;
+            }
+
+            .stat-num {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ════════════════════════════════════════════════════════════════
+           MOBILE RESPONSIVE IMPROVEMENTS
+           All rules below are scoped to breakpoints ≤1023 px so the
+           desktop experience (≥1024 px) remains completely unchanged.
+           Cascade order is deliberate: tablet rules use min-width to
+           avoid overriding phone-level breakpoints that come before them.
+        ════════════════════════════════════════════════════════════════ */
+
+        /* ── 1. Global: Eliminate horizontal scroll on mobile ────────── */
+        @media (max-width: 1023px) {
+            html {
+                overflow-x: hidden;
+            }
+            body {
+                overflow-x: hidden;
+                /* iOS momentum scrolling for smooth feel */
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* ── 2. Navbar: Mobile hamburger + collapsed menu ────────────── */
+        @media (max-width: 991px) {
+            /* Brand name: prevent overflow on very narrow screens */
+            .navbar-brand h1 {
+                font-size: 1.25rem !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Hamburger button: visible against the dark hero background,
+               minimum 44 px WCAG touch target */
+            .navbar-toggler {
+                border-color: rgba(255, 255, 255, 0.5) !important;
+                padding: 8px 14px !important;
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            .navbar-toggler .fa-bars {
+                color: #ffffff;
+                font-size: 1rem;
+            }
+
+            /* Collapsed nav menu: dark glass card style */
+            #navbarCollapse {
+                background: rgba(7, 9, 15, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 12px;
+                padding: 0.5rem 1rem 1rem;
+                margin-top: 8px;
+                border: 1px solid rgba(201, 168, 76, 0.18);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            }
+
+            /* Override base style.css collapsed-menu border/margin */
+            .navbar-light .navbar-collapse {
+                margin-top: 0;
+                border-top: none;
+            }
+
+            /* Nav links: min 44 px tap target, light text on dark bg */
+            .navbar-light .navbar-nav .nav-link,
+            .sticky-top.navbar-light .navbar-nav .nav-link {
+                padding: 12px 8px !important;
+                min-height: 44px;
+                display: flex !important;
+                align-items: center;
+                color: rgba(240, 235, 220, 0.9) !important;
+                font-size: 0.95rem !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                touch-action: manipulation;
+                transition: color 0.2s ease;
+            }
+
+            /* Remove separator from last link */
+            .navbar-light .navbar-nav .nav-link:last-child {
+                border-bottom: none;
+            }
+
+            /* Highlight active/tapped link with gold accent */
+            .navbar-light .navbar-nav .nav-link:active,
+            .navbar-light .navbar-nav .nav-link.active {
+                color: #C9A84C !important;
+            }
+        }
+
+        /* ── 3. Hero Section: General mobile layout ──────────────────── */
+        @media (max-width: 1023px) {
+            /* Use svh to account for iOS browser chrome (address bar) */
+            .slt-hero {
+                min-height: 100svh;
+                /* Fallback for browsers without svh support */
+                min-height: -webkit-fill-available;
+            }
+
+            /* Full-width content block, centred on mobile */
+            .slt-hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            /* Auto-centre the eyebrow badge */
+            .hero-eyebrow {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Description: remove fixed max-width, scale font slightly */
+            .slt-hero p.hero-desc {
+                max-width: 100%;
+                font-size: 0.91rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* CTA button group: centre-aligned on mobile */
+            .hero-cta-group {
+                justify-content: center;
+            }
+
+            /* Typewriter line: allow natural word-wrapping */
+            .hero-typewriter-wrap {
+                white-space: normal;
+                word-break: break-word;
+            }
+        }
+
+        /* ── 4. Hero: Extra-small phones (≤430 px — iPhone SE, compact Androids) ── */
+        @media (max-width: 430px) {
+            /* Scale heading for very narrow screens */
+            .slt-hero h1 {
+                font-size: clamp(1.7rem, 8.5vw, 2.3rem) !important;
+                line-height: 1.15;
+            }
+
+            /* Stack CTA buttons vertically for easy one-handed tapping */
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            /* Full-width buttons with generous tap target */
+            .btn-gold,
+            .btn-ghost-white {
+                width: 100%;
+                max-width: 290px;
+                justify-content: center;
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+        }
+
+        /* ── 5. Hero Stats Bar: Compact for very small screens (≤575 px) ── */
+        @media (max-width: 575px) {
+            /* Reduce padding so the bar doesn't crowd the content above */
+            .hero-stat-item {
+                padding: 0.65rem 0 !important;
+            }
+
+            /* Scale down the large numbers */
+            .stat-num {
+                font-size: 1.1rem !important;
+            }
+
+            /* Scale down the tiny labels */
+            .stat-label {
+                font-size: 0.55rem !important;
+                letter-spacing: 0.07em !important;
+            }
+        }
+
+        /* ── 6. Why Visit Section: Reduced vertical padding on mobile ── */
+        @media (max-width: 767px) {
+            .slt-why {
+                padding: 60px 0 50px;
+            }
+        }
+
+        /* ── 7. Suppress sticky-hover on touch devices ───────────────── */
+        /* On iOS/Android, tapping leaves the :hover state active ("sticky").
+           (hover:none) + (pointer:coarse) reliably targets touch screens only,
+           leaving desktop hover effects completely intact. */
+        @media (hover: none) and (pointer: coarse) {
+            /* Why-Visit cards: remove sticky hover state */
+            .why-card:hover {
+                transform: none !important;
+                box-shadow: none !important;
+                border-color: #eef0f5 !important;
+            }
+            .why-card:hover::before {
+                transform: scaleX(0) !important;
+            }
+            .why-card:hover .why-icon {
+                background: linear-gradient(135deg, rgba(19, 53, 123, 0.08), rgba(19, 53, 123, 0.15)) !important;
+                color: #13357B !important;
+                transform: none !important;
+            }
+
+            /* Inclusion cards: remove sticky hover state */
+            .incl-card:hover {
+                transform: none !important;
+                border-color: rgba(201, 168, 76, 0.14) !important;
+                box-shadow: none !important;
+            }
+            .incl-card:hover .incl-icon-wrap {
+                background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.08)) !important;
+                color: #C9A84C !important;
+                transform: none !important;
+            }
+
+            /* Gold button: remove translateY hover (prevents stuck upward offset) */
+            .btn-gold:hover {
+                transform: none !important;
+            }
+        }
+
+        /* Fast-tap optimisation for all interactive elements on mobile */
+        @media (max-width: 1023px) {
+            .why-card,
+            .incl-card,
+            .btn-gold,
+            .btn-ghost-white {
+                touch-action: manipulation;
+            }
+        }
+
+        /* ── 8. Leaflet Map: Tablet (768–1023 px) ───────────────────── */
+        /* Uses min-width guard so it does NOT bleed into phone breakpoints */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .slt-map-section {
+                padding-top: 60px;
+            }
+
+            .map-section-header {
+                padding-bottom: 2rem;
+            }
+
+            /* Taller map for tablet viewport */
+            #slt-map-wrap {
+                height: 420px;
+            }
+
+            /* Slightly narrower popup card to fit tablet layout */
+            .slt-popup-card {
+                width: 230px !important;
+            }
+
+            .popup-img {
+                height: 115px !important;
+            }
+        }
+
+        /* ── 9. Leaflet Map: Phone (≤767 px) ────────────────────────── */
+        @media (max-width: 767px) {
+            .slt-map-section {
+                padding-top: 60px;
+            }
+
+            .map-section-header {
+                padding-bottom: 2rem;
+            }
+
+            /* Instruction sub-text: slightly smaller */
+            .map-section-header .section-sub {
+                font-size: 0.88rem;
+            }
+
+            /* Compact popup card for phone viewport */
+            .slt-popup-card {
+                width: 195px !important;
+            }
+
+            .popup-img {
+                height: 98px !important;
+            }
+
+            .popup-name {
+                font-size: 0.85rem !important;
+            }
+
+            .popup-tagline {
+                font-size: 0.65rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .popup-body {
+                padding: 0.65rem 0.8rem 0.75rem !important;
+            }
+
+            /* Leaflet attribution: compact text on phone */
+            .leaflet-control-attribution {
+                font-size: 8px !important;
+                max-width: 200px;
+            }
+        }
+
+        /* ── 10. Leaflet Map: Small phones (≤480 px) ─────────────────── */
+        @media (max-width: 480px) {
+            /* Shorter map height to leave room for content scroll */
+            #slt-map-wrap {
+                height: 340px;
+            }
+
+            /* Very compact popup for tiny screens */
+            .slt-popup-card {
+                width: 170px !important;
+            }
+
+            .popup-img {
+                height: 86px !important;
+            }
+        }
+
+        /* ── 11. Leaflet Control Improvements: Mobile ────────────────── */
+        @media (max-width: 1023px) {
+            /* Zoom +/- buttons: larger fingertip-friendly touch areas */
+            .leaflet-control-zoom a {
+                width: 36px !important;
+                height: 36px !important;
+                line-height: 36px !important;
+                font-size: 18px !important;
+            }
+
+            /* Popup close button: bigger tap target on mobile */
+            .leaflet-popup-close-button {
+                width: 28px !important;
+                height: 28px !important;
+                top: 8px !important;
+                right: 10px !important;
+                font-size: 18px !important;
+            }
+        }
+
+        /* Allow natural pan + pinch-zoom on the Leaflet map canvas */
+        #slt-map {
+            touch-action: pan-x pan-y;
+        }
+
+        /* ── 12. Inclusions Section: Mobile ─────────────────────────── */
+        @media (max-width: 767px) {
+            .slt-inclusions {
+                padding: 60px 0 70px;
+            }
+        }
+
+        /* ── 13. Footer: Mobile ──────────────────────────────────────── */
+        @media (max-width: 767px) {
+            /* Social icon row: allow wrapping on very small screens */
+            .footer-item > .d-flex.align-items-center {
+                flex-wrap: wrap;
+                gap: 0.4rem;
+            }
+
+            /* Social buttons: minimum 44 px WCAG touch target */
+            .footer-item .btn-square {
+                width: 42px !important;
+                height: 42px !important;
+                min-height: 44px;
+                min-width: 44px;
+                touch-action: manipulation;
+            }
+        }
+
+        /* ── 14. Back-to-Top Button: Mobile ─────────────────────────── */
+        @media (max-width: 767px) {
+            .back-to-top {
+                right: 16px !important;
+                bottom: 16px !important;
+                touch-action: manipulation;
+            }
+        }
+
+        /* ── 15. Global Typography: Readability on mobile ───────────── */
+        @media (max-width: 767px) {
+            /* Clamp section headings to prevent overflow on narrow screens */
+            .section-heading {
+                font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Section sub-text: slightly smaller, full width */
+            .section-sub {
+                font-size: 0.88rem;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ Spinner ══ -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         NAVBAR  (matches existing site)
+    ══════════════════════════════════════════ -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="index1.php" class="navbar-brand p-0">
+                <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>AsanTravels</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index1.php" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="packages.html" class="nav-item nav-link">Packages</a>
+                    <a href="Custom_Packages.html" class="nav-item nav-link active">Custom_Packages</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         1. HERO SECTION
+    ══════════════════════════════════════════ -->
+    <section class="slt-hero" aria-label="Hero — Why choose Asan Travels for Sri Lanka">
+        <div class="slt-hero-bg"></div>
+        <div class="slt-hero-overlay"></div>
+
+        <div class="container py-5">
+            <div class="slt-hero-content">
+                <div style="height:1.8rem;"></div>
+
+                <!-- H1 -->
+                <h1>
+                    Your Dream <span class="gold">Sri Lanka</span><br>
+                    Journey, Perfectly Crafted
+                </h1>
+
+                <!-- Typewriter line -->
+                <div class="hero-typewriter-wrap">
+                    Discover Sri Lanka's&nbsp;<span class="typed-word" id="typed-word">Beaches</span>
+                </div>
+
+                <!-- Description -->
+                <p class="hero-desc">
+                    With over <strong style="color:#E8C96A;">10 years of expertise</strong> and
+                    <strong style="color:#E8C96A;">700+ successful tours</strong>, Asan Travels crafts
+                    personalised Sri Lanka itineraries that go beyond the ordinary — connecting you with
+                    the island's soul, its people, and its timeless beauty.
+                </p>
+
+                <!-- CTAs -->
+                <div class="hero-cta-group">
+                    <a href="Booking the custom package.php" class="btn-gold" id="hero-cta-packages">
+                        <i class="fas fa-route"></i> Design Your Tour
+                    </a>
+                    <a href="contact.php" class="btn-ghost-white" id="hero-cta-contact">
+                        <i class="fas fa-comments"></i> Plan With Us
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="hero-stats">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 col-md-3 hero-stat-item">
+                        <div class="stat-num">10+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="col-3 col-md-3 hero-stat-item">
+                        <div class="stat-num">700+</div>
+                        <div class="stat-label">Tours Led</div>
+                    </div>
+                    <div class="col-3 col-md-3 hero-stat-item">
+                        <div class="stat-num">26</div>
+                        <div class="stat-label">Destinations</div>
+                    </div>
+                    <div class="col-3 col-md-3 hero-stat-item">
+                        <div class="stat-num">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         2. WHY VISIT SRI LANKA
+    ══════════════════════════════════════════ -->
+    <section class="slt-why" id="why-sri-lanka" aria-labelledby="why-heading">
+        <div class="container">
+            <div class="text-center mb-2 reveal">
+                <p class="section-eyebrow">The Pearl of the Indian Ocean</p>
+                <h2 class="section-heading" id="why-heading">
+                    Why Visit <span>Sri Lanka</span>?
+                </h2>
+                <p class="section-sub">
+                    One island. Endless experiences. Sri Lanka packs ancient wonders, pristine beaches,
+                    lush highlands, and incredible wildlife into a destination unlike any other on earth.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-sm-6 col-lg-3 reveal reveal-delay-1">
+                    <div class="why-card">
+                        <div class="why-icon"><i class="fas fa-umbrella-beach"></i></div>
+                        <div class="why-title">World-Class Beaches</div>
+                        <p class="why-desc">
+                            From the golden surf of Mirissa to the untouched sands of Nilaveli — Sri Lanka's coastline
+                            is a paradise for beach lovers.
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-sm-6 col-lg-3 reveal reveal-delay-2">
+                    <div class="why-card">
+                        <div class="why-icon"><i class="fas fa-monument"></i></div>
+                        <div class="why-title">8 UNESCO Heritage Sites</div>
+                        <p class="why-desc">
+                            Sigiriya's sky fortress, Kandy's sacred Temple, and ancient Anuradhapura — centuries of
+                            history within a single trip.
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-sm-6 col-lg-3 reveal reveal-delay-3">
+                    <div class="why-card">
+                        <div class="why-icon"><i class="fas fa-paw"></i></div>
+                        <div class="why-title">Incredible Wildlife</div>
+                        <p class="why-desc">
+                            Yala has the world's highest density of leopards. Udawalawe is home to hundreds of wild
+                            elephants. Nature is raw and real here.
+                        </p>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col-sm-6 col-lg-3 reveal reveal-delay-4">
+                    <div class="why-card">
+                        <div class="why-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="why-title">Misty Hill Country</div>
+                        <p class="why-desc">
+                            Rolling tea estates, scenic train rides through Ella, and the sacred sunrise from Adam's
+                            Peak — the highlands are breathtaking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         3. INTERACTIVE MAP
+    ══════════════════════════════════════════ -->
+    <section class="slt-map-section" id="destinations-map" aria-labelledby="map-heading">
+        <div class="map-section-header reveal">
+            <p class="section-eyebrow">Interactive Destination Map</p>
+            <h2 class="section-heading" id="map-heading">
+                Explore <span
+                    style="background:linear-gradient(90deg,#C9A84C,#E8C96A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Sri
+                    Lanka</span>
+            </h2>
+            <p class="section-sub">
+                Hover over any glowing pin to discover the story behind each destination.
+                All 26 handpicked locations — your journey starts here.
+            </p>
+        </div>
+
+        <!-- Map Container -->
+        <div id="slt-map-wrap">
+            <div id="slt-map"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4. WHAT'S INCLUDED
+    ══════════════════════════════════════════ -->
+    <section class="slt-inclusions" id="whats-included" aria-labelledby="incl-heading">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <p class="section-eyebrow">Every Tour Includes</p>
+                <h2 class="section-heading" id="incl-heading">
+                    What's <span
+                        style="background:linear-gradient(90deg,#C9A84C,#E8C96A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Included</span>
+                </h2>
+                <p class="section-sub">
+                    We handle everything so you can focus entirely on the experience.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-1">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-plane"></i></div>
+                        <div class="incl-text">
+                            <h6>Flights on Request</h6>
+                            <p>We coordinate international and domestic flight arrangements on your behalf.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-2">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-hotel"></i></div>
+                        <div class="incl-text">
+                            <h6>9 Nights Accommodation</h6>
+                            <p>Handpicked 3 &amp; 4-star hotels with authentic Sri Lankan character.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-3">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-utensils"></i></div>
+                        <div class="incl-text">
+                            <h6>All Meals Included</h6>
+                            <p>Daily Breakfast, Lunch &amp; Dinner — freshly prepared local &amp; international cuisine.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-1">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-bus"></i></div>
+                        <div class="incl-text">
+                            <h6>All Transfers &amp; Sightseeing</h6>
+                            <p>Air-conditioned vehicle for all inter-city transfers and site visits.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-2">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-car"></i></div>
+                        <div class="incl-text">
+                            <h6>Vehicle Insurance</h6>
+                            <p>Full vehicle and passenger insurance coverage throughout your journey.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 reveal reveal-delay-3">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-user-friends"></i></div>
+                        <div class="incl-text">
+                            <h6>English-Speaking Guide</h6>
+                            <p>Expert local guide fluent in English — your window into Sri Lanka's rich culture.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 col-xl-4 mx-auto reveal reveal-delay-1">
+                    <div class="incl-card">
+                        <div class="incl-icon-wrap"><i class="fas fa-headset"></i></div>
+                        <div class="incl-text">
+                            <h6>24/7 Support</h6>
+                            <p>Round-the-clock assistance from our team — before, during and after your tour.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="text-center mt-5 reveal">
+                <p
+                    style="font-family:'Roboto',sans-serif;color:rgba(200,195,180,0.6);font-size:.9rem;margin-bottom:1.4rem;">
+                    Ready to start planning? Our team will craft your perfect itinerary.
+                </p>
+                <a href="contact.php" class="btn-gold" id="incl-cta-contact" style="display:inline-flex;">
+                    <i class="fas fa-paper-plane"></i>&nbsp; Get a Free Custom Quote
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
+    <div class="container-fluid footer py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="mb-4 text-white">Get In Touch</h4>
+                        <p class="mb-1"><i class="fas fa-home me-2"></i> Negombo, Sri Lanka</p>
+                        <p class="mb-1"><i class="fas fa-envelope me-2"></i> asantravels@gmail.com</p>
+                        <p class="mb-1"><i class="fas fa-phone me-2"></i> +94 76 208 7707</p>
+                        <p class="mb-3"><i class="fab fa-whatsapp me-2"></i> +94 77 337 8244</p>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-share fa-2x text-white me-2"></i>
+                            <a class="btn-square btn btn-primary rounded-circle mx-1"
+                                href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr"
+                                aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn-square btn btn-primary rounded-circle mx-1"
+                                href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&utm_source=qr"
+                                aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a class="btn-square btn btn-primary rounded-circle mx-1"
+                                href="http://www.tiktok.com/@asantravels" aria-label="TikTok"><i
+                                    class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="mb-4 text-white">Company</h4>
+                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About</a>
+                        <a href="packages.html"><i class="fas fa-angle-right me-2"></i> Packages</a>
+                        <a href="sri-lanka-tours.html"><i class="fas fa-angle-right me-2"></i> Sri Lanka</a>
+                        <a href="contact.php"><i class="fas fa-angle-right me-2"></i> Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="container-fluid copyright text-body py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-end mb-md-0">
+                    <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">AsanTravels</a>, All Rights
+                    Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-start">
+                    Designed By <a class="text-white">Kavinu Rajapakse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top" aria-label="Back to top"><i
+            class="fa fa-arrow-up"></i></a>
+
+    <!-- ══════════════════════════════════════════
+         SCRIPTS
+    ══════════════════════════════════════════ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        /* ══════════════════════════════════════════
+           TYPEWRITER
+        ══════════════════════════════════════════ */
+        (function () {
+            const words = ['Beaches', 'Heritage', 'Wildlife', 'Tea Hills', 'Safaris', 'Culture'];
+            let wi = 0, ci = 0, deleting = false;
+            const el = document.getElementById('typed-word');
+            if (!el) return;
+
+            function type() {
+                const word = words[wi];
+                if (!deleting) {
+                    el.textContent = word.slice(0, ++ci);
+                    if (ci === word.length) {
+                        deleting = true;
+                        setTimeout(type, 1800);
+                    } else {
+                        setTimeout(type, 100);
+                    }
+                } else {
+                    el.textContent = word.slice(0, --ci);
+                    if (ci === 0) {
+                        deleting = false;
+                        wi = (wi + 1) % words.length;
+                        setTimeout(type, 400);
+                    } else {
+                        setTimeout(type, 55);
+                    }
+                }
+            }
+            setTimeout(type, 800);
+        })();
+
+        /* ══════════════════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════════════════ */
+        (function () {
+            const els = document.querySelectorAll('.reveal');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+            }, { threshold: 0.12 });
+            els.forEach(el => io.observe(el));
+        })();
+
+        /* ══════════════════════════════════════════
+           LOCATION DATA (26 destinations)
+        ══════════════════════════════════════════ */
+        const sltLocations = [
+            { name: "Colombo", cat: "Cultural", lat: 6.9271, lng: 79.8612, tagline: "Sri Lanka's vibrant capital — colonial charm meets modern skyline.", img: "img/colombo.jpeg" },
+            { name: "Negombo", cat: "Coastal", lat: 7.2083, lng: 79.8358, tagline: "Dutch canals, lagoon sunsets, and the finest fresh seafood.", img: "img/negombo.jpg" },
+            { name: "Pinnawala", cat: "Wildlife", lat: 7.2992, lng: 80.3846, tagline: "The world-famous Elephant Orphanage — an unforgettable encounter.", img: "img/Pinnawala.jpg" },
+            { name: "Kurunegala", cat: "Cultural", lat: 7.4863, lng: 80.3647, tagline: "Ancient rock fortresses and a crossroads of Sri Lanka's rich history.", img: "img/Kurunegala.jpg" },
+            { name: "Anuradhapura", cat: "Heritage", lat: 8.3114, lng: 80.4037, tagline: "Sri Lanka's ancient capital — a UNESCO World Heritage sacred city.", img: "img/Anuradhapura.jpg" },
+            { name: "Jaffna", cat: "Cultural", lat: 9.6615, lng: 80.0255, tagline: "The cultural heart of the north — ancient temples and warm hospitality.", img: "img/Jaffna.jpg" },
+            { name: "Trincomalee", cat: "Coastal", lat: 8.5874, lng: 81.2152, tagline: "Crystal bays, whale watching, and one of earth's finest natural harbours.", img: "img/Trincomalee.jpg" },
+            { name: "Nilaveli", cat: "Coastal", lat: 8.7167, lng: 81.2167, tagline: "Pristine white-sand beach — Sri Lanka's best-kept coastal secret.", img: "img/Nilaveli.jpg" },
+            { name: "Sigiriya", cat: "Heritage", lat: 7.9570, lng: 80.7603, tagline: "The Lion Rock — an iconic sky fortress rising 200 metres above the jungle.", img: "img/Sigiriya.jpg" },
+            { name: "Dambulla", cat: "Heritage", lat: 7.8675, lng: 80.6514, tagline: "Spectacular cave temples adorned with 150+ Buddha statues carved in rock.", img: "img/Dambulla.jpeg" },
+            { name: "Habarana", cat: "Wildlife", lat: 8.0469, lng: 80.7500, tagline: "Safari gateway to Sri Lanka's Cultural Triangle — elephants roam freely.", img: "img/Habarana.jpg" },
+            { name: "Polonnaruwa", cat: "Heritage", lat: 7.9403, lng: 81.0188, tagline: "Medieval ruins — temples, palaces and colossal Buddha statues.", img: "img/Polonnaruwa.jpg" },
+            { name: "Kandy", cat: "Cultural", lat: 7.2906, lng: 80.6337, tagline: "Cultural capital and home of the sacred Temple of the Tooth Relic.", img: "img/Kandy.jpg" },
+            { name: "Peradeniya", cat: "Nature", lat: 7.2682, lng: 80.5947, tagline: "The Royal Botanical Gardens — 147 acres of tropical splendour.", img: "img/Peradeniya.jpg" },
+            { name: "Labukele", cat: "Hill Country", lat: 7.0267, lng: 80.6742, tagline: "Emerald tea estates rolling over misty hills — Highland serenity.", img: "img/Labukele.jpg" },
+            { name: "Nuwara Eliya", cat: "Hill Country", lat: 6.9497, lng: 80.7891, tagline: "Little England — a cool hill station amid world-class tea plantations.", img: "img/Nuwara-Eliya.jpg" },
+            { name: "Ohiya", cat: "Hill Country", lat: 6.8333, lng: 80.8500, tagline: "Gateway to Horton Plains — sweeping highlands and World's End viewpoint.", img: "img/Ohiya.jpg" },
+            { name: "Adam's Peak", cat: "Pilgrimage", lat: 6.8096, lng: 80.4994, tagline: "The sacred summit — a pre-dawn climb rewarded with a celestial sunrise.", img: "img/Adam's Peak.jpg" },
+            { name: "Kitulgala", cat: "Adventure", lat: 6.9899, lng: 80.4119, tagline: "Sri Lanka's adventure capital — white-water rafting on the Kelani River.", img: "img/Kitulgala.jpg" },
+            { name: "Ella", cat: "Hill Country", lat: 6.8667, lng: 81.0466, tagline: "Nine Arch Bridge, misty mountain gaps, and Sri Lanka's best train rides.", img: "img/Ella.jpg" },
+            { name: "Yala", cat: "Safari", lat: 6.3728, lng: 81.5197, tagline: "World's highest density of leopards — a wildlife encounter like no other.", img: "img/destination-2.jpg" },
+            { name: "Udawalawe", cat: "Safari", lat: 6.4365, lng: 80.8994, tagline: "Hundreds of wild elephants roam the golden plains of this park.", img: "img/Udawalawe.jpg" },
+            { name: "Mirissa", cat: "Coastal", lat: 5.9483, lng: 80.4717, tagline: "Whale watching, surf breaks, and glowing sunsets on the south coast.", img: "img/Mirissa.jpg" },
+            { name: "Weligama", cat: "Coastal", lat: 5.9742, lng: 80.4297, tagline: "Stilt fishermen at dawn and gentle surf — perfect for beginners.", img: "img/Weligama.jpg" },
+            { name: "Balapitiya", cat: "Nature", lat: 6.2747, lng: 80.0486, tagline: "Mangrove river safaris through the mystical Madu River lagoon.", img: "img/Balapitiya.jpg" },
+            { name: "Galle", cat: "Heritage", lat: 6.0535, lng: 80.2210, tagline: "A living Dutch fort — cobblestone streets and refined boutique stays.", img: "img/Galle.jpg" },
+        ];
+
+        /* ══════════════════════════════════════════
+           MAP INIT
+        ══════════════════════════════════════════ */
+        /* Mobile viewport helper — returns true when the screen is ≤1023 px wide.
+           Used throughout the map JS to apply mobile-specific behaviour
+           without affecting the desktop experience. */
+        const isMobileViewport = () => window.matchMedia('(max-width: 1023px)').matches;
+
+        let sltMap = null;
+
+        function initSltMap() {
+            const wrap = document.getElementById('slt-map-wrap');
+
+            // Define bounding box for Sri Lanka (SouthWest to NorthEast)
+            const sriLankaBounds = [
+                [8.9, 82.0], // South West
+                [7.9, 82.0]  // North East
+            ];
+
+            sltMap = L.map('slt-map', {
+                center: [7.8731, 80.7718],
+                zoom: 3,
+                minZoom: 7, // Prevent zooming out to see the whole world
+                maxBounds: sriLankaBounds, // Lock panning to Sri Lanka
+                maxBoundsViscosity: 1.0, // Make the bounds solid (no bounce back)
+                zoomControl: true,
+                attributionControl: true,
+                scrollWheelZoom: false,
+                /* ── Mobile enhancements (no effect on desktop) ─────────────────── */
+                tap: true,               // Enable Leaflet's built-in iOS/Android tap handler
+                tapTolerance: isMobileViewport() ? 20 : 15, // Wider hit radius for fingertips
+                touchZoom: true,         // Allow smooth pinch-to-zoom on touch screens
+                bounceAtZoomLimits: false, // Prevent jarring elastic bounce at min/max zoom
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19,
+            }).addTo(sltMap);
+
+            // Track touch activity dynamically (highly robust for hybrid touch screens)
+            let lastTouchTime = 0;
+            window.addEventListener('touchstart', function () {
+                lastTouchTime = Date.now();
+            }, { passive: true });
+
+            sltLocations.forEach((loc, i) => {
+                const div = document.createElement('div');
+                div.className = 'pulse-marker-wrap marker-drop';
+                div.innerHTML = '<div class="p-ring"></div><div class="p-ring"></div><div class="p-ring"></div><div class="p-dot"></div>';
+
+                const icon = L.divIcon({ html: div, className: '', iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -18] });
+                const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(sltMap);
+
+                // Hover-only popup — no booking button. Sizing is completely handled by responsive CSS
+                marker.bindPopup(
+                    `<div class="slt-popup-card">
+                    <img class="popup-img" src="${loc.img}" alt="${loc.name}" onerror="this.src='https://images.unsplash.com/photo-1606822350112-0d97fdb1d41b?w=520&q=80&auto=format'" style="display:block;" />
+                    <div class="popup-body">
+                        <span class="popup-badge">${loc.cat}</span>
+                        <div class="popup-name">${loc.name}</div>
+                        <div class="popup-tagline">${loc.tagline}</div>
+                    </div>
+                 </div>`,
+                    { maxWidth: 280, minWidth: 0, closeButton: false, className: '', autoPan: false, keepInView: false }
+                );
+
+                // Desktop Mouse Hover Listeners (Disabled on touch interactions to avoid simulated hover bugs)
+                marker.on('mouseover', function (e) {
+                    const isTouch = (e.originalEvent && (
+                        e.originalEvent.pointerType === 'touch' ||
+                        (window.TouchEvent && e.originalEvent instanceof window.TouchEvent) ||
+                        (Date.now() - lastTouchTime < 1000)
+                    ));
+                    if (isTouch) return;
+
+                    if (e.originalEvent) {
+                        L.DomEvent.stopPropagation(e.originalEvent);
+                    }
+                    this.openPopup();
+                    repositionPopup(this);
+                });
+
+                marker.on('mouseout', function (e) {
+                    const isTouch = (e.originalEvent && (
+                        e.originalEvent.pointerType === 'touch' ||
+                        (window.TouchEvent && e.originalEvent instanceof window.TouchEvent) ||
+                        (Date.now() - lastTouchTime < 1000)
+                    ));
+                    if (isTouch) return;
+
+                    if (e.originalEvent) {
+                        L.DomEvent.stopPropagation(e.originalEvent);
+                    }
+                    this.closePopup();
+                });
+
+                // Click / Touch Tap Listener
+                marker.on('click', function (e) {
+                    if (e.originalEvent) {
+                        L.DomEvent.stopPropagation(e.originalEvent);
+                    }
+
+                    const isAlreadyOpen = this.isPopupOpen ? this.isPopupOpen() : (this.getPopup() && this.getPopup().isOpen());
+                    const isTouch = (e.originalEvent && (
+                        e.originalEvent.pointerType === 'touch' ||
+                        (window.TouchEvent && e.originalEvent instanceof window.TouchEvent) ||
+                        (Date.now() - lastTouchTime < 1000)
+                    ));
+
+                    // Pan map to center the tapped destination
+                    sltMap.setView([loc.lat, loc.lng], 9, { animate: true, duration: 0.5 });
+                    // On mobile, nudge the view up after animation so the popup
+                    // renders clearly above the marker without being clipped by the
+                    // bottom of the viewport. panBy is pixel-based and safe with maxBounds.
+                    if (isMobileViewport()) {
+                        setTimeout(function () { sltMap.panBy([0, -65], { animate: false }); }, 620);
+                    }
+
+                    if (isTouch) {
+                        if (isAlreadyOpen) {
+                            // Tap again closes the popup
+                            this.closePopup();
+                        } else {
+                            // Close other open popups first, then open this one
+                            sltMap.closePopup();
+                            setTimeout(() => {
+                                this.openPopup();
+                                repositionPopup(this);
+                            }, 100);
+                        }
+                    } else {
+                        // Desktop click behavior: open and position popup after view transition
+                        setTimeout(() => this.openPopup(), 100);
+                        setTimeout(() => repositionPopup(this), 150);
+                    }
+                });
+
+                // Staggered drop-in
+                setTimeout(() => div.classList.add('dropped'), 500 + i * 80);
+            });
+
+            // Tap outside of any marker closes any open popups
+            sltMap.on('click', function () {
+                sltMap.closePopup();
+            });
+
+            // Show map & invalidate after transition
+            wrap.classList.add('visible');
+            setTimeout(() => { if (sltMap) sltMap.invalidateSize(); }, 1000);
+
+            /* ── Mobile: Orientation change + browser resize handling ──────────── */
+            // When the device rotates (portrait ↔ landscape) or the browser chrome
+            // resizes (e.g. iOS address bar hide/show), Leaflet needs to recalculate
+            // tile layout. Any open popup is also repositioned to stay on-screen.
+            function onMapViewportChange() {
+                if (!sltMap) return;
+                setTimeout(function () {
+                    sltMap.invalidateSize({ animate: false });
+                    // Reposition any popup that is currently open
+                    sltMap.eachLayer(function (layer) {
+                        if (layer.getPopup && layer.getPopup() &&
+                                typeof layer.isPopupOpen === 'function' && layer.isPopupOpen()) {
+                            repositionPopup(layer);
+                        }
+                    });
+                }, 300);
+            }
+
+            // orientationchange fires on all mobile browsers
+            window.addEventListener('orientationchange', onMapViewportChange, false);
+            // resize handles Android's more granular size changes + desktop window resize
+            window.addEventListener('resize', function () {
+                clearTimeout(window._mapResizeTimer);
+                window._mapResizeTimer = setTimeout(onMapViewportChange, 200);
+            }, { passive: true });
+
+            /* ── Mobile: Update map instruction text for touch interaction ── */
+            // Replace "Hover over" with "Tap" since hover does not exist on touch screens
+            if (isMobileViewport()) {
+                const subEl = document.querySelector('.map-section-header .section-sub');
+                if (subEl) {
+                    subEl.textContent = 'Tap any glowing pin to discover the story behind each destination. Pinch to zoom — all 26 handpicked locations await.';
+                }
+            }
+        }
+
+        /* ══════════════════════════════════════════
+           SMART POPUP REPOSITIONING SYSTEM
+        ══════════════════════════════════════════ */
+        function repositionPopup(marker) {
+            // Use requestAnimationFrame to ensure the popup is fully injected in DOM and measured correctly
+            requestAnimationFrame(() => {
+                const popup = marker.getPopup();
+                if (!popup || !sltMap.hasLayer(popup)) return;
+
+                const popupContainer = popup.getElement();
+                if (!popupContainer) return;
+
+                const popupCard = popupContainer.querySelector('.slt-popup-card');
+                if (!popupCard) return;
+
+                const mapContainer = sltMap.getContainer();
+                const mapWidth = mapContainer.clientWidth;
+                const mapHeight = mapContainer.clientHeight;
+
+                // Get marker's coordinates relative to the map container
+                const markerLatLng = marker.getLatLng();
+                const markerPos = sltMap.latLngToContainerPoint(markerLatLng);
+
+                // Read real rendered dimensions to adapt to responsive CSS scaling (desktop/tablet/mobile)
+                // Use measured dimensions; fall back to mobile-appropriate defaults
+                // if the element has not been painted yet (e.g. first render flash)
+                const popupWidth = popupCard.offsetWidth || (isMobileViewport() ? 195 : 280);
+                const popupHeight = popupCard.offsetHeight || (isMobileViewport() ? 200 : 250);
+
+                // Determine vertical spacing availability
+                // Base anchor offset is 18px above the marker (popupAnchor: [0, -18])
+                const spaceAboveNeeded = 18 + popupHeight + 10; // 10px safe margin
+                const spaceAboveAvailable = markerPos.y;
+
+                let positionBelow = false;
+                if (spaceAboveAvailable < spaceAboveNeeded) {
+                    const spaceBelowAvailable = mapHeight - markerPos.y;
+                    if (spaceBelowAvailable > spaceAboveAvailable) {
+                        positionBelow = true;
+                    }
+                }
+
+                // Apply vertical adjustment styles
+                if (positionBelow) {
+                    // Position below the marker (top of popup starts 18px below the marker center)
+                    // The default translation is (markerPos.y - 18) due to Leaflet popupAnchor configuration.
+                    // Setting top: 36px pushes the popup top boundary to exactly (markerPos.y - 18 + 36) = (markerPos.y + 18).
+                    popupContainer.style.bottom = 'auto';
+                    popupContainer.style.top = '36px';
+                    popupCard.classList.add('popup-below');
+                } else {
+                    // Position above the marker (default)
+                    popupContainer.style.bottom = '0px';
+                    popupContainer.style.top = 'auto';
+                    popupCard.classList.remove('popup-below');
+                }
+
+                // Determine horizontal spacing availability & adjust offset
+                const leftEdge = markerPos.x - (popupWidth / 2);
+                const rightEdge = markerPos.x + (popupWidth / 2);
+                let shiftX = 0;
+                // Extra padding on mobile so popups never press against the screen edge
+                const padding = isMobileViewport() ? 16 : 10;
+
+                if (leftEdge < padding) {
+                    // Marker is too close to the left, shift popup to the right
+                    shiftX = padding - leftEdge;
+                } else if (rightEdge > mapWidth - padding) {
+                    // Marker is too close to the right, shift popup to the left
+                    shiftX = (mapWidth - padding) - rightEdge;
+                }
+
+                // Apply horizontal adjustment
+                const defaultLeftOffset = -popupWidth / 2;
+                popupContainer.style.left = (defaultLeftOffset + shiftX) + 'px';
+            });
+        }
+
+        // Init map when it scrolls into view (IntersectionObserver)
+        (function () {
+            const wrap = document.getElementById('slt-map-wrap');
+            let mapInited = false;
+            const io = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !mapInited) {
+                    mapInited = true;
+                    initSltMap();
+                    io.disconnect();
+                }
+            }, { threshold: 0.1 });
+            io.observe(wrap);
+        })();
+    </script>
+</body>
+
+</html>
