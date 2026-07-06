@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["submit4"])) {
     $email = $_POST["email"];
-    $con = mysqli_connect("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
+    $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
     $query = mysqli_query($con, "INSERT INTO subscribe(email) VALUES('$email')");
     if ($query) {
         header('Location: thank_you-s.html');

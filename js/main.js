@@ -1,10 +1,16 @@
 (function ($) {
     "use strict";
 
+    // Hide spinner using plain JavaScript if jQuery fails
+    var spinnerEl = document.getElementById('spinner');
+    if (spinnerEl) {
+        spinnerEl.classList.remove('show');
+    }
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
-            if ($('#spinner').length > 0) {
+            if (window.jQuery && $('#spinner').length > 0) {
                 $('#spinner').removeClass('show');
             }
         }, 1);
@@ -137,6 +143,9 @@ function currentSlide(n) {
 function showSlides(n) {
   let slides = document.getElementsByClassName("slide");
   let dots = document.getElementsByClassName("dot");
+  if (slides.length === 0) {
+    return;
+  }
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (let i = 0; i < slides.length; i++) {
@@ -145,8 +154,9 @@ function showSlides(n) {
   for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex-1].style.display = "block";
-  ;
+  if (slides[slideIndex-1]) {
+    slides[slideIndex-1].style.display = "block";
+  }
 }
 
 
