@@ -67,7 +67,7 @@
 
         <?php
         // Connect to DB
-        $conn = new mysqli("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
+        $conn = new mysqli("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }

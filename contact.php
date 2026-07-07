@@ -7,7 +7,7 @@ if (isset($_POST["submit1"])) {
     $message = $_POST["message"];
 
     // Connect to database
-    $con = mysqli_connect("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
+    $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
 
     // Insert data into table
     $query = mysqli_query($con, "INSERT INTO contact_as(name, email, subject, message) VALUES('$name', '$email', '$subject', '$message')");

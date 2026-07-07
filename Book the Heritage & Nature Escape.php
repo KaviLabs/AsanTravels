@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 if (isset($_POST["submit2"])) {
     // Database connection - Adjust credentials accordingly
-    $con = mysqli_connect("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og")
+    $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og")
         or die("Couldn't connect to server: " . mysqli_connect_error());
 
     // Fixed Package Type, no need to get from form if constant

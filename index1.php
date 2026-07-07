@@ -1,15 +1,34 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// ===== Single OOP Database Connection =====
+$servername = "sql206.infinityfree.com";
+$db_username = "if0_42342516";
+$db_password = "cpzbjidK5h1";
+$dbname = "if0_42342516_asantravels_og";
+
+// Set connection timeout to 5 seconds to prevent page hanging
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+try {
+    $conn = new mysqli($servername, $db_username, $db_password, $dbname);
+    $conn->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
+    $conn->set_charset("utf8mb4");
+} catch (Exception $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+// Handle Subscribe Form
 if (isset($_POST["submit4"])) {
-    $email = $_POST["email"];
-    $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "", "if0_42342516_asantravels_og") or die("Couldn't connect to server");
-    $query = mysqli_query($con, "INSERT INTO subscribe(email) VALUES('$email')");
+    $email = $conn->real_escape_string($_POST["email"]);
+    $query = $conn->query("INSERT INTO subscribe(email) VALUES('$email')");
     if ($query) {
         header('Location: thank_you-s.html');
         exit();
     } else {
-        echo ("No record Added: " . mysqli_error($con));
+        echo ("No record Added: " . $conn->error);
     }
-    mysqli_close($con);
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +66,13 @@ if (isset($_POST["submit4"])) {
 
     <body class="index-page">
 
-        <!-- Spinner removed to prevent page load blocking -->
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
 
         <!-- Header Start -->
         <!-- Topbar Start -->
@@ -265,10 +290,7 @@ if (isset($_POST["submit4"])) {
         </div>
 
         <?php
-        $conn = new mysqli("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        // Reuse the single $conn connection from top of file
         $result = $conn->query("SELECT * FROM reviews ORDER BY id DESC");
         ?>
 
@@ -319,23 +341,7 @@ if (isset($_POST["submit4"])) {
 
 <!--  Handle file upload--->
 <?php
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Database connection parameters
-$servername = "sql205.infinityfree.com";
-$username = "if0_42342516";       // default XAMPP username
-$password = "cpzbjidK5h1";           // default XAMPP password is blank
-$dbname = "if0_42342516_asantravels_og";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Reuse the single $conn connection from top of file
 
 $message = "";
 
@@ -403,7 +409,7 @@ if (isset($_POST['submit'])) {
     
 }
 
-$conn->close();
+// Connection will be closed at end of script
 ?>
 
 
@@ -552,4 +558,5 @@ $conn->close();
         <script src="js/main.js"></script>
     </body>
 
+<?php $conn->close(); ?>
 </html>

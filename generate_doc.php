@@ -31,7 +31,7 @@ use PhpOffice\PhpWord\IOFactory;
 $booking_id = isset($_GET['booking_id']) ? intval($_GET['booking_id']) : 0;
 if (!$booking_id) { ob_end_clean(); die('Invalid booking ID.'); }
 
-$conn = new mysqli("sql205.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
+$conn = new mysqli("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
 if ($conn->connect_error) { ob_end_clean(); die('DB error: ' . $conn->connect_error); }
 
 $stmt = $conn->prepare("SELECT * FROM booking WHERE id = ?");
