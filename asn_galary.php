@@ -1,4 +1,5 @@
 <?php
+require_once 'security_headers.php';
 // ────────────────────────────────
 // INDEX.PHP
 // ────────────────────────────────

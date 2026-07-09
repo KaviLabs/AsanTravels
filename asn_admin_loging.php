@@ -1,5 +1,6 @@
 <?php
 session_start(); // Ensure session_start() is the first line
+require_once 'security_headers.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

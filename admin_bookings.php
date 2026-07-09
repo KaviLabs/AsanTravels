@@ -1,4 +1,5 @@
 <?php
+require_once 'security_headers.php';
 // ADMIN VIEW - View all bookings with day-by-day details
 // Save this as: admin_bookings.php
 

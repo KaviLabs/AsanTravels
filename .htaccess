@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# ----------------------------------------------------------------------
+# 1. Rules for adminasan.xo.je
+# ----------------------------------------------------------------------
+# If accessing the admin domain, root requests go directly to the login page
+RewriteCond %{HTTP_HOST} ^(www\.)?adminasan\.xo\.je$ [NC]
+RewriteRule ^$ asn_admin_loging.php [L]
+
+# Redirect public site pages to the login page on the admin domain
+RewriteCond %{HTTP_HOST} ^(www\.)?adminasan\.xo\.je$ [NC]
+RewriteRule ^(index1\.php|about\.html|blog\.html|booking\.html|contact\.html|contact\.php|destination\.html|packages\.html|tour\.html|Custom_Packages\.html|thank_you-booking\.html|thank_you-booking\.php|thank_you-s\.html|thank_you\.html)$ /asn_admin_loging.php [R=301,L]
+
+# ----------------------------------------------------------------------
+# 2. Rules for asantravels.lk (and other non-admin requests)
+# ----------------------------------------------------------------------
+# Root requests to the website domain go to index1.php
+RewriteCond %{HTTP_HOST} ^(www\.)?asantravels\.lk$ [NC]
+RewriteRule ^$ index1.php [L]
+
+# Block access to the admin files and templates on the website domain
+RewriteCond %{HTTP_HOST} ^(www\.)?asantravels\.lk$ [NC]
+RewriteRule ^(admin\.php|admin\.html|asn_admin_loging\.php|asn_custom_admin\.php|admin_bookings\.php|asn_Bookings\.php|asn_Contact\.php|asn_Gallery\.php|asn_Reviews\.php|asn_subscribers\.php|asn_galary\.php|logout\.php) - [F,L]

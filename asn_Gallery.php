@@ -5,6 +5,7 @@
 $statusMsg = null;
 
 session_start();
+require_once 'security_headers.php';
 $referer = $_SERVER['HTTP_REFERER'] ?? '';
 if (!isset($_SESSION['loggedin'])) {
   header('Location:asn_admin_loging.php');

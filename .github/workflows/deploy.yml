@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     name: 🚀 Deploy (Public Site Only)
-    if: github.repository == 'KaviLabs/AsanTravels'
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code

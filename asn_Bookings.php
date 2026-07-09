@@ -3,6 +3,7 @@
 // Admin Bookings Dashboard — View, search/filter, edit, delete, generate Word doc
 
 session_start();
+require_once 'security_headers.php';
 if (!isset($_SESSION['loggedin'])) {
     header('Location: asn_admin_loging.php');
     exit;

@@ -1,4 +1,5 @@
 <?php
+require_once 'security_headers.php';
 // Connect to database
 $conn = new mysqli("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
 if ($conn->connect_error) {
