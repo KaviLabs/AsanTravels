@@ -26,3 +26,50 @@ jobs:
             **/.github/**
             *.zip
             AI_PLANNER_GUIDE.md
+            admin.php
+            admin.html
+            admin_bookings.php
+            asn_Gallery.php
+            asn_galary.php
+            asn_Bookings.php
+            asn_Contact.php
+            asn_Reviews.php
+            asn_subscribers.php
+            asn_custom_admin.php
+            asn_admin_loging.php
+            logout.php
+            generate_doc.php
+
+  deploy-admin:
+    name: 🔐 Deploy Admin Panel
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Prepare admin-only files
+        run: |
+          mkdir -p dist
+          cp security_headers.php dist/ || true
+          cp admin.php             dist/ || true
+          cp admin_bookings.php    dist/ || true
+          cp asn_Gallery.php       dist/ || true
+          cp asn_galary.php        dist/ || true
+          cp asn_Bookings.php      dist/ || true
+          cp asn_Contact.php       dist/ || true
+          cp asn_Reviews.php       dist/ || true
+          cp asn_subscribers.php   dist/ || true
+          cp asn_custom_admin.php  dist/ || true
+          cp asn_admin_loging.php  dist/ || true
+          cp logout.php            dist/ || true
+          cp generate_doc.php      dist/ || true
+          ls -la dist/
+
+      - name: 📂 Sync admin files to server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist/
+          server-dir: adminasan.xo.je/htdocs/
