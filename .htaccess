@@ -6,6 +6,27 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ----------------------------------------------------------------------
+# Clean URLs (Hide .html and .php extensions)
+# ----------------------------------------------------------------------
+# Externally redirect direct requests for .html and .php to extensionless URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.(html|php) [NC]
+# Exclude admin and index files from this strict cosmetic redirect to avoid issues
+RewriteCond %{REQUEST_URI} !^/index1\.php$
+RewriteCond %{REQUEST_URI} !^/asn_.*\.php$
+RewriteCond %{REQUEST_URI} !^/admin\.php$
+RewriteRule ^ %1 [R=301,L]
+
+# Internally map extensionless URLs to .php files if they exist
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^(.+?)/?$ /$1.php [L]
+
+# Internally map extensionless URLs to .html files if they exist
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ /$1.html [L]
+
+# ----------------------------------------------------------------------
 # 1. Rules for asanadmin.xo.je
 # ----------------------------------------------------------------------
 # If accessing the admin domain, root requests go directly to the login page
