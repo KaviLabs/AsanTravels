@@ -14,7 +14,7 @@ RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.(html|php) [NC]
 RewriteCond %{REQUEST_URI} !^/index1\.php$
 RewriteCond %{REQUEST_URI} !^/asn_.*\.php$
 RewriteCond %{REQUEST_URI} !^/admin\.php$
-RewriteRule ^ /%1 [R=301,L]
+RewriteRule ^ /%1 [R=301,L,NE]
 
 # Remove trailing slashes (to prevent CSS/JS relative path breakage)
 RewriteCond %{REQUEST_FILENAME} !-d
