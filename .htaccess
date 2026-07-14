@@ -1,7 +1,8 @@
 RewriteEngine On
 
-# Force HTTPS for all traffic
-RewriteCond %{HTTPS} !=on
+# Force HTTPS for all traffic (Handles Cloudflare & Reverse Proxies)
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ----------------------------------------------------------------------
