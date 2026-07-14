@@ -6,7 +6,7 @@
 $host = isset($_SERVER['HTTP_HOST']) ? strtolower(trim($_SERVER['HTTP_HOST'])) : '';
 $host_no_port = preg_replace('/:\d+$/', '', $host);
 
-$admin_domain = 'adminasan.xo.je';
+$admin_domain = 'asanadmin.xo.je';
 $website_domain = 'asantravels.lk';
 
 $current_script = basename($_SERVER['SCRIPT_NAME']);

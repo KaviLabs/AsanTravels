@@ -5,7 +5,7 @@
 $host = isset($_SERVER['HTTP_HOST']) ? strtolower(trim($_SERVER['HTTP_HOST'])) : '';
 $host_no_port = preg_replace('/:\d+$/', '', $host);
 
-$admin_domain = 'adminasan.xo.je';
+$admin_domain = 'asanadmin.xo.je';
 
 if ($host_no_port === $admin_domain || $host_no_port === 'www.' . $admin_domain) {
     header("Location: /asn_admin_loging.php");

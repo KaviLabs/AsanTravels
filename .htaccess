@@ -1,14 +1,14 @@
 RewriteEngine On
 
 # ----------------------------------------------------------------------
-# 1. Rules for adminasan.xo.je
+# 1. Rules for asanadmin.xo.je
 # ----------------------------------------------------------------------
 # If accessing the admin domain, root requests go directly to the login page
-RewriteCond %{HTTP_HOST} ^(www\.)?adminasan\.xo\.je$ [NC]
+RewriteCond %{HTTP_HOST} ^(www\.)?asanadmin\.xo\.je$ [NC]
 RewriteRule ^$ asn_admin_loging.php [L]
 
 # Redirect public site pages to the login page on the admin domain
-RewriteCond %{HTTP_HOST} ^(www\.)?adminasan\.xo\.je$ [NC]
+RewriteCond %{HTTP_HOST} ^(www\.)?asanadmin\.xo\.je$ [NC]
 RewriteRule ^(index1\.php|about\.html|blog\.html|booking\.html|contact\.html|contact\.php|destination\.html|packages\.html|tour\.html|Custom_Packages\.html|thank_you-booking\.html|thank_you-booking\.php|thank_you-s\.html|thank_you\.html)$ /asn_admin_loging.php [R=301,L]
 
 # ----------------------------------------------------------------------
