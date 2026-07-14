@@ -7,19 +7,19 @@ on:
 
 jobs:
   deploy:
-    name: 🚀 Deploy All Files
+    name: 🚀 Deploy Full Site
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 📂 Sync all files to server
+      - name: 📂 Sync all files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: adminasan.xo.je/htdocs/
+          server-dir: asanadmin.xo.je/htdocs/
           exclude: |
             **/.git*
             **/.git*/**
