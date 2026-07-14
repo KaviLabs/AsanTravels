@@ -283,15 +283,22 @@ $total_revenue   = array_sum(array_column($bookings, 'total'));
     .modal-actions { display:flex; gap:12px; margin-top:24px; justify-content:flex-end; flex-wrap:wrap; }
 
     /* ─ Responsive ─ */
+    .nav-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:800; }
+    .nav-backdrop.show { display:block; }
     @media(max-width:900px) {
       .stats-grid { grid-template-columns:1fr 1fr; }
       .modal-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:768px) {
+      nav.open ~ main { margin-left:0; }
     }
     @media(max-width:600px) {
       .stats-grid { grid-template-columns:1fr; }
       main { padding:70px 12px 24px; }
       .filter-bar { flex-direction:column; }
+      .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
       td, th { padding:8px 10px; }
+      .form-group input, .form-group select, .form-group textarea { font-size:16px; }
     }
   </style>
 </head>
@@ -522,13 +529,19 @@ $total_revenue   = array_sum(array_column($bookings, 'total'));
     </form>
   </div>
 </div>
-
+  <div class="nav-backdrop" id="nav-backdrop"></div>
 <script>
   // Sidebar
+  const drawer = document.getElementById('drawer');
+  const backdrop = document.getElementById('nav-backdrop');
   document.getElementById('menuBtn').addEventListener('click', () => {
-    document.getElementById('drawer').classList.toggle('open');
+    drawer.classList.toggle('open');
+    backdrop.classList.toggle('show', drawer.classList.contains('open'));
   });
-
+  backdrop.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('show');
+  });
   // Edit Modal
   function openEditModal(b) {
     document.getElementById('e_id').value       = b.id;

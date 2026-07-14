@@ -247,6 +247,19 @@ $placeholderPath = '/assets/img/placeholder-80.png';
         .report-table th {
             background:rgba(255,255,255,0.1);
         }
+
+        /* ─── Mobile Responsive ─── */
+        .nav-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:8; }
+        .nav-backdrop.show { display:block; }
+        @media (max-width: 768px) {
+            nav.open ~ main { margin-left: 0; }
+            main { padding: 70px 12px 24px; }
+            .card { padding: 16px; }
+            .report-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+            .report-table th, .report-table td { padding:8px; font-size:0.85rem; white-space:nowrap; }
+            .md-input, .md-select { font-size:16px; }
+            header h1 { font-size:1rem; }
+        }
     </style>
 </head>
 <body>
@@ -395,12 +408,19 @@ $placeholderPath = '/assets/img/placeholder-80.png';
 
     </main>
 
+    <div class="nav-backdrop" id="nav-backdrop"></div>
     <script>
         // Sidebar toggle
-        document.getElementById('menuBtn')
-            .addEventListener('click', () => {
-                document.getElementById('drawer').classList.toggle('open');
-            });
+        const drawer = document.getElementById('drawer');
+        const backdrop = document.getElementById('nav-backdrop');
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            drawer.classList.toggle('open');
+            backdrop.classList.toggle('show', drawer.classList.contains('open'));
+        });
+        backdrop.addEventListener('click', () => {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('show');
+        });
 
         // Ripple effect
         document.querySelectorAll('.btn').forEach(btn => {

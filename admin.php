@@ -111,13 +111,24 @@ if(isset($_POST['logout'])) {
 
     nav {
       position: fixed;
-      top: 56px; left: 0;
-      width: 260px; height: 100%;
+      top: 56px; left: -260px;
+      width: 260px; height: calc(100% - 56px);
       background: var(--surface);
       box-shadow: 2px 0 4px rgba(0,0,0,0.5);
       transition: left var(--transition) ease;
       padding-top: 16px;
+      z-index: 9;
+      overflow-y: auto;
     }
+    nav.open { left: 0; }
+    .nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 8;
+    }
+    .nav-backdrop.show { display: block; }
     nav a {
       display: flex; align-items:center;
       padding: 12px 24px;
@@ -138,13 +149,14 @@ if(isset($_POST['logout'])) {
     }
 
     main {
-      margin-left: 260px;
+      margin-left: 0;
       padding: 80px 24px 24px 24px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
       gap: 24px;
-      transition: filter 0.2s ease;
+      transition: margin-left var(--transition), filter 0.2s ease;
     }
+    nav.open ~ main { margin-left: 260px; }
     .card {
       position: relative;
       background: rgba(255,255,255,0.05);
@@ -213,6 +225,18 @@ if(isset($_POST['logout'])) {
     @keyframes ripple-effect {
       to { transform: scale(4); opacity: 0; }
     }
+
+    /* ─── Mobile Responsive ─── */
+    @media (max-width: 768px) {
+      nav.open ~ main { margin-left: 0; }
+      main {
+        padding: 70px 12px 24px;
+        grid-template-columns: 1fr;
+      }
+      .card { padding: 18px; }
+      header h1 { font-size: 1rem; }
+      .fab { bottom: 20px; right: 20px; width: 48px; height: 48px; font-size: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -260,10 +284,25 @@ if(isset($_POST['logout'])) {
     <span class="material-icons">add</span>
   </button>
 
+  <div class="nav-backdrop" id="nav-backdrop"></div>
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const drawer = document.getElementById('drawer');
-    drawer.classList.add('open');
+    const backdrop = document.getElementById('nav-backdrop');
+
+    // Open sidebar by default on desktop, closed on mobile
+    if (window.innerWidth > 768) { drawer.classList.add('open'); }
+
+    menuBtn.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+      if (window.innerWidth <= 768) {
+        backdrop.classList.toggle('show', drawer.classList.contains('open'));
+      }
+    });
+    backdrop.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
 
     document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('click', function(e) {

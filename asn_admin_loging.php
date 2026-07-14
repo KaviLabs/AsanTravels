@@ -251,6 +251,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .login-container > .login-card {
       pointer-events: auto; /* re-enable interactions for the card */
     }
+
+    /* ─── Mobile Responsive ─── */
+    @media (max-width: 768px) {
+      .login-card {
+        flex-direction: column;
+        width: 94vw;
+        max-width: 400px;
+      }
+      .login-card .card-left {
+        min-width: unset;
+        padding: 20px;
+        flex: 0 0 auto;
+      }
+      .login-card .card-left img {
+        width: 100px;
+        height: 100px;
+      }
+      .login-card .card-right {
+        min-width: unset;
+        padding: 20px 24px 28px;
+      }
+      .login-card .card-right h2 {
+        font-size: 1.15rem;
+      }
+      .md-input {
+        width: 100% !important;
+        max-width: 100% !important;
+        font-size: 16px; /* prevents iOS zoom on focus */
+      }
+      .btn {
+        font-size: 16px;
+        padding: 14px;
+      }
+      .bg-shape1 { width: 200px; height: 200px; }
+      .bg-shape2 { width: 150px; height: 150px; }
+      .bg-shape3 { width: 100px; height: 100px; }
+    }
+
+    @media (max-width: 400px) {
+      .login-card .card-left {
+        padding: 16px;
+      }
+      .login-card .card-left img {
+        width: 80px;
+        height: 80px;
+      }
+      .login-card .card-right {
+        padding: 16px 20px 24px;
+      }
+    }
   </style>
 </head>
 <body>

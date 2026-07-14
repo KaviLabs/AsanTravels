@@ -418,8 +418,19 @@ $activities = $activities_result && $activities_result->num_rows > 0 ? $activiti
       grid-template-columns:1fr 1fr;
       gap:24px;
     }
+    
+    /* ─── Mobile Responsive ─── */
+    .nav-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:88; }
+    .nav-backdrop.show { display:block; }
     @media (max-width:768px) {
       .grid-2 { grid-template-columns:1fr; }
+      nav.open ~ main { margin-left: 0; }
+      main { padding: 70px 12px 24px; }
+      .card { padding: 16px; }
+      .report-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      .report-table th, .report-table td { padding:8px; font-size:0.85rem; white-space:nowrap; }
+      .md-input, .md-textarea, .md-select { font-size:16px; }
+      header h1 { font-size:1rem; }
     }
     .list-row {
       display:flex; justify-content:space-between; align-items:center;
@@ -678,12 +689,19 @@ $activities = $activities_result && $activities_result->num_rows > 0 ? $activiti
     </div>
   </div>
 
+  <div class="nav-backdrop" id="nav-backdrop"></div>
   <script>
     // SIDEBAR TOGGLE
     const menuBtn = document.getElementById('menuBtn');
     const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('nav-backdrop');
     menuBtn.addEventListener('click', () => {
       drawer.classList.toggle('open');
+      backdrop.classList.toggle('show', drawer.classList.contains('open'));
+    });
+    backdrop.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('show');
     });
 
     // TAB SWITCHING
