@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Force HTTPS for all traffic
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 # ----------------------------------------------------------------------
 # 1. Rules for asanadmin.xo.je
 # ----------------------------------------------------------------------
