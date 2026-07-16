@@ -1,7 +1,7 @@
 <?php
-// Enable error reporting for debugging - comment out in production
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Disable error display in production
+error_reporting(0);
+ini_set('display_errors', 0);
 
 if (isset($_POST["submit2"])) {
     // Database connection - Adjust credentials accordingly
@@ -14,7 +14,8 @@ if (isset($_POST["submit2"])) {
     // Sanitize inputs
     $start_date = mysqli_real_escape_string($con, $_POST['start_date'] ?? '');
     $end_date = mysqli_real_escape_string($con, $_POST['end_date'] ?? '');
-    $passengerInput = (int) ($_POST['passengerInput'] ?? 0);
+    $tripDays = (int)($_POST['tripDays'] ?? 13);
+    $passengerInput = max(1, (int)($_POST['passengerInput'] ?? 2));
     $roomOptions = mysqli_real_escape_string($con, $_POST['roomOptions'] ?? '');
     $optionalTours = isset($_POST['optionalTours']) ? $_POST['optionalTours'] : [];
     // Sanitize array and implode for DB storage
@@ -28,7 +29,7 @@ if (isset($_POST["submit2"])) {
     $message = mysqli_real_escape_string($con, $_POST['message'] ?? '');
 
     // Validate essential inputs (example)
-    if (empty($start_date) || empty($end_date) || $passengerInput < 2 || empty($name) || empty($email)) {
+    if (empty($start_date) || empty($end_date) || $passengerInput < 1 || empty($name) || empty($email)) {
         echo "<p style='color:red;'>Please fill in all required fields properly.</p>";
     } else {
         // Calculate prices based on passengers and selected tours
@@ -289,7 +290,7 @@ button:hover {
 
 
 <body>
-    <form method="POST" action="Book the Heritage & Nature Escape.php">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -319,6 +320,13 @@ button:hover {
         <div class="container"><br>
             <div class="section"><br>
                 <h2 class="bdate">Book Your Date</h2>
+                <label for="tripDays">Number of Days:</label>
+                <select id="tripDays" name="tripDays" required>
+                    <option value="">Select number of days</option>
+                    <?php for($i=1;$i<=14;$i++): ?>
+                    <option value="<?php echo $i; ?>" <?php echo ($i==13)?'selected':''; ?>><?php echo $i; ?> Day(s)</option>
+                    <?php endfor; ?>
+                </select>
                 <label for="start_date">Start Date:</label>
                 <input type="date" id="start_date" name="start_date" required />
                 <label for="end_date">End Date:</label>
@@ -412,23 +420,23 @@ button:hover {
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
     <script>
-        // Automatically calculate end date (+10 days) when start date changes
-        document.getElementById('start_date').addEventListener('change', function () {
-            const startDate = new Date(this.value);
-            if (isNaN(startDate)) return;
-
-            startDate.setDate(startDate.getDate() + 10);
-
+        // Automatically calculate end date based on selected days when start date changes
+        function calculateEndDate() {
+            const days = parseInt(document.getElementById('tripDays').value) || 13;
+            const startVal = document.getElementById('start_date').value;
+            if (!startVal || days === 0) { document.getElementById('end_date').value = ''; return; }
+            const startDate = new Date(startVal);
+            if (isNaN(startDate)) { document.getElementById('end_date').value = ''; return; }
+            startDate.setDate(startDate.getDate() + (days - 1));
             const yyyy = startDate.getFullYear();
             const mm = String(startDate.getMonth() + 1).padStart(2, '0');
             const dd = String(startDate.getDate()).padStart(2, '0');
-
             document.getElementById('end_date').value = `${yyyy}-${mm}-${dd}`;
+        }
 
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const readableEndDate = startDate.toLocaleDateString('en-US', options);
-            alert('Calculated End Date: ' + readableEndDate);
-        });
+        document.getElementById('tripDays').addEventListener('change', calculateEndDate);
+        document.getElementById('start_date').addEventListener('change', calculateEndDate);
+        document.getElementById('start_date').addEventListener('input', calculateEndDate);
 
         // Calculate and update pricing summary
         function calculateTotal(event) {

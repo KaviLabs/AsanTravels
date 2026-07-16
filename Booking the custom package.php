@@ -509,7 +509,7 @@ if ($locs_result) {
 
                     <div class="form-group">
                         <label for="startDate">Start Date:</label>
-                        <input type="date" id="startDate" name="start_date" class="form-control" required onchange="calculateEndDate()">
+                        <input type="date" id="startDate" name="start_date" class="form-control" required onchange="calculateEndDate()" oninput="calculateEndDate()">
                     </div>
 
                     <div class="form-group">
@@ -519,12 +519,12 @@ if ($locs_result) {
 
                     <div class="form-group">
                         <label for="numAdults">Adults:</label>
-                        <input type="number" id="numAdults" name="num_adults" class="form-control" min="1" value="1" required onchange="updateCostSummary()">
+                        <input type="number" id="numAdults" name="num_adults" class="form-control" min="1" value="1" required onchange="updateCostSummary(); updateRoomOptions()" oninput="updateCostSummary(); updateRoomOptions()">
                     </div>
 
                     <div class="form-group">
                         <label for="numChildren">Children:</label>
-                        <input type="number" id="numChildren" name="num_children" class="form-control" min="0" value="0" onchange="updateCostSummary(); updateRoomOptions()">
+                        <input type="number" id="numChildren" name="num_children" class="form-control" min="0" value="0" onchange="updateCostSummary(); updateRoomOptions()" oninput="updateCostSummary(); updateRoomOptions()">
                     </div>
 
                     <div class="form-group">
@@ -1065,6 +1065,15 @@ if ($locs_result) {
 
         // Initialize display
         updateRoomOptions();
+        updateCostSummary();
+
+        // Also add 'input' events for better responsiveness
+        document.getElementById('numAdults').addEventListener('input', updateCostSummary);
+        document.getElementById('numAdults').addEventListener('input', updateRoomOptions);
+        document.getElementById('numChildren').addEventListener('input', updateCostSummary);
+        document.getElementById('numChildren').addEventListener('input', updateRoomOptions);
+        document.getElementById('startDate').addEventListener('input', calculateEndDate);
+        document.getElementById('startDate').addEventListener('change', calculateEndDate);
 
         // ===== SMART PLANNER AI INTEGRATION =====
         /**

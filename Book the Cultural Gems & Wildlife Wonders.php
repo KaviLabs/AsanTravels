@@ -1,4 +1,8 @@
 <?php
+// Disable error display in production
+error_reporting(0);
+ini_set('display_errors', 0);
+
 if (isset($_POST["submit2"])) {
     $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
     if (!$con) {
@@ -13,7 +17,7 @@ if (isset($_POST["submit2"])) {
     $end_date = trim($_POST['end_date'] ?? '');
     $numAdults = (int)($_POST['numAdults'] ?? 1);
     $numChildren = (int)($_POST['numChildren'] ?? 0);
-    $passengerInput = $numAdults + $numChildren;
+    $passengerInput = max(1, $numAdults + $numChildren);
     $roomOptions = trim($_POST['roomOptions'] ?? '');
     $optionalToursArr = $_POST['optionalTours'] ?? [];
     $optionalTours = is_array($optionalToursArr) ? implode(", ", $optionalToursArr) : (string)$optionalToursArr;
@@ -47,7 +51,7 @@ if (isset($_POST["submit2"])) {
     }
 
     // bind parameters
-    mysqli_stmt_bind_param($stmt, 'sssissdddssss', $Package_type, $start_date, $end_date, $passengerInput, $roomOptions, $optionalTours, $base_price, $extras, $total, $arrival_payment, $name, $email, $message);
+    mysqli_stmt_bind_param($stmt, 'sssissddddsss', $Package_type, $start_date, $end_date, $passengerInput, $roomOptions, $optionalTours, $base_price, $extras, $total, $arrival_payment, $name, $email, $message);
 
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
@@ -282,7 +286,7 @@ button:hover {
 </head>
 
 <body>
-    <form method="POST" action="Book the Cultural Gems & Wildlife Wonders.php">
+    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -508,9 +512,10 @@ button:hover {
         }
 
         // ========== Event Listeners ==========
-        // Auto-calculate end date when days or start date changes
+        // Auto-calculate end date when days or start date changes (both 'change' and 'input' events)
         document.getElementById('tripDays').addEventListener('change', calculateEndDate);
         document.getElementById('start_date').addEventListener('change', calculateEndDate);
+        document.getElementById('start_date').addEventListener('input', calculateEndDate);
 
         // Auto-populate rooms and recalculate price when adults/children change
         document.getElementById('numAdults').addEventListener('change', function() {

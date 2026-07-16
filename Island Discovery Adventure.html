@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Island Discovery Adventure - AsanTravels</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Sri Lanka island tour, cultural adventure, wildlife discovery" name="keywords">
+    <meta content="5-day Sri Lanka Island Discovery Adventure: ancient wonders, wildlife, waterfalls, tea plantations and beach relaxation." name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        body { margin:0; font-family: 'Montserrat', Arial, sans-serif; background:#f7f7f7; color:#222; }
+        .hero {
+            position: relative;
+            background: url('img/packages-3.jpg') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .hero-overlay {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative; z-index: 2; text-align: center;
+        }
+        .hero-content h1 { font-size: 3em; margin-bottom: 0.2em; }
+        .hero-content p { font-size: 1.3em; margin-bottom: 1em; }
+        .cta-btn {
+            background: rgba(19, 53, 123, 0.8); color: #fff; border: none; padding: 16px 40px;
+            font-size: 1.2em; border-radius: 32px; cursor: pointer; transition: background 0.3s;
+            text-decoration: none; display: inline-block;
+        }
+        .cta-btn:hover { background: rgba(19, 53, 123, 1); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .timeline {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+            margin-bottom: 40px;
+        }
+        .timeline-day {
+            background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px; margin-bottom: 24px; position: relative;
+            transition: box-shadow 0.2s;
+        }
+        .timeline-day:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15);}
+        .timeline-day h3 { margin-top: 0; color: rgba(19, 53, 123, 0.8); }
+        .timeline-day ul { padding-left: 18px; }
+        .section-title { font-size: 2em; color: #222; margin-bottom: 0.5em; }
+        .features, .inclusions {
+            display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px;
+        }
+        .feature-card, .inclusion-card {
+            background: #fff; border-radius: 10px; padding: 20px; flex: 1 1 220px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .feature-card i, .inclusion-card i { color: rgba(19, 53, 123, 0.8); font-size: 1.5em; margin-bottom: 8px; }
+        @media (max-width: 800px) {
+            .timeline { grid-template-columns: 1fr; }
+            .features, .inclusions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="#" class="navbar-brand p-0">
+                <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>AsanTravels</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+        </nav>
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Island Discovery Adventure</h3>
+            <h5 style="color: white;">5 Days • Sri Lanka • Adventure & Culture</h5>
+            <a href="Book the Island Discovery Adventure.php" class="cta-btn">Booking</a>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container">
+        <!-- Tour Highlights -->
+        <h2 class="section-title">Tour Highlights</h2>
+        <div class="features">
+            <div class="feature-card"><i class="fas fa-landmark"></i> Sigiriya Rock Fortress & Dambulla Caves</div>
+            <div class="feature-card"><i class="fas fa-paw"></i> Minneriya National Park Safari</div>
+            <div class="feature-card"><i class="fas fa-praying-hands"></i> Temple of the Tooth, Kandy</div>
+            <div class="feature-card"><i class="fas fa-mountain"></i> Tea Country & Waterfalls in Nuwara Eliya</div>
+            <div class="feature-card"><i class="fas fa-train"></i> Scenic Train Ride Nanu Oya to Ella</div>
+            <div class="feature-card"><i class="fas fa-umbrella-beach"></i> Beach Stay & Coastal Relaxation</div>
+        </div>
+
+        <!-- Itinerary Section -->
+        <h2 class="section-title">Itinerary</h2> <br>
+        <a href="packagesss/Island Discovery Adventure.pdf" 
+           download="Island-Discovery-Adventure.pdf" 
+           class="cta-btn" 
+           style="margin-bottom:20px;">
+           <i class="fas fa-file-pdf"></i> Download Full Itinerary (PDF)
+        </a>
+        <div class="timeline">
+          <!-- Left Column -->
+          <div>
+            <div class="timeline-day">
+              <h3>Day 1</h3>
+              <strong>Arrival → Sigiriya / Habarana</strong>
+              <ul>
+                <li>Airport pickup and transfer to Habarana</li>
+                <li>Minneriya / Kaudulla National Park Safari</li>
+                <li>Overnight stay in Habarana</li>
+              </ul>
+            </div>
+            <div class="timeline-day">
+              <h3>Day 2</h3>
+              <strong>Habarana → Sigiriya → Dambulla → Kandy</strong>
+              <ul>
+                <li>Sigiriya Rock Fortress</li>
+                <li>Village Experience & Bullock Cart Ride</li>
+                <li>Dambulla Cave Temples</li>
+                <li>Spice Garden Visit</li>
+                <li>Overnight stay in Kandy</li>
+              </ul>
+            </div>
+            <div class="timeline-day">
+              <h3>Day 3</h3>
+              <strong>Kandy → Nuwara Eliya → Ella</strong>
+              <ul>
+                <li>Temple of the Tooth Relic</li>
+                <li>Botanical Garden</li>
+                <li>Tea Factory & Plantation</li>
+                <li>Ramboda Falls</li>
+                <li>Scenic Train Ride to Ella</li>
+                <li>Overnight stay in Ella</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Right Column -->
+          <div>
+            <div class="timeline-day">
+              <h3>Day 4</h3>
+              <strong>Ella → Yala → Galle</strong>
+              <ul>
+                <li>Nine Arch Bridge</li>
+                <li>Little Adam's Peak Trek</li>
+                <li>Ravana Falls</li>
+                <li>Yala National Park Safari</li>
+                <li>Overnight stay in Galle</li>
+              </ul>
+            </div>
+            <div class="timeline-day">
+              <h3>Day 5</h3>
+              <strong>Galle → Colombo → Departure</strong>
+              <ul>
+                <li>Galle Fort Exploration</li>
+                <li>Stilt Fishing & Turtle Hatchery</li>
+                <li>Madu River Boat Ride</li>
+                <li>Airport Transfer & End of Tour</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- What's Included -->
+        <h2 class="section-title">What's Included</h2>
+        <div class="inclusions">
+            <div class="inclusion-card"><i class="fas fa-plane"></i> Flights on request</div>
+            <div class="inclusion-card"><i class="fas fa-hotel"></i> 4 nights in 3/4-star hotels</div>
+            <div class="inclusion-card"><i class="fas fa-utensils"></i> All Meals: Daily Breakfast, Lunch & Dinner</div>
+            <div class="inclusion-card"><i class="fas fa-bus"></i> All transfers & sightseeing</div>
+            <div class="inclusion-card"><i class="fas fa-car"></i> Vehicle insurance</div>
+            <div class="inclusion-card"><i class="fas fa-user-friends"></i> English-speaking guides</div>
+            <div class="inclusion-card"><i class="fas fa-headset"></i> 24/7 support</div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
