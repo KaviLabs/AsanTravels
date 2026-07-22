@@ -598,10 +598,10 @@ if ($locs_result) {
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
     <script>
-        // Server data
-        const tours = <?php echo json_encode($tours_data); ?>;
-        const locations = <?php echo json_encode($locations); ?>;
-        const locationCoords = <?php echo json_encode($locs_data); ?>;
+        // Server data (JSON_HEX_TAG etc. prevent </script> injection breaking JS)
+        const tours = <?php echo json_encode($tours_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+        const locations = <?php echo json_encode($locations, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+        const locationCoords = <?php echo json_encode($locs_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
 
         // Build index of coordinates: name -> {lat, lng}
         const LOC_INDEX = {};

@@ -430,7 +430,7 @@ $customPackageName = implode(' & ', $packageParts) ?: 'Custom Sri Lanka Tour';
     <!-- Main Content -->
     <div class="container py-4" style="max-width: 900px;">
 
-        <form id="confirmBookingForm" method="POST" action="custom booking summary.php">
+        <form id="confirmBookingForm" method="POST" action="custom%20booking%20summary.php">
             <div class="package-card">
                 <!-- Package Name -->
                 <div class="package-name">
