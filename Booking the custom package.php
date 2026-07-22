@@ -11,6 +11,19 @@ if ($conn->connect_error) {
  */
 
 /**
+ * Helper: strip invalid UTF-8 bytes from a string so json_encode never returns false.
+ */
+function sanitize_utf8($val) {
+    if (!is_string($val)) return $val;
+    // Convert charset then strip any remaining invalid bytes
+    $v = mb_convert_encoding($val, 'UTF-8', 'UTF-8');
+    return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $v);
+}
+function sanitize_row($row) {
+    return array_map('sanitize_utf8', $row);
+}
+
+/**
  * Fetch tours from custom_tours table
  */
 $tours_result = $conn->query("SELECT * FROM custom_tours ORDER BY location, activity");
@@ -19,6 +32,7 @@ $locations_set = [];
 
 if ($tours_result) {
     while ($row = $tours_result->fetch_assoc()) {
+        $row = sanitize_row($row);
         $norm = $row['location'] ?? '';
         $row['location'] = $norm;
         $tours_data[] = $row;
@@ -37,7 +51,7 @@ $locs_result = $conn->query("SELECT id, name, latitude as lat, longitude as lng 
 $locs_data = [];
 if ($locs_result) {
     while($row = $locs_result->fetch_assoc()){
-        $locs_data[] = $row;
+        $locs_data[] = sanitize_row($row);
     }
 }
 ?>
@@ -598,10 +612,10 @@ if ($locs_result) {
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
     <script>
-        // Server data (JSON_HEX_TAG etc. prevent </script> injection breaking JS)
-        const tours = <?php echo json_encode($tours_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
-        const locations = <?php echo json_encode($locations, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
-        const locationCoords = <?php echo json_encode($locs_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE); ?>;
+        // Server data – JSON_HEX_TAG prevents </script> injection; fallback to [] avoids SyntaxError on encode failure
+        const tours = <?php echo (json_encode($tours_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
+        const locations = <?php echo (json_encode($locations, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
+        const locationCoords = <?php echo (json_encode($locs_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
 
         // Build index of coordinates: name -> {lat, lng}
         const LOC_INDEX = {};
