@@ -51,3 +51,4 @@ RewriteRule ^$ index1.php [L]
 # Block access to the admin files and templates on the website domain
 RewriteCond %{HTTP_HOST} ^(www\.)?asantravels\.lk$ [NC]
 RewriteRule ^(admin\.php|admin\.html|asn_admin_loging\.php|asn_custom_admin\.php|admin_bookings\.php|asn_Bookings\.php|asn_Contact\.php|asn_Gallery\.php|asn_Reviews\.php|asn_subscribers\.php|asn_galary\.php|logout\.php) - [F,L]
+
