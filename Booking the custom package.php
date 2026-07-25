@@ -623,7 +623,7 @@ $db_data_missing = (count($tours_data) === 0 || count($locations) === 0);
     <script src="lib/lightbox/js/lightbox.min.js"></script>
 
     <script>
-        // Server data – JSON_HEX_TAG prevents </script> injection; fallback to [] avoids SyntaxError on encode failure
+        // Server data – JSON_HEX_TAG prevents script-injection; fallback to [] avoids SyntaxError on encode failure
         const tours = <?php echo (json_encode($tours_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
         const locations = <?php echo (json_encode($locations, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
         const locationCoords = <?php echo (json_encode($locs_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?: '[]'); ?>;
