@@ -1077,6 +1077,16 @@ if ($locs_result) {
         document.getElementById('numChildren').addEventListener('change', updateCostSummary);
         document.getElementById('numChildren').addEventListener('change', updateRoomOptions);
 
+        // *** FIX: Wire tripDays dropdown to day planner and end-date calculation ***
+        document.getElementById('tripDays').addEventListener('change', function() {
+            initializeDayPlanner();
+            calculateEndDate();
+        });
+        document.getElementById('tripDays').addEventListener('input', function() {
+            initializeDayPlanner();
+            calculateEndDate();
+        });
+
         // Initialize display
         updateRoomOptions();
         updateCostSummary();
@@ -1088,6 +1098,12 @@ if ($locs_result) {
         document.getElementById('numChildren').addEventListener('input', updateRoomOptions);
         document.getElementById('startDate').addEventListener('input', calculateEndDate);
         document.getElementById('startDate').addEventListener('change', calculateEndDate);
+
+        // Auto-initialize if days already pre-selected (e.g. page reload or back-nav)
+        if (parseInt(document.getElementById('tripDays').value) > 0) {
+            initializeDayPlanner();
+            calculateEndDate();
+        }
 
         // ===== SMART PLANNER AI INTEGRATION =====
         /**
@@ -1166,10 +1182,10 @@ if ($locs_result) {
             formData.append('day_plan_data', JSON.stringify(dayPlanData));
             formData.append('transport_km_total', computeTransportCostKm().toFixed(1));
 
-            // Post to booking_summary.php for review
+            // Post to booking_summary.php for review (URL-encoded space required for live server)
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = 'custom booking summary.php';
+            form.action = 'custom%20booking%20summary.php';
             
             Object.entries({
                 'trip_days': document.getElementById('tripDays').value,
