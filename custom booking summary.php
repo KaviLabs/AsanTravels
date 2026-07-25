@@ -430,7 +430,7 @@ $customPackageName = implode(' & ', $packageParts) ?: 'Custom Sri Lanka Tour';
     <!-- Main Content -->
     <div class="container py-4" style="max-width: 900px;">
 
-        <form id="confirmBookingForm" method="POST" action="custom%20booking%20summary.php">
+        <form id="confirmBookingForm" method="POST" action="save_itinerary.php">
             <div class="package-card">
                 <!-- Package Name -->
                 <div class="package-name">
@@ -442,11 +442,11 @@ $customPackageName = implode(' & ', $packageParts) ?: 'Custom Sri Lanka Tour';
                 <div class="trip-details">
                     <div class="detail-box">
                         <div class="detail-label"><i class="fas fa-calendar me-2"></i>Start Date</div>
-                        <div class="detail-value"><?php echo date('M d, Y', strtotime($startDate)); ?></div>
+                        <div class="detail-value"><?php echo $startDate ? date('M d, Y', strtotime($startDate)) : '<em style="color:#999">Not set</em>'; ?></div>
                     </div>
                     <div class="detail-box">
                         <div class="detail-label"><i class="fas fa-calendar me-2"></i>End Date</div>
-                        <div class="detail-value"><?php echo date('M d, Y', strtotime($endDate)); ?></div>
+                        <div class="detail-value"><?php echo $endDate ? date('M d, Y', strtotime($endDate)) : '<em style="color:#999">Not set</em>'; ?></div>
                     </div>
                     <div class="detail-box">
                         <div class="detail-label"><i class="fas fa-users me-2"></i>Travelers</div>
@@ -491,9 +491,11 @@ $customPackageName = implode(' & ', $packageParts) ?: 'Custom Sri Lanka Tour';
                             <div class="day-title">
                                 <i class="fas fa-calendar-check"></i> Day <?php echo $day; ?>
                                 <?php 
-                                    $dayDate = new DateTime($startDate);
-                                    $dayDate->modify('+' . ($day - 1) . ' days');
-                                    echo $dayDate->format('(M d)');
+                                    if ($startDate) {
+                                        $dayDate = new DateTime($startDate);
+                                        $dayDate->modify('+' . ($day - 1) . ' days');
+                                        echo $dayDate->format('(M d)');
+                                    }
                                 ?>
                             </div>
 
