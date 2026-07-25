@@ -1208,7 +1208,7 @@ $db_data_missing = (count($tours_data) === 0 || count($locations) === 0);
             // Post to booking_summary.php for review (URL-encoded space required for live server)
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = 'custom%20booking%20summary';
+            form.action = 'custom%20booking%20summary.php';
             
             Object.entries({
                 'trip_days': document.getElementById('tripDays').value,
