@@ -12,11 +12,19 @@ if ($conn->connect_error) {
     exit;
 }
 
-// ── Ensure booking table has the right columns ────────────────────────────
-$conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS package_name VARCHAR(500) DEFAULT ''");
-$conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS num_adults INT DEFAULT 0");
-$conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS num_children INT DEFAULT 0");
-$conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+// ── Ensure booking table has the right columns (Robust compatibility check) ──
+$columns_to_add = [
+    'package_name' => "VARCHAR(500) DEFAULT ''",
+    'num_adults'   => "INT DEFAULT 0",
+    'num_children' => "INT DEFAULT 0",
+    'booking_date' => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+];
+foreach ($columns_to_add as $col => $definition) {
+    $check = $conn->query("SHOW COLUMNS FROM `booking` LIKE '$col'");
+    if ($check && $check->num_rows == 0) {
+        $conn->query("ALTER TABLE `booking` ADD COLUMN `$col` $definition");
+    }
+}
 
 // ── Collect POST data ─────────────────────────────────────────────────────
 $trip_days      = isset($_POST['trip_days'])      ? intval($_POST['trip_days'])      : 0;
