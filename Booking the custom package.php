@@ -54,6 +54,9 @@ if ($locs_result) {
         $locs_data[] = sanitize_row($row);
     }
 }
+
+// Flag for empty data – used to show admin/debug warning on the page
+$db_data_missing = (count($tours_data) === 0 || count($locations) === 0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -588,6 +591,14 @@ if ($locs_result) {
                         <strong>Great!</strong> You've planned all days. Ready to book your trip!
                     </div>
 
+                    <?php if ($db_data_missing): ?>
+                    <div class="alert alert-danger" role="alert" style="margin:16px 0; border-radius:12px; border-left: 4px solid #dc3545;">
+                        <strong>⚠️ Tour data not loaded.</strong>
+                        The activities and locations could not be retrieved from the database (<code><?php echo htmlspecialchars($conn->host_info ?? 'remote'); ?></code>).
+                        Please ensure the <code>custom_tours</code> and <code>locations</code> tables are populated on the live server.
+                    </div>
+                    <?php endif; ?>
+
                     <div id="dayPlannerContent">
                         <p class="text-muted text-center" style="padding: 40px 20px;">
                             <i class="fas fa-arrow-left me-2"></i> Select number of days to start planning
@@ -861,6 +872,18 @@ if ($locs_result) {
                     <select id="locationSelect${currentDay}" class="form-select" onchange="loadDayActivities(${currentDay})">
                         <option value="">Select a location...</option>
             `;
+
+            if (locations.length === 0) {
+                html = `
+                    <div class="alert alert-warning" role="alert" style="border-radius:12px; border-left:4px solid #ffc107; margin:16px 0;">
+                        <strong>⚠️ No locations available.</strong>
+                        Tour data has not been loaded into the database yet.
+                        Please contact the site administrator to import the tour data.
+                    </div>
+                `;
+                document.getElementById('dayPlannerContent').innerHTML = html;
+                return;
+            }
 
             locations.forEach(location => {
                 const selected = dayPlanData[currentDay].location === location ? 'selected' : '';
