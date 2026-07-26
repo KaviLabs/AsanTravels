@@ -60,7 +60,7 @@ if (isset($_POST["submit4"])) {
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style.css?v=12" rel="stylesheet">
 
         
     </head> 
@@ -168,6 +168,7 @@ if (isset($_POST["submit4"])) {
                 </div>
             </div>
             <!-- Carousel End -->
+        </div>
 
 
         <!-- About Start -->
@@ -189,6 +190,10 @@ if (isset($_POST["submit4"])) {
             </div>
         </div>
         <!-- About End -->
+
+        </div>
+        </div>
+        </div>
 
         <!-- Destination Start -->
         <div class="container-fluid destination py-5">
@@ -278,6 +283,12 @@ if (isset($_POST["submit4"])) {
                         
                         
         <!-- Destination End -->
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
       
  

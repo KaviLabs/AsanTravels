@@ -26,7 +26,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style.css?v=12" rel="stylesheet">
     </head>
 
     <body>
