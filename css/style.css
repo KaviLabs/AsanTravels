@@ -1808,3 +1808,102 @@ button,
 }
 
 /* End iPhone / iOS specific improvements -------------------------------------------------- */
+
+/*** 5-Column Photo-Frame Gallery Grid ***/
+/* Used on Southern_Coast, Eastern_Coast, Northern_Coast, Western_Coast, Lanka's_Wild_Kingdom */
+.gallery-grid {
+    display: grid;
+    /* 5 equal columns on desktop */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding: 0 12px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-grid .gallery-cell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    /* Square tile */
+    aspect-ratio: 1 / 1;
+    background: #e8edf4;
+    box-shadow: 0 4px 14px rgba(11, 60, 93, 0.10);
+    /* Photo-frame white border */
+    border: 6px solid #fff;
+    box-sizing: border-box;
+}
+
+.gallery-grid .gallery-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.gallery-grid .gallery-cell:hover img {
+    transform: scale(1.08);
+}
+
+/* Hover overlay */
+.gallery-grid .gallery-cell .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 53, 123, 0.72);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px;
+}
+
+.gallery-grid .gallery-cell:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-grid .gallery-cell .gallery-overlay h5 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.gallery-grid .gallery-cell .gallery-overlay .btn {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+}
+
+/* 4 columns on tablets (< 1024px) */
+@media (max-width: 1023px) {
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* 3 columns on small tablets (< 768px) */
+@media (max-width: 767px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 8px;
+    }
+    .gallery-grid .gallery-cell {
+        border-width: 4px;
+    }
+}
+
+/* 2 columns on phones (< 480px) */
+@media (max-width: 479px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        padding: 0 6px;
+    }
+    .gallery-grid .gallery-cell {
+        border-width: 3px;
+    }
+}
+/*** End 5-Column Photo-Frame Gallery Grid ***/

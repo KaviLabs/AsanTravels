@@ -74,8 +74,7 @@
         $result = $conn->query("SELECT * FROM gallery WHERE title='Northern_Coast'");
         ?>
 
-        <div class="container py-4">
-            <div class="row g-3 justify-content-center">
+        <div class="gallery-grid">
                 <?php while($row = $result->fetch_assoc()): ?>
                     <?php
                         $imagePath = "as_gallery/" . $row['image'];
@@ -83,19 +82,16 @@
                             $imagePath = "as_gallery/placeholder.jpg"; // fallback image
                         }
                     ?>
-                    <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-                        <div class="gallery-item position-relative overflow-hidden rounded shadow-sm" style="max-width: 300px;">
-                            <img src="<?= htmlspecialchars($imagePath) ?>" class="img-fluid w-100" alt="<?= htmlspecialchars($row['title'] ?: 'Gallery Image') ?>">
-                            <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-center" style="background: rgba(0,0,0,0.6); opacity: 0; transition: 0.3s;">
-                                <h5 class="text-white mb-2"><?= htmlspecialchars($row['title'] ?: "Gallery Image") ?></h5>
-                                <a href="<?= htmlspecialchars($imagePath) ?>" data-lightbox="gallery" class="btn btn-outline-light btn-sm">
-                                    <i class="fas fa-plus"></i> View
-                                </a>
-                            </div>
+                    <div class="gallery-cell">
+                        <img src="<?= htmlspecialchars($imagePath) ?>" alt="<?= htmlspecialchars($row['title'] ?: 'Gallery Image') ?>">
+                        <div class="gallery-overlay">
+                            <h5><?= htmlspecialchars($row['title'] ?: "Gallery Image") ?></h5>
+                            <a href="<?= htmlspecialchars($imagePath) ?>" data-lightbox="gallery" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-plus"></i> View
+                            </a>
                         </div>
                     </div>
                 <?php endwhile; ?>
-            </div>
         </div>
     </div>
 

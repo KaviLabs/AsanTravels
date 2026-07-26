@@ -335,7 +335,8 @@ if (isset($_POST["submit4"])) {
         
  <!-- Add review start--->
 
-        <section id="review-section" style=" margin: 40px auto; font-family: Arial, sans-serif; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <section id="review-section" class="container-fluid py-5" style="background: #fff;">
+            <div style="max-width: 450px; margin: 0 auto; font-family: Arial, sans-serif; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Submit Your Review</h2>
                 <!-- Removed duplicate form tag and fixed action -->
 
@@ -450,6 +451,7 @@ if (isset($_POST['submit'])) {
     <?php endif; ?>
 </form>
 
+            </div>
 </section>
 
 <style>
