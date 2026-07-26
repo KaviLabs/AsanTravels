@@ -260,7 +260,7 @@ if (isset($_POST["submit1"])) {
         <a href="" class="navbar-brand p-0">
             <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>AsanTravels</h1>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <button class="navbar-toggler navbar-toggler-custom" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fa fa-bars"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
