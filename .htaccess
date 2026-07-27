@@ -21,6 +21,9 @@ RewriteRule ^ /%1 [R=301,L,NE]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
+# Explicit mapping for the custom activities page to avoid extensionless 403 errors
+RewriteRule ^custom_activities/?$ /custom_activities.php [L,QSA]
+
 # Internally map extensionless URLs to .php files if they exist
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1.php -f
