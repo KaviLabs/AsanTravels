@@ -459,7 +459,15 @@
         #slt-map {
             width: 100%;
             height: 100%;
-            touch-action: pan-x pan-y;
+            /* Let Leaflet own pan and pinch gestures while a finger is on the map. */
+            touch-action: none;
+            overscroll-behavior: contain;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Avoid obscuring the map after every touch; the header explains the gestures. */
+        #map-gesture-hint {
+            display: none !important;
         }
 
         /* Mobile map heights */
@@ -533,6 +541,18 @@
             position: relative;
             width: 28px;
             height: 28px;
+        }
+
+        /* Keep the visual pin compact while giving mobile users a 44 px tap target. */
+        @media (max-width: 1023px) {
+            .pulse-marker-wrap {
+                width: 44px;
+                height: 44px;
+            }
+
+            .pulse-marker-wrap .p-ring {
+                inset: 8px;
+            }
         }
 
         .p-ring {
@@ -1179,7 +1199,7 @@
 
         /* Allow natural pan + pinch-zoom on the Leaflet map canvas */
         #slt-map {
-            touch-action: pan-x pan-y;
+            touch-action: none;
         }
 
         /* ── 12. Inclusions Section: Mobile ─────────────────────────── */
@@ -1675,6 +1695,7 @@
         const isMobileViewport = () => window.matchMedia('(max-width: 1023px)').matches;
 
         let sltMap = null;
+        let pendingPopupOpen = null;
 
         function initSltMap() {
             const wrap = document.getElementById('slt-map-wrap');
@@ -1701,10 +1722,15 @@
                 scrollWheelZoom: false,
                 /* ── Mobile enhancements ─────────────────────────────────── */
                 tap: true,
-                tapTolerance: isMobileViewport() ? 22 : 15,
+                tapTolerance: isMobileViewport() ? 16 : 15,
                 touchZoom: true,
                 dragging: true,
+                doubleClickZoom: !isMobileViewport(),
+                zoomSnap: isMobileViewport() ? 0.25 : 1,
+                zoomDelta: isMobileViewport() ? 0.25 : 1,
                 bounceAtZoomLimits: false,
+                boxZoom: false,
+                keyboard: false,
                 /* ── Prevent page scroll from fighting the map on touch ─── */
                 gestureHandling: false,
             });
@@ -1763,8 +1789,9 @@
                 div.className = 'pulse-marker-wrap marker-drop';
                 div.innerHTML = '<div class="p-ring"></div><div class="p-ring"></div><div class="p-ring"></div><div class="p-dot"></div>';
 
-                const icon = L.divIcon({ html: div, className: '', iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -18] });
-                const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(sltMap);
+                const markerHitSize = isMobileViewport() ? 44 : 28;
+                const icon = L.divIcon({ html: div, className: '', iconSize: [markerHitSize, markerHitSize], iconAnchor: [markerHitSize / 2, markerHitSize / 2], popupAnchor: [0, -18] });
+                const marker = L.marker([loc.lat, loc.lng], { icon, bubblingMouseEvents: false }).addTo(sltMap);
 
                 // Popup — sized via responsive CSS
                 marker.bindPopup(
@@ -1803,41 +1830,45 @@
                     this.closePopup();
                 });
 
-                // Click / Touch Tap Listener
-                marker.on('click', function (e) {
+                const handleMarkerTap = function (e) {
                     if (e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
 
-                    const isAlreadyOpen = this.isPopupOpen ? this.isPopupOpen() : (this.getPopup() && this.getPopup().isOpen());
-                    const isTouch = (e.originalEvent && (
+                    const isTouch = isMobileViewport() || (e.originalEvent && (
                         e.originalEvent.pointerType === 'touch' ||
                         (window.TouchEvent && e.originalEvent instanceof window.TouchEvent) ||
                         (Date.now() - lastTouchTime < 1000)
                     ));
 
-                    // Zoom in and centre the tapped destination
-                    const zoomLevel = isMobileViewport() ? 9 : 9;
-                    sltMap.setView([loc.lat, loc.lng], zoomLevel, { animate: true, duration: 0.5 });
+                    const target = L.latLng(loc.lat, loc.lng);
+                    const zoomLevel = isTouch ? Math.max(sltMap.getZoom(), 8.5) : 9;
+                    const openPopup = () => {
+                        marker.openPopup();
+                        requestAnimationFrame(() => repositionPopup(marker));
+                    };
+                    const needsMove = sltMap.getZoom() !== zoomLevel || !sltMap.getCenter().equals(target);
 
-                    // On mobile, nudge up so popup clears the viewport bottom
-                    if (isMobileViewport()) {
-                        setTimeout(function () { sltMap.panBy([0, -70], { animate: false }); }, 620);
+                    if (pendingPopupOpen) {
+                        sltMap.off('moveend', pendingPopupOpen);
+                        pendingPopupOpen = null;
                     }
 
-                    if (isTouch) {
-                        if (isAlreadyOpen) {
-                            this.closePopup();
-                        } else {
-                            sltMap.closePopup();
-                            setTimeout(() => {
-                                this.openPopup();
-                                repositionPopup(this);
-                            }, 100);
-                        }
+                    sltMap.stop();
+                    sltMap.closePopup();
+                    if (needsMove) {
+                        const openAfterMove = () => {
+                            pendingPopupOpen = null;
+                            openPopup();
+                        };
+                        pendingPopupOpen = openAfterMove;
+                        sltMap.once('moveend', openAfterMove);
+                        sltMap.setView(target, zoomLevel, { animate: true, duration: isTouch ? 0.35 : 0.5 });
                     } else {
-                        setTimeout(() => this.openPopup(), 100);
-                        setTimeout(() => repositionPopup(this), 150);
+                        openPopup();
                     }
-                });
+                };
+
+                marker.on('click', handleMarkerTap);
+                marker.on('touchend', handleMarkerTap);
 
                 // Staggered drop-in
                 setTimeout(() => div.classList.add('dropped'), 500 + i * 80);
