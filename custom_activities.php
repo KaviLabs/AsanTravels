@@ -153,6 +153,10 @@ if ($activityResults) {
         <?php endif; ?>
 
         <div class="section">
+            <button class="btn-primary" id="add-selected">Add Selected Activities</button>
+        </div>
+
+        <div class="section">
             <button class="btn-primary" id="view-package">View Package Details</button>
         </div>
 
@@ -166,78 +170,153 @@ if ($activityResults) {
         const packageTotalEl = document.getElementById('package-total');
         const activitiesTotalEl = document.getElementById('activities-total');
         const selectedCountEl = document.getElementById('selected-count');
-        const checkboxes = document.querySelectorAll('.activity-checkbox');
+        const selectedListEl = document.getElementById('selected-list');
+        const addButton = document.getElementById('add-selected');
+        const viewPackageButton = document.getElementById('view-package');
+        const checkboxes = Array.from(document.querySelectorAll('.activity-checkbox'));
+        let addedActivities = [];
 
-        function updateSummary() {
-            let selectedCount = 0;
-            let total = 0;
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    selectedCount += 1;
-                    total += parseFloat(cb.dataset.price) || 0;
-                }
-            });
-            selectedCountEl.textContent = selectedCount;
-            activitiesTotalEl.textContent = '$' + total.toFixed(2);
-            packageTotalEl.textContent = '$' + (basePrice + total).toFixed(2);
+        function getActivityFromCheckbox(cb) {
+            const card = cb.closest('.activity-card');
+            return {
+                id: cb.value,
+                title: card.querySelector('.title').textContent.trim(),
+                price: parseFloat(cb.dataset.price) || 0,
+            };
         }
 
-        checkboxes.forEach(cb => cb.addEventListener('change', updateSummary));
-        updateSummary();
-
-        function getSelectedActivities() {
-            const selected = [];
-            checkboxes.forEach(cb => {
+        function getDraftActivities() {
+            const addedIds = new Set(addedActivities.map(item => item.id));
+            return checkboxes.reduce((draft, cb) => {
                 if (cb.checked) {
-                    selected.push({
-                        id: cb.value,
-                        title: cb.closest('.activity-card').querySelector('.title').textContent.trim(),
-                        price: parseFloat(cb.dataset.price) || 0,
-                    });
+                    const activity = getActivityFromCheckbox(cb);
+                    if (!addedIds.has(activity.id)) {
+                        draft.push(activity);
+                    }
                 }
-            });
-            return selected;
+                return draft;
+            }, []);
+        }
+
+        function updateSummary() {
+            const total = addedActivities.reduce((sum, activity) => sum + activity.price, 0);
+            selectedCountEl.textContent = addedActivities.length;
+            activitiesTotalEl.textContent = '$' + total.toFixed(2);
+            packageTotalEl.textContent = '$' + (basePrice + total).toFixed(2);
+            const payOnArrivalEl = document.getElementById('pay-on-arrival');
+            if (payOnArrivalEl) {
+                const rate = parseFloat(payOnArrivalEl.dataset.rate || '0');
+                if (!Number.isNaN(rate)) {
+                    payOnArrivalEl.textContent = '$' + ((basePrice + total) * rate).toFixed(2);
+                }
+            }
         }
 
         function updateSelectedList() {
-            const selected = getSelectedActivities();
-            if (selected.length === 0) {
-                document.getElementById('selected-list').textContent = 'None selected';
+            if (addedActivities.length === 0) {
+                selectedListEl.textContent = 'None selected';
                 return;
             }
-            const listHtml = selected.map(item => `<div style="margin-bottom: 8px;">• ${item.title} (+$${item.price.toFixed(2)} pp)</div>`).join('');
-            document.getElementById('selected-list').innerHTML = listHtml;
+            selectedListEl.innerHTML = addedActivities.map(activity => `
+                <div style="margin-bottom: 8px; display:flex; justify-content:space-between; align-items:center; gap: 12px;">
+                    <span>• ${activity.title} (+$${activity.price.toFixed(2)} pp)</span>
+                    <button type="button" class="remove-activity" data-id="${activity.id}" style="background:none;border:none;color:#3282b8;cursor:pointer;font-size:0.95rem;padding:0;">Remove</button>
+                </div>
+            `).join('');
+            selectedListEl.querySelectorAll('.remove-activity').forEach(btn => {
+                btn.addEventListener('click', () => removeAddedActivity(btn.dataset.id));
+            });
         }
 
-        function saveSelectedActivities() {
-            const selected = getSelectedActivities().map(item => item.id);
-            localStorage.setItem('selected_custom_activities', JSON.stringify(selected));
+        function saveAddedActivities() {
+            localStorage.setItem('added_custom_activities', JSON.stringify(addedActivities.map(activity => activity.id)));
         }
 
-        function restoreSelectedActivities() {
+        function restoreAddedActivities() {
             try {
-                const saved = JSON.parse(localStorage.getItem('selected_custom_activities') || '[]');
-                if (!Array.isArray(saved)) return;
-                checkboxes.forEach(cb => {
-                    cb.checked = saved.includes(cb.value);
-                });
+                const savedIds = JSON.parse(localStorage.getItem('added_custom_activities') || '[]');
+                if (!Array.isArray(savedIds)) {
+                    return;
+                }
+                const idSet = new Set(savedIds.map(id => String(id)));
+                addedActivities = checkboxes.reduce((result, cb) => {
+                    if (idSet.has(cb.value)) {
+                        result.push(getActivityFromCheckbox(cb));
+                    }
+                    return result;
+                }, []);
             } catch (err) {
-                console.warn('Unable to restore selected activities:', err);
+                console.warn('Unable to restore added activities:', err);
             }
         }
 
-        checkboxes.forEach(cb => cb.addEventListener('change', function() {
+        function restoreLegacySelection() {
+            try {
+                const legacyIds = JSON.parse(localStorage.getItem('selected_custom_activities') || '[]');
+                if (!Array.isArray(legacyIds)) {
+                    return;
+                }
+                const idSet = new Set(legacyIds.map(id => String(id)));
+                const legacyActivities = checkboxes.reduce((result, cb) => {
+                    if (idSet.has(cb.value)) {
+                        result.push(getActivityFromCheckbox(cb));
+                    }
+                    return result;
+                }, []);
+                if (legacyActivities.length > 0 && addedActivities.length === 0) {
+                    addedActivities = legacyActivities;
+                    saveAddedActivities();
+                }
+            } catch (err) {
+                console.warn('Unable to restore legacy selected activities:', err);
+            }
+        }
+
+        function addSelectedActivities() {
+            const draftActivities = getDraftActivities();
+            if (draftActivities.length === 0) {
+                return;
+            }
+            const addedIds = new Set(addedActivities.map(activity => activity.id));
+            draftActivities.forEach(activity => {
+                if (!addedIds.has(activity.id)) {
+                    addedActivities.push(activity);
+                }
+            });
+            checkboxes.forEach(cb => {
+                if (draftActivities.some(activity => activity.id === cb.value)) {
+                    cb.checked = false;
+                }
+            });
+            saveAddedActivities();
             updateSummary();
             updateSelectedList();
-            saveSelectedActivities();
-        }));
-        restoreSelectedActivities();
-        updateSummary();
-        updateSelectedList();
+            updateAddButtonState();
+        }
 
-        document.getElementById('view-package').addEventListener('click', function () {
+        function removeAddedActivity(activityId) {
+            addedActivities = addedActivities.filter(activity => activity.id !== activityId);
+            saveAddedActivities();
+            updateSummary();
+            updateSelectedList();
+            updateAddButtonState();
+        }
+
+        function updateAddButtonState() {
+            addButton.disabled = getDraftActivities().length === 0;
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateAddButtonState));
+        addButton.addEventListener('click', addSelectedActivities);
+        viewPackageButton.addEventListener('click', () => {
             window.location.href = '<?= htmlspecialchars($returnUrl) ?>';
         });
+
+        restoreAddedActivities();
+        restoreLegacySelection();
+        updateSummary();
+        updateSelectedList();
+        updateAddButtonState();
     </script>
 </body>
 </html>
