@@ -22,7 +22,7 @@ $packageDestinations = [
     'Nuwara Eliya',
     'Ella'
 ];
-$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations));
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF']));
 
 $customToursResult = mysqli_query($con, "SELECT id, activity, category, location, description, foreign_adult_usd FROM custom_tours ORDER BY category, activity");
 if ($customToursResult) {

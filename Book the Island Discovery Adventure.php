@@ -3,6 +3,19 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 
+$packageDestinations = [
+    'Habarana',
+    'Sigiriya',
+    'Dambulla',
+    'Kandy',
+    'Nuwara Eliya',
+    'Ella',
+    'Yala',
+    'Galle',
+    'Colombo'
+];
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF']));
+
 if (isset($_POST["submit2"])) {
     $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
     if (!$con) die("Couldn't connect to server: " . mysqli_connect_error());
@@ -341,6 +354,7 @@ button:hover {
                     Yala National Park (+$135 pp)</label>
                 <label><input type="checkbox" class="tour" name="optionalTours[]" value="Colombo City by Tuk Tuk"> Colombo City
                     by Tuk Tuk (+$96 pp)</label>
+                <p class="mt-3"><em>Want more activities? <a href="<?= htmlspecialchars($customActivitiesLink) ?>">Click here to customize your package.</a></em></p>
             </div>
 
             <div class="totals">

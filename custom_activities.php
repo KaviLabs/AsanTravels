@@ -16,6 +16,16 @@ if ($locationsQuery !== '') {
     $allowedLocations = array_unique(array_filter(array_map('trim', explode(',', $locationsQuery))));
 }
 
+$returnUrl = 'packages.html';
+$returnUrlRaw = trim($_GET['return_url'] ?? '');
+if ($returnUrlRaw !== '') {
+    $decodedReturn = rawurldecode($returnUrlRaw);
+    $parsed = parse_url($decodedReturn);
+    if (!isset($parsed['scheme']) && !isset($parsed['host']) && !preg_match('#^[\\/]{2}#', $decodedReturn)) {
+        $returnUrl = $decodedReturn;
+    }
+}
+
 if (!empty($allowedLocations)) {
     $allowedLocations = array_values(array_unique(array_filter(array_map('trim', $allowedLocations))));
     $escapedLocations = array_map(function ($loc) use ($con) {
@@ -226,7 +236,7 @@ if ($activityResults) {
         updateSelectedList();
 
         document.getElementById('view-package').addEventListener('click', function () {
-            window.location.href = 'Book the Cultural Gems & Wildlife Wonders.php';
+            window.location.href = '<?= htmlspecialchars($returnUrl) ?>';
         });
     </script>
 </body>
