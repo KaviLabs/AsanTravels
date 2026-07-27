@@ -3,12 +3,37 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 
-if (isset($_POST["submit2"])) {
-    $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
-    if (!$con) {
-        die("Couldn't connect to server: " . mysqli_connect_error());
-    }
+$con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
+if (!$con) {
+    die("Couldn't connect to server: " . mysqli_connect_error());
+}
+mysqli_set_charset($con, 'utf8mb4');
 
+$customTours = [];
+$customTourPrices = [];
+$customTourNames = [];
+$packageDestinations = [
+    'Colombo',
+    'Negombo',
+    'Habarana',
+    'Sigiriya',
+    'Dambulla',
+    'Kandy',
+    'Nuwara Eliya',
+    'Ella'
+];
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations));
+
+$customToursResult = mysqli_query($con, "SELECT id, activity, category, location, description, foreign_adult_usd FROM custom_tours ORDER BY category, activity");
+if ($customToursResult) {
+    while ($row = mysqli_fetch_assoc($customToursResult)) {
+        $customTours[] = $row;
+        $customTourPrices[intval($row['id'])] = floatval($row['foreign_adult_usd']);
+        $customTourNames[intval($row['id'])] = $row['activity'];
+    }
+}
+
+if (isset($_POST["submit2"])) {
     $Package_type = "Cultural Gems & Wildlife Wonders";
 
     // Get inputs (trimmed)
@@ -20,7 +45,8 @@ if (isset($_POST["submit2"])) {
     $passengerInput = max(1, $numAdults + $numChildren);
     $roomOptions = trim($_POST['roomOptions'] ?? '');
     $optionalToursArr = $_POST['optionalTours'] ?? [];
-    $optionalTours = is_array($optionalToursArr) ? implode(", ", $optionalToursArr) : (string)$optionalToursArr;
+    $optionalNames = [];
+    $optionalTours = '';
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $message = trim($_POST['message'] ?? '');
@@ -31,11 +57,14 @@ if (isset($_POST["submit2"])) {
 
     $extras = 0.0;
     if (!empty($optionalToursArr) && is_array($optionalToursArr)) {
-        foreach ($optionalToursArr as $tour) {
-            if ($tour === "Colombo Street Food Tour") $extras += 95 * $passengerInput;
-            if ($tour === "Safari Yala National Park") $extras += 135 * $passengerInput;
-            if ($tour === "Colombo City by Tuk Tuk") $extras += 96 * $passengerInput;
+        foreach ($optionalToursArr as $tourId) {
+            $tourId = intval($tourId);
+            if (isset($customTourPrices[$tourId])) {
+                $extras += $customTourPrices[$tourId] * $passengerInput;
+                $optionalNames[] = $customTourNames[$tourId];
+            }
         }
+        $optionalTours = implode(", ", $optionalNames);
     }
 
     $total = $base_price + $extras;
@@ -356,12 +385,17 @@ button:hover {
 
             <div class="section">
                 <h2>Optional Tours</h2>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Colombo Street Food Tour"> Colombo
-                    Street Food Tour (+$95 pp)</label>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Safari Yala National Park"> Safari
-                    Yala National Park (+$135 pp)</label>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Colombo City by Tuk Tuk"> Colombo City
-                    by Tuk Tuk (+$96 pp)</label>
+                <?php if (!empty($customTours)): ?>
+                    <?php foreach ($customTours as $tour): ?>
+                        <label>
+                            <input type="checkbox" class="tour" name="optionalTours[]" value="<?= intval($tour['id']) ?>" data-price="<?= number_format($tour['foreign_adult_usd'], 2, '.', '') ?>">
+                            <?= htmlspecialchars($tour['activity']) ?> (+$<?= number_format($tour['foreign_adult_usd'], 2) ?> pp)
+                        </label>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No optional tours are available at the moment. Please check back later.</p>
+                <?php endif; ?>
+                <p class="mt-3"><em>Want more activities? <a href="<?= htmlspecialchars($customActivitiesLink) ?>">Click here to customize your package.</a></em></p>
             </div>
 
             <div class="totals">
@@ -496,9 +530,8 @@ button:hover {
             let extraToursTotal = 0;
             tourCheckboxes.forEach(cb => {
                 if (cb.checked) {
-                    if (cb.value === "Colombo Street Food Tour") extraToursTotal += 95 * passengerCount;
-                    else if (cb.value === "Safari Yala National Park") extraToursTotal += 135 * passengerCount;
-                    else if (cb.value === "Colombo City by Tuk Tuk") extraToursTotal += 96 * passengerCount;
+                    const price = parseFloat(cb.dataset.price) || 0;
+                    extraToursTotal += price * passengerCount;
                 }
             });
 
@@ -529,11 +562,33 @@ button:hover {
 
         // Recalculate price when optional tours change
         document.querySelectorAll('.tour').forEach(checkbox => {
-            checkbox.addEventListener('change', () => calculateTotal(null));
+            checkbox.addEventListener('change', () => {
+                calculateTotal(null);
+                saveSelectedActivities();
+            });
         });
+
+        function saveSelectedActivities() {
+            const selectedIds = [];
+            document.querySelectorAll('.tour:checked').forEach(cb => selectedIds.push(cb.value));
+            localStorage.setItem('selected_custom_activities', JSON.stringify(selectedIds));
+        }
+
+        function restoreSelectedActivities() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('selected_custom_activities') || '[]');
+                if (!Array.isArray(saved)) return;
+                document.querySelectorAll('.tour').forEach(cb => {
+                    cb.checked = saved.includes(cb.value);
+                });
+            } catch (err) {
+                console.warn('Unable to restore selected activities:', err);
+            }
+        }
 
         // ========== Initialize on Page Load ==========
         window.onload = function () {
+            restoreSelectedActivities();
             updateRoomOptions();
             calculateTotal(null);
         };

@@ -1833,38 +1833,8 @@
                 const handleMarkerTap = function (e) {
                     if (e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
 
-                    const isTouch = isMobileViewport() || (e.originalEvent && (
-                        e.originalEvent.pointerType === 'touch' ||
-                        (window.TouchEvent && e.originalEvent instanceof window.TouchEvent) ||
-                        (Date.now() - lastTouchTime < 1000)
-                    ));
-
-                    const target = L.latLng(loc.lat, loc.lng);
-                    const zoomLevel = isTouch ? Math.max(sltMap.getZoom(), 8.5) : 9;
-                    const openPopup = () => {
-                        marker.openPopup();
-                        requestAnimationFrame(() => repositionPopup(marker));
-                    };
-                    const needsMove = sltMap.getZoom() !== zoomLevel || !sltMap.getCenter().equals(target);
-
-                    if (pendingPopupOpen) {
-                        sltMap.off('moveend', pendingPopupOpen);
-                        pendingPopupOpen = null;
-                    }
-
-                    sltMap.stop();
-                    sltMap.closePopup();
-                    if (needsMove) {
-                        const openAfterMove = () => {
-                            pendingPopupOpen = null;
-                            openPopup();
-                        };
-                        pendingPopupOpen = openAfterMove;
-                        sltMap.once('moveend', openAfterMove);
-                        sltMap.setView(target, zoomLevel, { animate: true, duration: isTouch ? 0.35 : 0.5 });
-                    } else {
-                        openPopup();
-                    }
+                    marker.openPopup();
+                    requestAnimationFrame(() => repositionPopup(marker));
                 };
 
                 marker.on('click', handleMarkerTap);
