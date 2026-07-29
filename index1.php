@@ -318,7 +318,7 @@ if (isset($_POST["submit4"])) {
             position: relative; overflow: hidden;
             padding: 100px 0; background: #07090F;
         }
-        .hp-about-video {
+        .hp-about-video-v2 {
             position: absolute;
             top: 0;
             left: 0;
@@ -926,7 +926,7 @@ if (isset($_POST["submit4"])) {
     ════════════════════════════════════════════ -->
     <section class="hp-about" id="about" aria-labelledby="about-heading">
         <!-- Video background -->
-        <video class="hp-about-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video class="hp-about-video-v2" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
             <source src="img/logo_video.mp4" type="video/mp4">
         </video>
         <div class="hp-about-overlay" aria-hidden="true"></div>
