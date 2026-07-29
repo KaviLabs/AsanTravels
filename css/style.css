@@ -1955,4 +1955,76 @@ button,
         border-width: 3px;
     }
 }
-/*** End 5-Column Photo-Frame Gallery Grid ***/
+/*** End 5-Column Photo-Frame Gallery Grid ***/
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM SITE-WIDE FOOTER  (used by every page)
+   Colors: #07090F dark bg | #C9A84C gold | #E8C96A light gold
+══════════════════════════════════════════════════════════ */
+.site-footer {
+    background: #07090F;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 60px 0 0;
+    font-family: 'Roboto', sans-serif;
+}
+.site-footer h4 {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: #F1EBD6; letter-spacing: 0.04em;
+    margin-bottom: 1.4rem; padding-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.site-footer p {
+    font-size: 0.88rem;
+    color: rgba(200,195,180,0.65);
+    margin-bottom: 0.6rem;
+}
+.site-footer a {
+    font-size: 0.88rem;
+    color: rgba(200,195,180,0.65);
+    margin-bottom: 0.6rem;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s ease;
+}
+.site-footer a:hover { color: #C9A84C !important; }
+.site-footer-brand {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: #F1EBD6; margin-bottom: 0.6rem;
+    display: block;
+}
+.site-footer-brand span { color: #C9A84C; }
+.site-footer-brand-sub {
+    font-size: 0.82rem;
+    color: rgba(200,195,180,0.5);
+    margin-bottom: 1.4rem; line-height: 1.5;
+    display: block;
+}
+.site-footer-social { margin-top: 0.5rem; }
+.site-footer-social a {
+    display: inline-flex !important;
+    align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: #C9A84C !important; font-size: 0.85rem;
+    margin-right: 0.5rem; margin-bottom: 0;
+    transition: all 0.22s ease;
+}
+.site-footer-social a:hover {
+    background: rgba(201,168,76,0.15) !important;
+    border-color: rgba(201,168,76,0.6) !important;
+}
+.site-footer-divider {
+    margin-top: 50px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 1.2rem 0;
+}
+.site-footer-copy {
+    font-size: 0.78rem;
+    color: rgba(200,195,180,0.35);
+    text-align: center;
+    margin: 0;
+}
+/*** End Premium Site-Wide Footer ***/
+

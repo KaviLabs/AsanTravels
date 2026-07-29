@@ -178,11 +178,12 @@ if (isset($_POST["submit4"])) {
         }
         .hp-carousel-overlay {
             position: absolute; inset: 0;
+            /* Left 45% darker so text is readable; right side shows the photo clearly */
             background: linear-gradient(
-                160deg,
-                rgba(3,5,12,0.88) 0%,
-                rgba(7,9,20,0.75) 50%,
-                rgba(3,5,12,0.82) 100%
+                to right,
+                rgba(3,5,12,0.72) 0%,
+                rgba(3,5,12,0.42) 55%,
+                rgba(3,5,12,0.18) 100%
             );
             z-index: 1;
         }
@@ -321,15 +322,15 @@ if (isset($_POST["submit4"])) {
         .hp-about-video {
             position: absolute; inset: 0; z-index: 0;
             width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.45;
+            opacity: 0.6;   /* increased from 0.45 – video is now visible as section bg */
         }
         .hp-about-overlay {
             position: absolute; inset: 0; z-index: 1;
             background: linear-gradient(
                 160deg,
-                rgba(7,9,15,0.75) 0%,
-                rgba(10,20,55,0.65) 50%,
-                rgba(7,9,15,0.82) 100%
+                rgba(7,9,15,0.60) 0%,    /* lighter so bg video shows through */
+                rgba(10,20,55,0.45) 50%,
+                rgba(7,9,15,0.65) 100%
             );
         }
         /* Floating orbs */
@@ -413,7 +414,17 @@ if (isset($_POST["submit4"])) {
             text-transform: uppercase; color: rgba(200,195,180,0.6); margin-top: 4px;
         }
 
-        /* Floating badge on the right column */
+        /* Right-column video frame */
+        .hp-about-video-frame {
+            position: relative; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.35), 0 20px 60px rgba(0,0,0,0.6);
+            background: #07090F;
+        }
+        .hp-about-video-frame video {
+            width: 100%; display: block; border-radius: 20px;
+            min-height: 280px; object-fit: cover;
+        }
+        /* Legacy – keep for any img fallback */
         .hp-about-img-wrap {
             position: relative; border-radius: 20px; overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -910,9 +921,16 @@ if (isset($_POST["submit4"])) {
                         </div>
                     </div>
 
-                    <!-- Decorative image badge -->
-                    <div class="hp-about-img-wrap mt-4 reveal reveal-delay-3">
-                        <img src="img/carousel-3.jpg" alt="Sri Lanka scenic view" loading="lazy">
+                    <!-- Video frame (right side — logo_video.mp4 visible) -->
+                    <div class="hp-about-video-frame mt-4 reveal reveal-delay-3">
+                        <video
+                            autoplay muted loop playsinline
+                            preload="auto"
+                            poster="img/carousel-3.jpg"
+                            style="width:100%;border-radius:20px;display:block;">
+                            <source src="img/logo_video.mp4" type="video/mp4">
+                        </video>
+                        <!-- Gold badge overlay on video -->
                         <div class="hp-about-badge">
                             <i class="fas fa-award"></i>
                             <div class="hp-about-badge-text">
@@ -1339,18 +1357,12 @@ if (isset($_POST['submit'])) {
             }
         })();
 
-        /* ── Lazy Video Loading ─────────────────────────── */
-        (function () {
-            const video = document.querySelector('.hp-about-video');
-            if (!video) return;
-            const io = new IntersectionObserver(function (entries) {
-                if (entries[0].isIntersecting) {
-                    video.play().catch(function () {});
-                    io.disconnect();
-                }
-            }, { threshold: 0.1 });
-            io.observe(video);
-        })();
+        /* ── Auto-play all videos immediately ─────────── */
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('video[autoplay]').forEach(function (v) {
+                v.play().catch(function () {});
+            });
+        });
     </script>
 
 </body>

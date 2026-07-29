@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Place PHP at the very top of the file, before any HTML output
 if (isset($_POST["submit1"])) {
     $name = $_POST["name"];
@@ -362,53 +362,40 @@ if (isset($_POST["submit1"])) {
 </div>
 <!-- Contact End -->
 
-<!-- Footer Start -->
-<div class="container-fluid footer py-5">
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="mb-4 text-white">Get In Touch</h4>
-                    <p><i class="fas fa-home me-2"></i> Negombo, Sri lanka</p>
-                    <p><i class="fas fa-envelope me-2"></i> asantravels@gmail.com</p>
-                    <p><i class="fas fa-phone me-2"></i> +94 76 208 7707</p>
-                    <p><i class="fab fa-whatsapp me-2"></i> +94 77 337 8244</p>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-share fa-2x text-white me-2"></i>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&utm_source=qr"><i class="fab fa-instagram"></i></a>
-                        <a class="btn-square btn btn-primary rounded-circle mx-1" href="http://www.tiktok.com/@asantravels"><i class="fab fa-tiktok"></i></a>
+    <!-- Premium Footer Start -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="row g-5 pb-5">
+                <div class="col-md-6 col-lg-4">
+                    <span class="site-footer-brand">Asan<span>Travels</span></span>
+                    <span class="site-footer-brand-sub">Your trusted partner for authentic, personalised Sri Lanka experiences. Expert local guide with 10+ years of unforgettable tours.</span>
+                    <div class="site-footer-social">
+                        <a href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&amp;utm_source=qr" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="http://www.tiktok.com/@asantravels" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-6 col-xl-3">
-                <div class="footer-item d-flex flex-column">
-                    <h4 class="mb-4 text-white">Company</h4>
-                    <a href="about.html"><i class="fas fa-angle-right me-2"></i> About</a>
-                    <a href="packages.html"><i class="fas fa-angle-right me-2"></i> Packages</a>
-                    <a href="contact.php"><i class="fas fa-angle-right me-2"></i> Contact</a>
+                <div class="col-md-6 col-lg-4">
+                    <h4>Get In Touch</h4>
+                    <p><i class="fas fa-map-marker-alt me-2" style="color:#C9A84C;"></i>Negombo, Sri Lanka</p>
+                    <p><i class="fas fa-envelope me-2" style="color:#C9A84C;"></i>asantravels@gmail.com</p>
+                    <p><i class="fas fa-phone me-2" style="color:#C9A84C;"></i>+94 76 208 7707</p>
+                    <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 77 337 8244</p>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <h4>Quick Links</h4>
+                    <a href="about.html"><i class="fas fa-angle-right me-2"></i>About Us</a>
+                    <a href="packages.html"><i class="fas fa-angle-right me-2"></i>Tour Packages</a>
+                    <a href="Custom_Packages.html"><i class="fas fa-angle-right me-2"></i>Custom Tours</a>
+                    <a href="contact.php"><i class="fas fa-angle-right me-2"></i>Contact</a>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
-
-<!-- Copyright Start -->
-<div class="container-fluid copyright text-body py-4">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-end mb-md-0">
-                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">Site Name</a>, AsanTravels.
-            </div>
-            <div class="col-md-6 text-center text-md-start">
-                Designed By <a class="text-white" href="https://htmlcodex.com">Kavinu Rajapakse</a>
+            <div class="site-footer-divider">
+                <p class="site-footer-copy">&copy; 2026 AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
             </div>
         </div>
-    </div>
-</div>
-<!-- Copyright End -->
+    </footer>
+    <!-- Premium Footer End -->
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
