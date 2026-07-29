@@ -22,7 +22,9 @@ $packageDestinations = [
     'Nuwara Eliya',
     'Ella'
 ];
-$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF']));
+$basePricePerPerson = 1000.0;
+$basePriceDisplay = $basePricePerPerson * 2; // displayed for 2 persons
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF'])) . '&base_price=' . $basePriceDisplay;
 
 $customToursResult = mysqli_query($con, "SELECT id, activity, category, location, description, foreign_adult_usd FROM custom_tours ORDER BY category, activity");
 if ($customToursResult) {
@@ -40,9 +42,9 @@ if (isset($_POST["submit2"])) {
     $tripDays = (int)($_POST['tripDays'] ?? 0);
     $start_date = trim($_POST['start_date'] ?? '');
     $end_date = trim($_POST['end_date'] ?? '');
-    $numAdults = (int)($_POST['numAdults'] ?? 1);
+    $numAdults = (int)($_POST['numAdults'] ?? 2);
     $numChildren = (int)($_POST['numChildren'] ?? 0);
-    $passengerInput = max(1, $numAdults + $numChildren);
+    $passengerInput = max(2, $numAdults + $numChildren); // minimum 2 travellers
     $roomOptions = trim($_POST['roomOptions'] ?? '');
     $optionalToursArr = $_POST['optionalTours'] ?? [];
     $optionalNames = [];
@@ -51,9 +53,9 @@ if (isset($_POST["submit2"])) {
     $email = trim($_POST['email'] ?? '');
     $message = trim($_POST['message'] ?? '');
 
-    // Calculation
-    $base_price_per_person = 750.0;
-    $base_price = $base_price_per_person * max(0, $passengerInput);
+    // Calculation — per-person price, minimum 2 travellers
+    $base_price_per_person = 1000.0;
+    $base_price = $base_price_per_person * $passengerInput;
 
     $extras = 0.0;
     if (!empty($optionalToursArr) && is_array($optionalToursArr)) {
@@ -372,7 +374,7 @@ button:hover {
             <div class="section">
                 <h2>Customizable Room & Passenger</h2>
                 <label for="numAdults">Number of Adults:</label>
-                <input type="number" id="numAdults" name="numAdults" min="1" value="1"
+                <input type="number" id="numAdults" name="numAdults" min="2" value="2"
                     placeholder="Enter number of adults" required />
                 <label for="numChildren">Number of Children:</label>
                 <input type="number" id="numChildren" name="numChildren" min="0" value="0"
@@ -516,14 +518,14 @@ button:hover {
 
             const adults = parseInt(document.getElementById('numAdults').value) || 0;
             const children = parseInt(document.getElementById('numChildren').value) || 0;
-            const passengerCount = adults + children;
+            const passengerCount = Math.max(2, adults + children); // minimum 2 travellers
             
-            if (passengerCount < 1) {
-                alert('Please enter at least 1 passenger.');
+            if ((adults + children) < 2) {
+                alert('A minimum of 2 travellers is required for this package.');
                 return;
             }
 
-            const basePricePerPassenger = 750;
+            const basePricePerPassenger = 1000; // $1,000 USD per person
             const basePrice = basePricePerPassenger * passengerCount;
 
             const tourCheckboxes = document.querySelectorAll('.tour');
@@ -588,6 +590,9 @@ button:hover {
 
         // ========== Initialize on Page Load ==========
         window.onload = function () {
+            // Ensure minimum 2 adults on load
+            const adultsEl = document.getElementById('numAdults');
+            if (parseInt(adultsEl.value) < 2) adultsEl.value = 2;
             restoreSelectedActivities();
             updateRoomOptions();
             calculateTotal(null);

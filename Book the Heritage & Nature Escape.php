@@ -19,7 +19,9 @@ $packageDestinations = [
     'Galle',
     'Colombo'
 ];
-$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF']));
+$basePricePerPerson = 1600.0;
+$basePriceDisplay = $basePricePerPerson * 2; // displayed for 2 persons
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF'])) . '&base_price=' . $basePriceDisplay;
 
 if (isset($_POST["submit2"])) {
     // Database connection - Adjust credentials accordingly
@@ -33,7 +35,7 @@ if (isset($_POST["submit2"])) {
     $start_date = mysqli_real_escape_string($con, $_POST['start_date'] ?? '');
     $end_date = mysqli_real_escape_string($con, $_POST['end_date'] ?? '');
     $tripDays = (int)($_POST['tripDays'] ?? 13);
-    $passengerInput = max(1, (int)($_POST['passengerInput'] ?? 2));
+    $passengerInput = max(2, (int)($_POST['passengerInput'] ?? 2)); // minimum 2 travellers
     $roomOptions = mysqli_real_escape_string($con, $_POST['roomOptions'] ?? '');
     $optionalTours = isset($_POST['optionalTours']) ? $_POST['optionalTours'] : [];
     // Sanitize array and implode for DB storage
@@ -50,8 +52,8 @@ if (isset($_POST["submit2"])) {
     if (empty($start_date) || empty($end_date) || $passengerInput < 1 || empty($name) || empty($email)) {
         echo "<p style='color:red;'>Please fill in all required fields properly.</p>";
     } else {
-        // Calculate prices based on passengers and selected tours
-        $base_price_per_person =  830;
+        // Calculate prices — per-person price, minimum 2 travellers
+        $base_price_per_person = 1600;
         $base_price = $base_price_per_person * $passengerInput;
 
         $extras = 0;
@@ -467,7 +469,7 @@ button:hover {
                 return;
             }
 
-            const basePricePerPassenger = 830;
+            const basePricePerPassenger = 1600; // $1,600 USD per person
             const basePrice = basePricePerPassenger * passengerCount;
 
             const tourCheckboxes = document.querySelectorAll('.tour');

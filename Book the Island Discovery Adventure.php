@@ -14,7 +14,9 @@ $packageDestinations = [
     'Galle',
     'Colombo'
 ];
-$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF']));
+$basePricePerPerson = 700.0;
+$basePriceDisplay = $basePricePerPerson * 2; // displayed for 2 persons
+$customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF'])) . '&base_price=' . $basePriceDisplay;
 
 if (isset($_POST["submit2"])) {
     $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
@@ -25,7 +27,7 @@ if (isset($_POST["submit2"])) {
     $start_date = trim($_POST['start_date'] ?? '');
     $end_date = trim($_POST['end_date'] ?? '');
     $tripDays = (int)($_POST['tripDays'] ?? 5);
-    $passengerInput = max(1, (int) ($_POST['passengerInput'] ?? 2));
+    $passengerInput = max(2, (int) ($_POST['passengerInput'] ?? 2)); // minimum 2 travellers
     $roomOptions = trim($_POST['roomOptions'] ?? '');
     $optionalToursArr = $_POST['optionalTours'] ?? [];
     $optionalToursSafe = [];
@@ -41,7 +43,7 @@ if (isset($_POST["submit2"])) {
     if (empty($start_date) || empty($end_date) || $passengerInput < 1 || $name === '' || $email === '') {
         echo "<p style='color:red;'>Please fill in all required fields properly.</p>";
     } else {
-        $base_price_per_person = 375.0;
+        $base_price_per_person = 700.0; // $700 USD per person
         $base_price = $base_price_per_person * $passengerInput;
 
         $extras = 0.0;
@@ -451,7 +453,7 @@ button:hover {
                 return;
             }
 
-            const basePricePerPassenger = 375;
+            const basePricePerPassenger = 700; // $700 USD per person
             const basePrice = basePricePerPassenger * passengerCount;
 
             const tourCheckboxes = document.querySelectorAll('.tour');

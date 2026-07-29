@@ -26,6 +26,10 @@ if ($returnUrlRaw !== '') {
     }
 }
 
+// Read optional base_price param passed by each booking page (e.g. base_price=2000)
+$basePriceParam = filter_var($_GET['base_price'] ?? 0, FILTER_VALIDATE_FLOAT);
+$basePriceParam = ($basePriceParam !== false && $basePriceParam > 0) ? $basePriceParam : 0;
+
 if (!empty($allowedLocations)) {
     $allowedLocations = array_values(array_unique(array_filter(array_map('trim', $allowedLocations))));
     $escapedLocations = array_map(function ($loc) use ($con) {
@@ -106,7 +110,11 @@ if ($activityResults) {
             <div class="summary">
                 <div class="summary-box">
                     <h3>Base Package Price</h3>
-                    <p>$750.00 pp</p>
+                    <?php if ($basePriceParam > 0): ?>
+                        <p>$<?= number_format($basePriceParam, 2) ?> (2 persons)</p>
+                    <?php else: ?>
+                        <p>Varies by package</p>
+                    <?php endif; ?>
                 </div>
                 <div class="summary-box">
                     <h3>Selected Activities</h3>
@@ -118,7 +126,7 @@ if ($activityResults) {
                 </div>
                 <div class="summary-box">
                     <h3>Package Total</h3>
-                    <p id="package-total">$750.00</p>
+                    <p id="package-total"><?php echo $basePriceParam > 0 ? '$' . number_format($basePriceParam, 2) : 'Varies'; ?></p>
                 </div>
             </div>
             <div class="section">
@@ -166,7 +174,8 @@ if ($activityResults) {
     </div>
 
     <script>
-        const basePrice = 750.00;
+        // Base price passed from the booking page via URL param (for display only)
+        const basePrice = <?= json_encode((float)$basePriceParam) ?>;
         const packageTotalEl = document.getElementById('package-total');
         const activitiesTotalEl = document.getElementById('activities-total');
         const selectedCountEl = document.getElementById('selected-count');
