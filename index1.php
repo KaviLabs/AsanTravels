@@ -318,7 +318,7 @@ if (isset($_POST["submit4"])) {
             position: relative; overflow: hidden;
             padding: 100px 0; background: #07090F;
         }
-        .hp-about-video-v2 {
+        .hp-about-video {
             position: absolute;
             top: 0;
             left: 0;
@@ -753,9 +753,38 @@ if (isset($_POST["submit4"])) {
             .hp-eyebrow { margin-left: auto; margin-right: auto; }
             .hp-hero-sub { margin-left: auto; margin-right: auto; max-width: 100%; }
             .hp-carousel-controls { right: 1rem; }
+
+            /* Prevent about content from covering the video logo on tablet */
+            .hp-about {
+                padding-top: 300px !important;
+                padding-bottom: 50px !important;
+            }
+            .hp-about-video {
+                position: absolute !important;
+                top: 20px !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 260px !important;
+                object-fit: contain !important;
+                opacity: 0.95 !important;
+                z-index: 2 !important;
+            }
+            .hp-about-overlay {
+                top: 300px !important;
+            }
         }
         @media (max-width: 767px) {
-            .hp-about { padding: 70px 0; }
+            /* Prevent about content from covering the video logo on mobile */
+            .hp-about {
+                padding-top: 260px !important;
+                padding-bottom: 40px !important;
+            }
+            .hp-about-video {
+                height: 220px !important;
+            }
+            .hp-about-overlay {
+                top: 260px !important;
+            }
             .hp-about-features { grid-template-columns: 1fr; }
             .hp-about-stats { grid-template-columns: 1fr 1fr; }
             .hp-destinations { padding: 60px 0 50px; }
@@ -926,7 +955,7 @@ if (isset($_POST["submit4"])) {
     ════════════════════════════════════════════ -->
     <section class="hp-about" id="about" aria-labelledby="about-heading">
         <!-- Video background -->
-        <video class="hp-about-video-v2" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video class="hp-about-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
             <source src="img/logo_video.mp4" type="video/mp4">
         </video>
         <div class="hp-about-overlay" aria-hidden="true"></div>
