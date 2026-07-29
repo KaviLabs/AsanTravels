@@ -348,15 +348,13 @@ button:hover {
                 </select>
             </div>
 
-            <div class="section">
-                <h2>Optional Tours</h2>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Colombo Street Food Tour"> Colombo
-                    Street Food Tour (+$95 pp)</label>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Safari Yala National Park"> Safari
-                    Yala National Park (+$135 pp)</label>
-                <label><input type="checkbox" class="tour" name="optionalTours[]" value="Colombo City by Tuk Tuk"> Colombo City
-                    by Tuk Tuk (+$96 pp)</label>
-                <p class="mt-3"><em>Want more activities? <a href="<?= htmlspecialchars($customActivitiesLink) ?>">Click here to customize your package.</a></em></p>
+            <div class="section" style="background: linear-gradient(135deg, rgba(11,60,93,0.06) 0%, rgba(50,130,184,0.10) 100%); border: 2px dashed rgba(50,130,184,0.35); border-radius: 16px; text-align: center; padding: 2rem 1.5rem;">
+                <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🌴</div>
+                <h2 style="color: rgba(19,53,123,.85); margin-bottom: 0.5rem; font-size: 1.3rem;">Make It Your Own</h2>
+                <p style="color: #555; margin-bottom: 1.2rem; font-size: 0.98rem;">Explore our full catalogue of experiences — wildlife, culture, adventure &amp; more — and hand-pick the ones that speak to you.</p>
+                <a href="<?= htmlspecialchars($customActivitiesLink) ?>" style="display: inline-block; background: linear-gradient(90deg, rgba(19,53,123,.85), #3282b8); color: #fff; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; box-shadow: 0 4px 16px rgba(50,130,184,0.25); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(50,130,184,0.35)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(50,130,184,0.25)'">
+                    ✨ Customize Your Package
+                </a>
             </div>
 
             <div class="totals">

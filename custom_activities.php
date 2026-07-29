@@ -161,11 +161,7 @@ if ($activityResults) {
         <?php endif; ?>
 
         <div class="section">
-            <button class="btn-primary" id="add-selected">Add Selected Activities</button>
-        </div>
-
-        <div class="section">
-            <button class="btn-primary" id="view-package">View Package Details</button>
+            <button class="btn-primary" id="add-and-return">Add Activities &amp; Return to Package</button>
         </div>
 
         <div class="footer">
@@ -180,8 +176,7 @@ if ($activityResults) {
         const activitiesTotalEl = document.getElementById('activities-total');
         const selectedCountEl = document.getElementById('selected-count');
         const selectedListEl = document.getElementById('selected-list');
-        const addButton = document.getElementById('add-selected');
-        const viewPackageButton = document.getElementById('view-package');
+        const addButton = document.getElementById('add-and-return');
         const checkboxes = Array.from(document.querySelectorAll('.activity-checkbox'));
         let addedActivities = [];
 
@@ -316,8 +311,19 @@ if ($activityResults) {
         }
 
         checkboxes.forEach(cb => cb.addEventListener('change', updateAddButtonState));
-        addButton.addEventListener('click', addSelectedActivities);
-        viewPackageButton.addEventListener('click', () => {
+        addButton.addEventListener('click', () => {
+            // Add any checked (but not yet added) activities
+            const draftActivities = getDraftActivities();
+            if (draftActivities.length > 0) {
+                const addedIds = new Set(addedActivities.map(a => a.id));
+                draftActivities.forEach(activity => {
+                    if (!addedIds.has(activity.id)) {
+                        addedActivities.push(activity);
+                    }
+                });
+                saveAddedActivities();
+            }
+            // Redirect back to the booking/package page
             window.location.href = '<?= htmlspecialchars($returnUrl) ?>';
         });
 
