@@ -675,9 +675,40 @@ if (isset($_POST["submit4"])) {
             .hp-eyebrow { margin-left: auto; margin-right: auto; }
             .hp-hero-sub { margin-left: auto; margin-right: auto; max-width: 100%; }
             .hp-carousel-controls { right: 1rem; }
+
+            /* Mobile-optimized About Video Section */
+            .hp-about {
+                padding: 0 0 50px 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .hp-about-video {
+                position: relative;
+                top: 0; left: 0; transform: none;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16/9;
+                object-fit: contain;
+                opacity: 1;
+                z-index: 1;
+                background: #000;
+            }
+            .hp-about-overlay {
+                display: none;
+            }
+            .hp-about-content {
+                margin-top: -30px;
+                padding: 0 15px;
+                position: relative;
+                z-index: 2;
+            }
+            .hp-about-glass {
+                padding: 25px 20px;
+                background: rgba(7, 9, 20, 0.95);
+            }
         }
         @media (max-width: 767px) {
-            .hp-about { padding: 70px 0; }
+            .hp-about { padding: 0 0 40px 0; }
             .hp-about-features { grid-template-columns: 1fr; }
             .hp-about-stats { grid-template-columns: 1fr 1fr; }
             .hp-destinations { padding: 60px 0 50px; }
