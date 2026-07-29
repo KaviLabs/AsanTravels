@@ -2026,5 +2026,24 @@ button,
     text-align: center;
     margin: 0;
 }
-/*** End Premium Site-Wide Footer ***/
-
+
+/* Mobile responsive padding and margins for the footer */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 40px 15px 0;
+    }
+    .site-footer h4 {
+        margin-top: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .site-footer-brand-sub {
+        margin-bottom: 1.2rem;
+    }
+    .site-footer-social {
+        margin-bottom: 1.5rem;
+    }
+    .site-footer-divider {
+        margin-top: 30px;
+    }
+}
+/*** End Premium Site-Wide Footer ***/

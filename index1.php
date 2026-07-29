@@ -178,12 +178,11 @@ if (isset($_POST["submit4"])) {
         }
         .hp-carousel-overlay {
             position: absolute; inset: 0;
-            /* Left 45% darker so text is readable; right side shows the photo clearly */
             background: linear-gradient(
-                to right,
-                rgba(3,5,12,0.72) 0%,
-                rgba(3,5,12,0.42) 55%,
-                rgba(3,5,12,0.18) 100%
+                160deg,
+                rgba(3,5,12,0.88) 0%,
+                rgba(7,9,20,0.75) 50%,
+                rgba(3,5,12,0.82) 100%
             );
             z-index: 1;
         }
@@ -320,18 +319,19 @@ if (isset($_POST["submit4"])) {
             padding: 100px 0; background: #07090F;
         }
         .hp-about-video {
-            position: absolute; inset: 0; z-index: 0;
-            width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.6;   /* increased from 0.45 – video is now visible as section bg */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.95;
+            z-index: 0;
         }
         .hp-about-overlay {
             position: absolute; inset: 0; z-index: 1;
-            background: linear-gradient(
-                160deg,
-                rgba(7,9,15,0.60) 0%,    /* lighter so bg video shows through */
-                rgba(10,20,55,0.45) 50%,
-                rgba(7,9,15,0.65) 100%
-            );
+            background: rgba(7, 9, 15, 0.45);
         }
         /* Floating orbs */
         .hp-about-orb {
@@ -414,17 +414,7 @@ if (isset($_POST["submit4"])) {
             text-transform: uppercase; color: rgba(200,195,180,0.6); margin-top: 4px;
         }
 
-        /* Right-column video frame */
-        .hp-about-video-frame {
-            position: relative; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 0 0 3px rgba(201,168,76,0.35), 0 20px 60px rgba(0,0,0,0.6);
-            background: #07090F;
-        }
-        .hp-about-video-frame video {
-            width: 100%; display: block; border-radius: 20px;
-            min-height: 280px; object-fit: cover;
-        }
-        /* Legacy – keep for any img fallback */
+        /* Floating badge on the right column */
         .hp-about-img-wrap {
             position: relative; border-radius: 20px; overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -921,16 +911,9 @@ if (isset($_POST["submit4"])) {
                         </div>
                     </div>
 
-                    <!-- Video frame (right side — logo_video.mp4 visible) -->
-                    <div class="hp-about-video-frame mt-4 reveal reveal-delay-3">
-                        <video
-                            autoplay muted loop playsinline
-                            preload="auto"
-                            poster="img/carousel-3.jpg"
-                            style="width:100%;border-radius:20px;display:block;">
-                            <source src="img/logo_video.mp4" type="video/mp4">
-                        </video>
-                        <!-- Gold badge overlay on video -->
+                    <!-- Decorative image badge -->
+                    <div class="hp-about-img-wrap mt-4 reveal reveal-delay-3">
+                        <img src="img/carousel-3.jpg" alt="Sri Lanka scenic view" loading="lazy">
                         <div class="hp-about-badge">
                             <i class="fas fa-award"></i>
                             <div class="hp-about-badge-text">
@@ -1226,21 +1209,18 @@ if (isset($_POST['submit'])) {
     <!-- ════════════════════════════════════════════
          7. FOOTER — PREMIUM DARK
     ════════════════════════════════════════════ -->
-    <footer class="hp-footer" role="contentinfo">
+    <footer class="site-footer" role="contentinfo">
         <div class="container">
             <div class="row g-5 pb-5">
-                <!-- Brand column -->
                 <div class="col-md-6 col-lg-4">
-                    <div class="hp-footer-brand">Asan<span>Travels</span></div>
-                    <p class="hp-footer-brand-sub">Your trusted partner for authentic, personalised Sri Lanka experiences. Expert local guide with 10+ years of unforgettable tours.</p>
-                    <div class="hp-footer-social">
+                    <span class="site-footer-brand">Asan<span>Travels</span></span>
+                    <span class="site-footer-brand-sub">Your trusted partner for authentic, personalised Sri Lanka experiences. Expert local guide with 10+ years of unforgettable tours.</span>
+                    <div class="site-footer-social">
                         <a href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&utm_source=qr" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&amp;utm_source=qr" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="http://www.tiktok.com/@asantravels" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
-
-                <!-- Contact -->
                 <div class="col-md-6 col-lg-4">
                     <h4>Get In Touch</h4>
                     <p><i class="fas fa-map-marker-alt me-2" style="color:#C9A84C;"></i>Negombo, Sri Lanka</p>
@@ -1248,8 +1228,6 @@ if (isset($_POST['submit'])) {
                     <p><i class="fas fa-phone me-2" style="color:#C9A84C;"></i>+94 76 208 7707</p>
                     <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 77 337 8244</p>
                 </div>
-
-                <!-- Links -->
                 <div class="col-md-6 col-lg-4">
                     <h4>Quick Links</h4>
                     <a href="about.html"><i class="fas fa-angle-right me-2"></i>About Us</a>
@@ -1258,11 +1236,8 @@ if (isset($_POST['submit'])) {
                     <a href="contact.php"><i class="fas fa-angle-right me-2"></i>Contact</a>
                 </div>
             </div>
-
-            <div class="hp-footer-divider">
-                <p class="hp-footer-copy">
-                    &copy; <?php echo date('Y'); ?> AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a>
-                </p>
+            <div class="site-footer-divider">
+                <p class="site-footer-copy">&copy; <?php echo date('Y'); ?> AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
             </div>
         </div>
     </footer>
@@ -1357,12 +1332,28 @@ if (isset($_POST['submit'])) {
             }
         })();
 
-        /* ── Auto-play all videos immediately ─────────── */
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('video[autoplay]').forEach(function (v) {
-                v.play().catch(function () {});
-            });
-        });
+        /* ── Auto-play background video ─────────────────── */
+        (function () {
+            const video = document.querySelector('.hp-about-video');
+            if (!video) return;
+            const playVideo = () => {
+                video.play().catch(function () {});
+            };
+            // Try playing immediately
+            playVideo();
+            // Also attempt to play if it was blocked initially (on first interaction)
+            document.addEventListener('touchstart', playVideo, { once: true });
+            document.addEventListener('click', playVideo, { once: true });
+            
+            // Also use IntersectionObserver as fallback for when it comes into view
+            const io = new IntersectionObserver(function (entries) {
+                if (entries[0].isIntersecting) {
+                    playVideo();
+                    io.disconnect();
+                }
+            }, { threshold: 0.1 });
+            io.observe(video);
+        })();
     </script>
 
 </body>

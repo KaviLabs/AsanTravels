@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -80,13 +80,17 @@
                             $imagePath = "as_gallery/placeholder.jpg"; // fallback image
                         }
                     ?>
-                    <div class="gallery-cell">
+                    <div class="gallery-item">
                         <img src="<?= htmlspecialchars($imagePath) ?>" alt="<?= htmlspecialchars($row['title'] ?: 'Gallery Image') ?>">
-                        <div class="gallery-overlay">
-                            <h5><?= htmlspecialchars($row['title'] ?: "Gallery Image") ?></h5>
-                            <a href="<?= htmlspecialchars($imagePath) ?>" data-lightbox="gallery" class="btn btn-outline-light btn-sm">
-                                <i class="fas fa-plus"></i> View
-                            </a>
+                        <div class="gallery-content">
+                            <div class="gallery-info">
+                                <h5 class="text-white mb-2"><?= htmlspecialchars($row['title'] ?: "Gallery Image") ?></h5>
+                            </div>
+                            <div class="gallery-plus-icon">
+                                <a href="<?= htmlspecialchars($imagePath) ?>" data-lightbox="gallery" class="btn btn-outline-light btn-sm">
+                                    <i class="fas fa-plus"></i> View
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endwhile; ?>
@@ -126,7 +130,7 @@
                 </div>
             </div>
             <div class="site-footer-divider">
-                <p class="site-footer-copy">&copy; 2026 AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
+                <p class="site-footer-copy">&copy; <?php echo date('Y'); ?> AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
             </div>
         </div>
     </footer>

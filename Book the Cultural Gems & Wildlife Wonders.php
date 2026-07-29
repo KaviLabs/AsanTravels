@@ -664,7 +664,7 @@ button:hover {
                 </div>
             </div>
             <div class="site-footer-divider">
-                <p class="site-footer-copy">&copy; 2026 AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
+                <p class="site-footer-copy">&copy; <?php echo date('Y'); ?> AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
             </div>
         </div>
     </footer>
