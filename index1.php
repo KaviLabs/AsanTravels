@@ -883,7 +883,7 @@ if (isset($_POST["submit4"])) {
     ════════════════════════════════════════════ -->
     <section class="hp-about" id="about" aria-labelledby="about-heading">
         <!-- Video background -->
-        <video class="hp-about-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video class="hp-about-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" oncanplay="this.play()" poster="img/carousel-3.jpg">
             <source src="img/logo_video.mp4" type="video/mp4">
         </video>
         <div class="hp-about-overlay" aria-hidden="true"></div>
