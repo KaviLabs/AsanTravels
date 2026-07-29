@@ -397,9 +397,14 @@ button:hover {
             <div class="totals">
                 <h2>Order Summary</h2>
                 <p><strong>Base Price:</strong> $<span id="base_price">0.00</span></p>
+                <div id="selected-activities-container" style="display:none; margin: 15px 0; padding: 12px; background: rgba(50, 130, 184, 0.08); border-radius: 8px; text-align: left;">
+                    <h5 style="font-size: 0.95rem; color: #0b3c5d; margin-top: 0; margin-bottom: 8px; font-weight: 600;">Selected Custom Activities:</h5>
+                    <ul id="selected-activities-list" style="list-style: none; padding-left: 0; margin-bottom: 0; font-size: 0.88rem; color: #333; line-height: 1.5;"></ul>
+                </div>
                 <p><strong>Extras:</strong> $<span id="extras">0.00</span></p>
                 <p><strong>Total:</strong> $<span id="total">0.00</span></p>
                 <p><strong>Pay on Arrival:</strong> $<span id="arrival_payment">0.00</span></p>
+                <div id="hidden-inputs-container"></div>
             </div>
 
             <div class="section">
@@ -507,6 +512,79 @@ button:hover {
         }
 
         // ========== Function 3: Calculate Total Price ==========
+        const customToursData = <?php echo json_encode($customTours); ?>;
+        const customTourPrices = {};
+        const customTourNames = {};
+        customToursData.forEach(t => {
+            customTourPrices[t.id] = parseFloat(t.foreign_adult_usd) || 0;
+            customTourNames[t.id] = t.activity;
+        });
+
+        function getSelectedCustomActivityIds() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('added_custom_activities') || '[]');
+                return Array.isArray(saved) ? saved.map(String) : [];
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function saveSelectedCustomActivityIds(ids) {
+            localStorage.setItem('added_custom_activities', JSON.stringify(ids));
+        }
+
+        function removeCustomActivity(id) {
+            let ids = getSelectedCustomActivityIds();
+            ids = ids.filter(i => i !== String(id));
+            saveSelectedCustomActivityIds(ids);
+            calculateTotal(null);
+        }
+
+        function updateCustomActivitiesSummary(passengerCount) {
+            const ids = getSelectedCustomActivityIds();
+            const listEl = document.getElementById('selected-activities-list');
+            const containerEl = document.getElementById('selected-activities-container');
+            const hiddenContainerEl = document.getElementById('hidden-inputs-container');
+
+            if (!listEl || !containerEl || !hiddenContainerEl) return 0;
+
+            listEl.innerHTML = '';
+            hiddenContainerEl.innerHTML = '';
+
+            let extraTotal = 0;
+
+            if (ids.length === 0) {
+                containerEl.style.display = 'none';
+                return 0;
+            }
+
+            containerEl.style.display = 'block';
+            ids.forEach(id => {
+                const name = customTourNames[id] || ('Activity #' + id);
+                const price = customTourPrices[id] || 0;
+                extraTotal += price * passengerCount;
+
+                const li = document.createElement('li');
+                li.style.display = 'flex';
+                li.style.justifyContent = 'space-between';
+                li.style.alignItems = 'center';
+                li.style.marginBottom = '6px';
+                li.innerHTML = `
+                    <span>• ${name} (+$${price.toFixed(2)} pp)</span>
+                    <button type="button" onclick="removeCustomActivity('${id}')" style="background:none; border:none; color:#ff4d4d; font-size:0.8rem; cursor:pointer; font-weight:600; padding:0; margin-left:10px;">Remove</button>
+                `;
+                listEl.appendChild(li);
+
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'optionalTours[]';
+                hiddenInput.value = id;
+                hiddenContainerEl.appendChild(hiddenInput);
+            });
+
+            return extraTotal;
+        }
+
         function calculateTotal(event) {
             if (event) event.preventDefault();
 
@@ -522,14 +600,7 @@ button:hover {
             const basePricePerPassenger = 1000; // $1,000 USD per person
             const basePrice = basePricePerPassenger * passengerCount;
 
-            const tourCheckboxes = document.querySelectorAll('.tour');
-            let extraToursTotal = 0;
-            tourCheckboxes.forEach(cb => {
-                if (cb.checked) {
-                    const price = parseFloat(cb.dataset.price) || 0;
-                    extraToursTotal += price * passengerCount;
-                }
-            });
+            const extraToursTotal = updateCustomActivitiesSummary(passengerCount);
 
             const subtotal = basePrice + extraToursTotal;
             const payOnArrival = subtotal / 2;
@@ -541,12 +612,10 @@ button:hover {
         }
 
         // ========== Event Listeners ==========
-        // Auto-calculate end date when days or start date changes (both 'change' and 'input' events)
         document.getElementById('tripDays').addEventListener('change', calculateEndDate);
         document.getElementById('start_date').addEventListener('change', calculateEndDate);
         document.getElementById('start_date').addEventListener('input', calculateEndDate);
 
-        // Auto-populate rooms and recalculate price when adults/children change
         document.getElementById('numAdults').addEventListener('change', function() {
             updateRoomOptions();
             calculateTotal(null);
@@ -556,38 +625,10 @@ button:hover {
             calculateTotal(null);
         });
 
-        // Recalculate price when optional tours change
-        document.querySelectorAll('.tour').forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                calculateTotal(null);
-                saveSelectedActivities();
-            });
-        });
-
-        function saveSelectedActivities() {
-            const selectedIds = [];
-            document.querySelectorAll('.tour:checked').forEach(cb => selectedIds.push(cb.value));
-            localStorage.setItem('selected_custom_activities', JSON.stringify(selectedIds));
-        }
-
-        function restoreSelectedActivities() {
-            try {
-                const saved = JSON.parse(localStorage.getItem('selected_custom_activities') || '[]');
-                if (!Array.isArray(saved)) return;
-                document.querySelectorAll('.tour').forEach(cb => {
-                    cb.checked = saved.includes(cb.value);
-                });
-            } catch (err) {
-                console.warn('Unable to restore selected activities:', err);
-            }
-        }
-
         // ========== Initialize on Page Load ==========
         window.onload = function () {
-            // Ensure minimum 2 adults on load
             const adultsEl = document.getElementById('numAdults');
             if (parseInt(adultsEl.value) < 2) adultsEl.value = 2;
-            restoreSelectedActivities();
             updateRoomOptions();
             calculateTotal(null);
         };

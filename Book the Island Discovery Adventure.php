@@ -3,6 +3,12 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 
+$con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
+if (!$con) {
+    die("Couldn't connect to server: " . mysqli_connect_error());
+}
+mysqli_set_charset($con, 'utf8mb4');
+
 $packageDestinations = [
     'Habarana',
     'Sigiriya',
@@ -17,6 +23,19 @@ $packageDestinations = [
 $basePricePerPerson = 700.0;
 $basePriceDisplay = $basePricePerPerson * 2; // displayed for 2 persons
 $customActivitiesLink = 'custom_activities.php?locations=' . urlencode(implode(',', $packageDestinations)) . '&return_url=' . urlencode(basename($_SERVER['PHP_SELF'])) . '&base_price=' . $basePriceDisplay;
+
+$customTours = [];
+$customTourPrices = [];
+$customTourNames = [];
+
+$customToursResult = mysqli_query($con, "SELECT id, activity, category, location, description, foreign_adult_usd FROM custom_tours ORDER BY category, activity");
+if ($customToursResult) {
+    while ($row = mysqli_fetch_assoc($customToursResult)) {
+        $customTours[] = $row;
+        $customTourPrices[intval($row['id'])] = floatval($row['foreign_adult_usd']);
+        $customTourNames[intval($row['id'])] = $row['activity'];
+    }
+}
 
 if (isset($_POST["submit2"])) {
     $con = mysqli_connect("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
@@ -47,11 +66,17 @@ if (isset($_POST["submit2"])) {
         $base_price = $base_price_per_person * $passengerInput;
 
         $extras = 0.0;
-        foreach ($optionalToursArr as $tour) {
-            if ($tour === "Colombo Street Food Tour") $extras += 95 * $passengerInput;
-            if ($tour === "Safari Yala National Park") $extras += 135 * $passengerInput;
-            if ($tour === "Colombo City by Tuk Tuk") $extras += 96 * $passengerInput;
+        $optionalNames = [];
+        if (!empty($optionalToursArr) && is_array($optionalToursArr)) {
+            foreach ($optionalToursArr as $tourId) {
+                $tourId = intval($tourId);
+                if (isset($customTourPrices[$tourId])) {
+                    $extras += $customTourPrices[$tourId] * $passengerInput;
+                    $optionalNames[] = $customTourNames[$tourId];
+                }
+            }
         }
+        $optionalToursStr = mysqli_real_escape_string($con, implode(", ", $optionalNames));
 
         $total = $base_price + $extras;
         $arrival_payment = $total / 2.0;
@@ -360,9 +385,14 @@ button:hover {
             <div class="totals">
                 <h2>Order Summary</h2>
                 <p><strong>Base Price:</strong> $<span id="base_price">0.00</span></p>
+                <div id="selected-activities-container" style="display:none; margin: 15px 0; padding: 12px; background: rgba(50, 130, 184, 0.08); border-radius: 8px; text-align: left;">
+                    <h5 style="font-size: 0.95rem; color: #0b3c5d; margin-top: 0; margin-bottom: 8px; font-weight: 600;">Selected Custom Activities:</h5>
+                    <ul id="selected-activities-list" style="list-style: none; padding-left: 0; margin-bottom: 0; font-size: 0.88rem; color: #333; line-height: 1.5;"></ul>
+                </div>
                 <p><strong>Extras:</strong> $<span id="extras">0.00</span></p>
                 <p><strong>Total:</strong> $<span id="total">0.00</span></p>
                 <p><strong>Pay on Arrival:</strong> $<span id="arrival_payment">0.00</span></p>
+                <div id="hidden-inputs-container"></div>
             </div>
 
             <div class="section">
@@ -441,9 +471,82 @@ button:hover {
         document.getElementById('start_date').addEventListener('change', calculateEndDate);
         document.getElementById('start_date').addEventListener('input', calculateEndDate);
 
-        // Calculate and update pricing summary
+        // ========== Calculate and update pricing summary ==========
+        const customToursData = <?php echo json_encode($customTours); ?>;
+        const customTourPrices = {};
+        const customTourNames = {};
+        customToursData.forEach(t => {
+            customTourPrices[t.id] = parseFloat(t.foreign_adult_usd) || 0;
+            customTourNames[t.id] = t.activity;
+        });
+
+        function getSelectedCustomActivityIds() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('added_custom_activities') || '[]');
+                return Array.isArray(saved) ? saved.map(String) : [];
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function saveSelectedCustomActivityIds(ids) {
+            localStorage.setItem('added_custom_activities', JSON.stringify(ids));
+        }
+
+        function removeCustomActivity(id) {
+            let ids = getSelectedCustomActivityIds();
+            ids = ids.filter(i => i !== String(id));
+            saveSelectedCustomActivityIds(ids);
+            calculateTotal(new Event('remove'));
+        }
+
+        function updateCustomActivitiesSummary(passengerCount) {
+            const ids = getSelectedCustomActivityIds();
+            const listEl = document.getElementById('selected-activities-list');
+            const containerEl = document.getElementById('selected-activities-container');
+            const hiddenContainerEl = document.getElementById('hidden-inputs-container');
+
+            if (!listEl || !containerEl || !hiddenContainerEl) return 0;
+
+            listEl.innerHTML = '';
+            hiddenContainerEl.innerHTML = '';
+
+            let extraTotal = 0;
+
+            if (ids.length === 0) {
+                containerEl.style.display = 'none';
+                return 0;
+            }
+
+            containerEl.style.display = 'block';
+            ids.forEach(id => {
+                const name = customTourNames[id] || ('Activity #' + id);
+                const price = customTourPrices[id] || 0;
+                extraTotal += price * passengerCount;
+
+                const li = document.createElement('li');
+                li.style.display = 'flex';
+                li.style.justifyContent = 'space-between';
+                li.style.alignItems = 'center';
+                li.style.marginBottom = '6px';
+                li.innerHTML = `
+                    <span>• ${name} (+$${price.toFixed(2)} pp)</span>
+                    <button type="button" onclick="removeCustomActivity('${id}')" style="background:none; border:none; color:#ff4d4d; font-size:0.8rem; cursor:pointer; font-weight:600; padding:0; margin-left:10px;">Remove</button>
+                `;
+                listEl.appendChild(li);
+
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'optionalTours[]';
+                hiddenInput.value = id;
+                hiddenContainerEl.appendChild(hiddenInput);
+            });
+
+            return extraTotal;
+        }
+
         function calculateTotal(event) {
-            event.preventDefault();
+            if (event && event.preventDefault) event.preventDefault();
 
             let passengerCount = parseInt(document.getElementById('passengerInput').value) || 0;
             if (passengerCount < 2) {
@@ -454,15 +557,7 @@ button:hover {
             const basePricePerPassenger = 700; // $700 USD per person
             const basePrice = basePricePerPassenger * passengerCount;
 
-            const tourCheckboxes = document.querySelectorAll('.tour');
-            let extraToursTotal = 0;
-            tourCheckboxes.forEach(cb => {
-                if (cb.checked) {
-                    if (cb.value === "Colombo Street Food Tour") extraToursTotal += 95 * passengerCount;
-                    else if (cb.value === "Safari Yala National Park") extraToursTotal += 135 * passengerCount;
-                    else if (cb.value === "Colombo City by Tuk Tuk") extraToursTotal += 96 * passengerCount;
-                }
-            });
+            const extraToursTotal = updateCustomActivitiesSummary(passengerCount);
 
             const subtotal = basePrice + extraToursTotal;
             const payOnArrival = subtotal / 2;

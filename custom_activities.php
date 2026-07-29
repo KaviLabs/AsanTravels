@@ -324,7 +324,7 @@ if ($activityResults) {
                 saveAddedActivities();
             }
             // Redirect back to the booking/package page
-            window.location.href = '<?= htmlspecialchars($returnUrl) ?>';
+            window.location.href = <?= json_encode($returnUrl) ?>;
         });
 
         restoreAddedActivities();
