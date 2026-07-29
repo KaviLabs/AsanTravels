@@ -320,11 +320,10 @@ if (isset($_POST["submit4"])) {
         }
         .hp-about-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            transform: translate(-50%, -50%);
             object-fit: cover;
             opacity: 0.95;
             z-index: 0;
@@ -928,98 +927,97 @@ if (isset($_POST["submit4"])) {
     </section>
     <!-- About End -->
 
-    <!-- ════════════════════════════════════════════
-         3. DESTINATIONS
-    ════════════════════════════════════════════ -->
-    <section class="hp-destinations" id="destinations" aria-labelledby="dest-heading">
-        <div class="container">
-            <div class="text-center mb-5 reveal">
-                <span class="section-eyebrow-hp">Explore Sri Lanka</span>
-                <h2 class="section-heading-hp" id="dest-heading">Popular <span>Destinations</span></h2>
-                <p class="section-sub-hp">From golden beaches to ancient ruins — discover the iconic places that make Sri Lanka unforgettable.</p>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-xl-8 reveal reveal-delay-1">
-                    <div class="row g-4">
-                        <div class="col-lg-6">
-                            <div class="destination-img">
-                                <img class="img-fluid rounded w-100" src="img/destination-1.jpg" alt="Southern Coast Sri Lanka" loading="lazy">
-                                <div class="destination-overlay p-4">
-                                    <a href="Southern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
-                                    <h4 class="text-white mb-2 mt-3">Southern Coast</h4>
-                                    <a href="Southern_Coast.php" class="btn-hover text-white">View All Places <i class="fa fa-arrow-right ms-2"></i></a>
+        <!-- Destination Start -->
+        <div class="container-fluid destination py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center mb-5" style="max-width: 1100px;">
+                    <h5 class="section-title px-3">Destination</h5>
+                    <h1 class="mb-0">Popular Destination in Sri Lanka</h1>
+                </div>
+                <div class="tab-class text-center">
+                    <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+                    
+                       
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="row g-4">
+                                <div class="col-xl-8">
+                                    <div class="row g-4">
+                                        <div class="col-lg-6">
+                                            <div class="destination-img">
+                                                <img class="img-fluid rounded w-100" src="img/destination-1.jpg" alt="">
+                                                <div class="destination-overlay p-4">
+                                                    <a href="Southern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                                                    <h4 class="text-white mb-2 mt-3">Southern Coast</h4>
+                                                    <a href="Southern_Coast.php" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                                </div>
+                                                <div class="search-icon">
+                                                    <a href="img/destination-1.jpg" data-lightbox="destination-1"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="destination-img">
+                                                <img class="img-fluid rounded w-100" src="img/destination-2.jpg" alt="">
+                                                <div class="destination-overlay p-4">
+                                                    <a href="Eastern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                                                    <h4 class="text-white mb-2 mt-3">Eastern Coast</h4>
+                                                    <a href="Eastern_Coast.php" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                                </div>
+                                                <div class="search-icon">
+                                                    <a href="img/destination-2.jpg" data-lightbox="destination-2"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="destination-img">
+                                                <img class="img-fluid rounded w-100" src="img/destination-7.jpg" alt="">
+                                                <div class="destination-overlay p-4">
+                                                    <a href="Northern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                                                    <h4 class="text-white mb-2 mt-3">Northern Coast</h4>
+                                                    <a href="Northern_Coast.php" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                                </div>
+                                                <div class="search-icon">
+                                                    <a href="img/destination-7.jpg" data-lightbox="destination-7"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="destination-img">
+                                                <img class="img-fluid rounded w-100 h-50" src="img/destination-8.jpg" alt="">
+                                                <div class="destination-overlay p-4">
+                                                    <a href="Western_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                                                    <h4 class="text-white mb-2 mt-3">Western Coast</h4>
+                                                    <a href="Western_Coast.php" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                                </div>
+                                                <div class="search-icon">
+                                                    <a href="img/destination-8.jpg" data-lightbox="destination-8"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="search-icon">
-                                    <a href="img/destination-1.jpg" data-lightbox="destination-1"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="destination-img">
-                                <img class="img-fluid rounded w-100" src="img/destination-2.jpg" alt="Eastern Coast Sri Lanka" loading="lazy">
-                                <div class="destination-overlay p-4">
-                                    <a href="Eastern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
-                                    <h4 class="text-white mb-2 mt-3">Eastern Coast</h4>
-                                    <a href="Eastern_Coast.php" class="btn-hover text-white">View All Places <i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                                <div class="search-icon">
-                                    <a href="img/destination-2.jpg" data-lightbox="destination-2"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="destination-img">
-                                <img class="img-fluid rounded w-100" src="img/destination-7.jpg" alt="Northern Coast Sri Lanka" loading="lazy">
-                                <div class="destination-overlay p-4">
-                                    <a href="Northern_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
-                                    <h4 class="text-white mb-2 mt-3">Northern Coast</h4>
-                                    <a href="Northern_Coast.php" class="btn-hover text-white">View All Places <i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                                <div class="search-icon">
-                                    <a href="img/destination-7.jpg" data-lightbox="destination-7"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="destination-img">
-                                <img class="img-fluid rounded w-100" src="img/destination-8.jpg" alt="Western Coast Sri Lanka" loading="lazy">
-                                <div class="destination-overlay p-4">
-                                    <a href="Western_Coast.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
-                                    <h4 class="text-white mb-2 mt-3">Western Coast</h4>
-                                    <a href="Western_Coast.php" class="btn-hover text-white">View All Places <i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                                <div class="search-icon">
-                                    <a href="img/destination-8.jpg" data-lightbox="destination-8"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                <div class="col-xl-4">
+                                    <div class="destination-img h-100">
+                                        <img class="img-fluid rounded w-100 h-100" src="img/destination-9.jpg" style="object-fit: cover; min-height: 300px;" alt="">
+                                        <div class="destination-overlay p-4">
+                                            <a href="Lanka's_Wild_Kingdom.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                                            <h4 class="text-white mb-2 mt-3"> Lanka's Wild Kingdom</h4>
+                                            <a href="Lanka's_Wild_Kingdom.php" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                        <div class="search-icon">
+                                            <a href="img/destination-9.jpg" data-lightbox="destination-4"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 reveal reveal-delay-2">
-                    <div class="destination-img h-100">
-                        <img class="img-fluid rounded w-100 h-100" src="img/destination-9.jpg" style="object-fit:cover;min-height:300px;" alt="Lanka's Wild Kingdom" loading="lazy">
-                        <div class="destination-overlay p-4">
-                            <a href="Lanka's_Wild_Kingdom.php" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
-                            <h4 class="text-white mb-2 mt-3">Lanka's Wild Kingdom</h4>
-                            <a href="Lanka's_Wild_Kingdom.php" class="btn-hover text-white">View All Places <i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                        <div class="search-icon">
-                            <a href="img/destination-9.jpg" data-lightbox="destination-4"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="text-center mt-5 reveal">
-                <a href="Custom_Packages.html" class="btn-gold-hp">
-                    <i class="fas fa-map-marked-alt"></i> See All Destinations
-                </a>
             </div>
         </div>
-    </section>
-    <!-- Destinations End -->
+        <!-- Destination End -->
 
     <!-- ════════════════════════════════════════════
          4. REVIEWS — GLASSMORPHISM CAROUSEL
