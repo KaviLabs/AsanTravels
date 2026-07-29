@@ -509,6 +509,84 @@ if (isset($_POST["submit4"])) {
         }
         .testimonial-item .fa-star { color: #C9A84C !important; }
 
+        /* Testimonial Carousel custom premium navigation & dots */
+        .testimonial-carousel {
+            position: relative;
+        }
+        .testimonial-carousel .owl-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .testimonial-carousel .owl-nav button.owl-prev,
+        .testimonial-carousel .owl-nav button.owl-next {
+            width: 45px;
+            height: 45px;
+            background: rgba(201, 168, 76, 0.15) !important;
+            border: 1px solid rgba(201, 168, 76, 0.4) !important;
+            border-radius: 50% !important;
+            color: #C9A84C !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .testimonial-carousel .owl-nav button.owl-prev:hover,
+        .testimonial-carousel .owl-nav button.owl-next:hover {
+            background: #C9A84C !important;
+            color: #07090F !important;
+            transform: scale(1.1);
+        }
+        .testimonial-carousel .owl-nav button.owl-prev i,
+        .testimonial-carousel .owl-nav button.owl-next i {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .testimonial-carousel .owl-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+        .testimonial-carousel .owl-dots .owl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2) !important;
+            transition: all 0.3s ease;
+            border: none !important;
+            padding: 0 !important;
+        }
+        .testimonial-carousel .owl-dots .owl-dot.active {
+            background: #C9A84C !important;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(201,168,76,0.5);
+        }
+        
+        @media (min-width: 992px) {
+            .testimonial-carousel .owl-nav {
+                left: -60px;
+                width: calc(100% + 120px);
+            }
+        }
+        @media (max-width: 991px) {
+            .testimonial-carousel .owl-nav {
+                position: static;
+                transform: none;
+                margin-top: 20px;
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+
         /* ════════════════════════════════════════════
            5. SUBMIT REVIEW — PREMIUM FORM
         ════════════════════════════════════════════ */
@@ -1057,7 +1135,7 @@ if (isset($_POST["submit4"])) {
                                  style="width:100px;height:100px;object-fit:cover;"
                                  alt="Client Image" loading="lazy">
                         </div>
-                        <div style="margin-top:-30px;">
+                        <div class="mt-3">
                             <h5 class="mb-1 text-dark"><?php echo htmlspecialchars($row['name']); ?></h5>
                             <p class="mb-2 text-muted small"><?php echo htmlspecialchars($row['email']); ?></p>
                             <div class="d-flex justify-content-center">
