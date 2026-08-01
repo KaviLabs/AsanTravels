@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Home Page -->
+    <url>
+        <loc>https://www.asantravels.lk/</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/index1.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Main Pages -->
+    <url>
+        <loc>https://www.asantravels.lk/about.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/packages.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Custom_Packages.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/contact.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/destination.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/tour.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Package Details -->
+    <url>
+        <loc>https://www.asantravels.lk/Cultural%20Gems%20&amp;%20Wildlife%20Wonders.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Heritage%20&amp;%20Nature%20Escape.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Island%20Discovery%20Adventure.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Scenic%20Sri%20Lanka%20Explorer.html</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Destination Categories -->
+    <url>
+        <loc>https://www.asantravels.lk/Northern_Coast.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Southern_Coast.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Eastern_Coast.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Western_Coast.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.asantravels.lk/Lanka's_Wild_Kingdom.php</loc>
+        <lastmod>2026-08-01</lastmod>
+        <priority>0.7</priority>
+    </url>
+</urlset>
