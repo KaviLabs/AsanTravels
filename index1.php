@@ -41,6 +41,10 @@ if (isset($_POST["submit4"])) {
     <meta name="description" content="Discover Sri Lanka with AsanTravels. Expert local guide, 10+ years experience, 700+ tours. Custom itineraries, beaches, heritage, wildlife & hill country.">
     <meta name="keywords" content="Sri Lanka tours, AsanTravels, Sri Lanka travel, custom Sri Lanka holidays">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Bulletproof Favicon for Google Search Results -->
+    <link rel="icon" href="/favicon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="/favicon.jpg">
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="TVilrN0ZeWiJ5IhRmLe8WxqbzKejbDQppKaR-Of_NWg" />
 
