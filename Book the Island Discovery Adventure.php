@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Disable error display in production
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -352,12 +352,10 @@ button:hover {
             <div class="section"><br>
                 <h2 class="bdate">Book Your Date</h2>
                 <label for="tripDays">Number of Days:</label>
-                <select id="tripDays" name="tripDays" required>
-                    <option value="">Select number of days</option>
-                    <?php for($i=1;$i<=14;$i++): ?>
-                    <option value="<?php echo $i; ?>" <?php echo ($i==5)?'selected':''; ?>><?php echo $i; ?> Day(s)</option>
-                    <?php endfor; ?>
+                <select id="tripDays" disabled style="background-color: #e9ecef; cursor: not-allowed;">
+                    <option value="5" selected>5 Day(s)</option>
                 </select>
+                <input type="hidden" name="tripDays" value="5">
                 <label for="start_date">Start Date:</label>
                 <input type="date" id="start_date" name="start_date" required />
                 <label for="end_date">End Date:</label>
@@ -606,11 +604,71 @@ button:hover {
             });
         }
 
+        // ===== FORM STATE PERSISTENCE (localStorage) =====
+        const STORAGE_KEY = 'asan_booking_island_discovery';
+
+        function saveFormState() {
+            const state = {
+                start_date: document.getElementById('start_date').value,
+                end_date:   document.getElementById('end_date').value,
+                passengers: document.getElementById('passengerInput').value,
+                room:       document.getElementById('roomOptions').value,
+                name:       document.getElementById('name').value,
+                email:      document.getElementById('email').value,
+                message:    document.getElementById('message').value,
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function restoreFormState() {
+            try {
+                const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+                if (!state) return false;
+
+                const passengers = parseInt(state.passengers) || 2;
+                document.getElementById('passengerInput').value = passengers;
+                updateRoomOptions(passengers);
+
+                if (state.start_date) document.getElementById('start_date').value = state.start_date;
+                if (state.end_date)   document.getElementById('end_date').value   = state.end_date;
+
+                // Restore room selection after options are populated
+                if (state.room) {
+                    const roomSel = document.getElementById('roomOptions');
+                    for (let opt of roomSel.options) {
+                        if (opt.value === state.room) { opt.selected = true; break; }
+                    }
+                }
+
+                if (state.name)    document.getElementById('name').value    = state.name;
+                if (state.email)   document.getElementById('email').value   = state.email;
+                if (state.message) document.getElementById('message').value = state.message;
+
+                return true;
+            } catch(e) { return false; }
+        }
+
+        // Save state whenever the Customize Your Package link is clicked
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[href*="custom_activities.php"]');
+            if (link) saveFormState();
+        });
+
+        // Also auto-save on any form field change
+        ['start_date','end_date','passengerInput','roomOptions','name','email','message'].forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('change', saveFormState);
+        });
+
         // Initialize on page load
         window.onload = function () {
-            passengerInput.value = 2;
-            updateRoomOptions(2);
-            calculateTotal(new Event('init')); // Calculate initial price
+            const restored = restoreFormState();
+            if (!restored) {
+                // Fresh load defaults
+                passengerInput.value = 2;
+                updateRoomOptions(2);
+            }
+            calculateTotal(new Event('init'));
         };
     </script>
 

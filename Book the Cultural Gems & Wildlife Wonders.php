@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Disable error display in production
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -348,23 +348,10 @@ button:hover {
             <div class="section"><br>
                 <h2 class="bdate">Book Your Date</h2>
                 <label for="tripDays">Number of Days:</label>
-                <select id="tripDays" name="tripDays" required>
-                    <option value="">Select number of days</option>
-                    <option value="1">1 Day</option>
-                    <option value="2">2 Days</option>
-                    <option value="3">3 Days</option>
-                    <option value="4">4 Days</option>
-                    <option value="5">5 Days</option>
-                    <option value="6">6 Days</option>
-                    <option value="7">7 Days</option>
-                    <option value="8">8 Days</option>
-                    <option value="9">9 Days</option>
-                    <option value="10">10 Days</option>
-                    <option value="11">11 Days</option>
-                    <option value="12">12 Days</option>
-                    <option value="13">13 Days</option>
-                    <option value="14">14 Days</option>
+                <select id="tripDays" disabled style="background-color: #e9ecef; cursor: not-allowed;">
+                    <option value="10" selected>10 Day(s)</option>
                 </select>
+                <input type="hidden" name="tripDays" value="10">
                 <label for="start_date">Start Date:</label>
                 <input type="date" id="start_date" name="start_date" required />
                 <label for="end_date">End Date:</label>
@@ -625,11 +612,68 @@ button:hover {
             calculateTotal(null);
         });
 
+        // ===== FORM STATE PERSISTENCE (localStorage) =====
+        const STORAGE_KEY = 'asan_booking_cultural_gems';
+
+        function saveFormState() {
+            const state = {
+                start_date: document.getElementById('start_date').value,
+                end_date:   document.getElementById('end_date').value,
+                numAdults:  document.getElementById('numAdults').value,
+                room:       document.getElementById('roomOptions').value,
+                name:       document.getElementById('name').value,
+                email:      document.getElementById('email').value,
+                message:    document.getElementById('message').value,
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function restoreFormState() {
+            try {
+                const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+                if (!state) return false;
+
+                const adults = parseInt(state.numAdults) || 2;
+                const adultsEl = document.getElementById('numAdults');
+                if (adultsEl) adultsEl.value = adults;
+                updateRoomOptions();
+
+                if (state.start_date) document.getElementById('start_date').value = state.start_date;
+                if (state.end_date)   document.getElementById('end_date').value   = state.end_date;
+
+                if (state.room) {
+                    const roomSel = document.getElementById('roomOptions');
+                    for (let opt of roomSel.options) {
+                        if (opt.value === state.room) { opt.selected = true; break; }
+                    }
+                }
+
+                if (state.name)    document.getElementById('name').value    = state.name;
+                if (state.email)   document.getElementById('email').value   = state.email;
+                if (state.message) document.getElementById('message').value = state.message;
+
+                return true;
+            } catch(e) { return false; }
+        }
+
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[href*="custom_activities.php"]');
+            if (link) saveFormState();
+        });
+
+        ['start_date','end_date','numAdults','roomOptions','name','email','message'].forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('change', saveFormState);
+        });
+
         // ========== Initialize on Page Load ==========
         window.onload = function () {
-            const adultsEl = document.getElementById('numAdults');
-            if (parseInt(adultsEl.value) < 2) adultsEl.value = 2;
-            updateRoomOptions();
+            const restored = restoreFormState();
+            if (!restored) {
+                const adultsEl = document.getElementById('numAdults');
+                if (parseInt(adultsEl.value) < 2) adultsEl.value = 2;
+                updateRoomOptions();
+            }
             calculateTotal(null);
         };
     </script>
