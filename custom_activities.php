@@ -96,11 +96,10 @@ if ($activityResults) {
     <div class="container">
         <div class="hero">
             <h1>Customize Your Activities</h1>
-            <p>Select extra experiences from our live activity catalogue and see the total package update automatically. Your chosen activities stay visible before booking, and prices always reflect the latest admin-managed data.</p>
         </div>
 
         <div class="note">
-            <strong>Note:</strong> Changes made in the Admin Panel to activities and prices are reflected here immediately.
+            <strong>Note:</strong>
             <?php if (!empty($allowedLocations)): ?>
                 <br>Only activities for: <strong><?= htmlspecialchars(implode(', ', $allowedLocations)) ?></strong> are shown.
             <?php endif; ?>
