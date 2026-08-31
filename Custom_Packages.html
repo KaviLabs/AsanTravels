@@ -1715,8 +1715,9 @@
                 gestureHandling: false,
             });
 
-            // Fetch CARTO key from secure PHP endpoint (key never stored in this file)
-            fetch('/Asantravel project/AsanTravels/get_map_config.php')
+            // Fetch CARTO key from secure PHP endpoint — dynamic URL works on localhost + live server
+            var _mapDir = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
+            fetch(_mapDir + 'get_map_config.php')
                 .then(function(r) { return r.json(); })
                 .then(function(cfg) {
                     L.tileLayer(
