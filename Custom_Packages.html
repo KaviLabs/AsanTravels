@@ -492,11 +492,7 @@
             background: #07090F !important;
         }
 
-        /* Apply dark mode filter to standard light map tiles to match Carto Dark Matter */
-        .leaflet-tile-pane {
-            filter: grayscale(100%) invert(100%) brightness(35%) contrast(130%);
-            opacity: 0.85;
-        }
+
 
         /* Ensure Leaflet panes allow popups to overflow map bounds without clipping */
         .leaflet-pane,
@@ -1594,6 +1590,7 @@
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="js/main.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/protomaps-leaflet@5.0.0/dist/protomaps-leaflet.min.js"></script>
 
     <script>
         /* ══════════════════════════════════════════
@@ -1721,10 +1718,12 @@
                 gestureHandling: false,
             });
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 19,
-            }).addTo(sltMap);
+            var layer = protomapsL.leafletLayer({
+                url: 'https://build.protomaps.com/20260830.pmtiles',
+                flavor: 'dark',
+                lang: 'en'
+            });
+            layer.addTo(sltMap);
 
             // Auto-fit Sri Lanka island into the visible map area with padding
             const fitPad = isMobileViewport() ? [30, 20] : [40, 40];
