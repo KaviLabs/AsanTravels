@@ -1,6 +1,12 @@
 RewriteEngine On
 RewriteBase /
 
+# Process Custom_Packages.html as PHP (so config.php API key injection works)
+<Files "Custom_Packages.html">
+    SetHandler application/x-httpd-php
+</Files>
+
+
 # Force HTTPS for all traffic (Handles Cloudflare & Reverse Proxies)
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} off
