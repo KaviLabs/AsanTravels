@@ -492,9 +492,10 @@
             background: #07090F !important;
         }
 
-        /* Apply dark mode filter to standard light map tiles */
+        /* Apply dark mode filter to standard light map tiles to match Carto Dark Matter */
         .leaflet-tile-pane {
-            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+            filter: grayscale(100%) invert(100%) brightness(35%) contrast(130%);
+            opacity: 0.85;
         }
 
         /* Ensure Leaflet panes allow popups to overflow map bounds without clipping */
