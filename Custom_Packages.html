@@ -1,4 +1,3 @@
-<?php require_once __DIR__ . '/config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1716,11 +1715,19 @@
                 gestureHandling: false,
             });
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=<?php echo CARTO_API_KEY; ?>', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 19,
-            }).addTo(sltMap);
+            // Fetch CARTO key from secure PHP endpoint (key never stored in this file)
+            fetch('get_map_config.php')
+                .then(function(r) { return r.json(); })
+                .then(function(cfg) {
+                    L.tileLayer(
+                        'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=' + cfg.cartoKey,
+                        {
+                            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+                            subdomains: 'abcd',
+                            maxZoom: 19,
+                        }
+                    ).addTo(sltMap);
+                });
 
             // Auto-fit Sri Lanka island into the visible map area with padding
             const fitPad = isMobileViewport() ? [30, 20] : [40, 40];
