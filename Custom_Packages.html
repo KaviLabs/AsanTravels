@@ -1716,7 +1716,7 @@
             });
 
             // Fetch CARTO key from secure PHP endpoint (key never stored in this file)
-            fetch('get_map_config.php')
+            fetch('/Asantravel project/AsanTravels/get_map_config.php')
                 .then(function(r) { return r.json(); })
                 .then(function(cfg) {
                     L.tileLayer(
@@ -1727,7 +1727,8 @@
                             maxZoom: 19,
                         }
                     ).addTo(sltMap);
-                });
+                })
+                .catch(function(e) { console.error('Map config fetch failed:', e); });
 
             // Auto-fit Sri Lanka island into the visible map area with padding
             const fitPad = isMobileViewport() ? [30, 20] : [40, 40];
