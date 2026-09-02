@@ -1588,7 +1588,7 @@
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="js/main.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/protomaps-leaflet@5.0.0/dist/protomaps-leaflet.min.js"></script>
+    <script src="js/map-keys.js"></script>
 
     <script>
         /* ══════════════════════════════════════════
@@ -1715,13 +1715,14 @@
                 /* ── Prevent page scroll from fighting the map on touch ─── */
                 gestureHandling: false,
             });
-
-            var layer = protomapsL.leafletLayer({
-                url: 'https://build.protomaps.com/20260830.pmtiles',
-                flavor: 'dark',
-                lang: 'en'
-            });
-            layer.addTo(sltMap);
+            L.tileLayer(
+                'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=' + (window.CARTO_API_KEY || ''),
+                {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+                    subdomains: 'abcd',
+                    maxZoom: 19,
+                }
+            ).addTo(sltMap);
 
             // Auto-fit Sri Lanka island into the visible map area with padding
             const fitPad = isMobileViewport() ? [30, 20] : [40, 40];

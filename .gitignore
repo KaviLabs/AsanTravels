@@ -21,3 +21,4 @@ AI_PLANNER_GUIDE.md
 
 # === Secret keys / Environment config (NEVER commit) ===
 config.php
+js/map-keys.js
