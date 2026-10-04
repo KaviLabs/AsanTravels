@@ -334,9 +334,18 @@ function notifyBookingUpdate($bookingId, $conn, $notifyAdmin = true) {
         $apiResult = sendWhatsAppApiMessage($customerPhone, $messageText);
     }
 
-    // Send alert to all admin WhatsApp numbers via API as well
+    // ── Date-aware admin numbers ───────────────────────────────────────────
+    // +94773445176 blocked by Green API free quota until Nov 1, 2026.
+    // From November 1st onwards it is added AUTOMATICALLY — no manual changes needed.
     if ($notifyAdmin && WHATSAPP_PROVIDER !== 'none') {
         $adminNumbers = is_array(ADMIN_WHATSAPP_NUMBERS) ? ADMIN_WHATSAPP_NUMBERS : [ADMIN_WHATSAPP_NUMBER];
+
+        // Automatically add +94773445176 from November 1, 2026 onwards
+        $secondNumber = '+94773445176';
+        if (time() >= mktime(0, 0, 0, 11, 1, 2026) && !in_array($secondNumber, $adminNumbers)) {
+            $adminNumbers[] = $secondNumber;
+        }
+
         foreach ($adminNumbers as $adminNum) {
             if (!empty($adminNum)) {
                 sendWhatsAppApiMessage($adminNum, "🚨 *ADMIN NOTIFICATION*\nBooking #$bookingId was updated in DB!\n\n" . $messageText);
