@@ -100,7 +100,12 @@ if (isset($_POST["submit2"])) {
              '$base_price', '$extras', '$total', '$arrival_payment', '$name', '$email', '$message')";
 
             if (mysqli_query($con, $query)) {
-                mysqli_close($con);
+                        $booking_id = mysqli_insert_id($con);
+        if (file_exists(__DIR__ . '/whatsapp_helper.php')) {
+            require_once __DIR__ . '/whatsapp_helper.php';
+            notifyBookingUpdate($booking_id, $con);
+        }
+        mysqli_close($con);
                 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
                 $_SESSION['user_name'] = $name;
                 header('Location: thank_you-booking.php?name=' . urlencode($name));
