@@ -17,6 +17,7 @@ $columns_to_add = [
     'package_name' => "VARCHAR(500) DEFAULT ''",
     'num_adults'   => "INT DEFAULT 0",
     'num_children' => "INT DEFAULT 0",
+    'phone'        => "VARCHAR(50) DEFAULT ''",
     'booking_date' => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
 ];
 foreach ($columns_to_add as $col => $definition) {
@@ -35,6 +36,7 @@ $end_date       = isset($_POST['end_date'])       ? trim($_POST['end_date'])    
 $room_option    = isset($_POST['room_option'])    ? trim($_POST['room_option'])       : '';
 $name           = isset($_POST['name'])           ? trim($_POST['name'])              : '';
 $email          = isset($_POST['email'])          ? trim($_POST['email'])             : '';
+$phone          = isset($_POST['phone'])          ? trim($_POST['phone'])             : '';
 $special_request= isset($_POST['special_request'])? trim($_POST['special_request'])  : '';
 $package_name   = isset($_POST['package_name'])  ? trim($_POST['package_name'])      : '';
 $day_plan_json  = isset($_POST['day_plan_data'])  ? $_POST['day_plan_data']           : '{}';
@@ -98,8 +100,8 @@ $stmt = $conn->prepare(
     "INSERT INTO booking 
         (Package, package_name, start_date, end_date, passengers, num_adults, num_children,
          room_option, optional_tours, base_price, extras, total, pay_on_arrival,
-         name, email, special_request, status, booking_date)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', NOW())"
+         name, email, phone, special_request, status, booking_date)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', NOW())"
 );
 
 if (!$stmt) {
@@ -111,7 +113,7 @@ $base_price = $total_cost; // activity + transport cost
 $day_plan_json_escaped = $day_plan_json; // store full JSON
 
 $stmt->bind_param(
-    'ssssiiissddddsss',
+    'ssssiiissddddssss',
     $package_name,        // Package (short)
     $package_name,        // package_name (full)
     $start_date,
@@ -127,12 +129,20 @@ $stmt->bind_param(
     $pay_on_arrival,
     $name,
     $email,
+    $phone,
     $special_request
 );
 
 if ($stmt->execute()) {
     $booking_id = $conn->insert_id;
     $stmt->close();
+    
+    // Trigger WhatsApp Notification for new booking
+    if (file_exists(__DIR__ . '/whatsapp_helper.php')) {
+        require_once __DIR__ . '/whatsapp_helper.php';
+        notifyBookingUpdate($booking_id, $conn);
+    }
+    
     $conn->close();
     echo json_encode([
         'success'    => true,

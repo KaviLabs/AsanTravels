@@ -4,6 +4,7 @@
 
 session_start();
 require_once 'security_headers.php';
+require_once 'whatsapp_helper.php';
 if (!isset($_SESSION['loggedin'])) {
     header('Location: asn_admin_loging.php');
     exit;
@@ -18,6 +19,7 @@ if ($conn->connect_error) {
 $conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS package_name VARCHAR(500) DEFAULT ''");
 $conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS num_adults INT DEFAULT 0");
 $conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS num_children INT DEFAULT 0");
+$conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS phone VARCHAR(50) DEFAULT ''");
 $conn->query("ALTER TABLE booking ADD COLUMN IF NOT EXISTS booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
 
 $statusMsg = '';
@@ -39,6 +41,7 @@ if (isset($_POST['update']) && !empty($_POST['id'])) {
     $id      = intval($_POST['id']);
     $uname   = $conn->real_escape_string(trim($_POST['name']         ?? ''));
     $uemail  = $conn->real_escape_string(trim($_POST['email']        ?? ''));
+    $uphone  = $conn->real_escape_string(trim($_POST['phone']        ?? ''));
     $ustart  = $conn->real_escape_string(trim($_POST['start_date']   ?? ''));
     $uend    = $conn->real_escape_string(trim($_POST['end_date']     ?? ''));
     $upax    = intval($_POST['passengers']    ?? 0);
@@ -52,14 +55,21 @@ if (isset($_POST['update']) && !empty($_POST['id'])) {
     $pay_arrive = round($utotal / 2, 2);
 
     $sql = "UPDATE booking SET 
-        name='$uname', email='$uemail', start_date='$ustart', end_date='$uend',
+        name='$uname', email='$uemail', phone='$uphone', start_date='$ustart', end_date='$uend',
         passengers=$upax, num_adults=$uadults, num_children=$uchild,
         room_option='$uroom', total=$utotal, pay_on_arrival=$pay_arrive,
         status='$ustatus', special_request='$ureq'
         WHERE id=$id";
 
     if ($conn->query($sql)) {
+        // Trigger WhatsApp Notification
+        $waRes = notifyBookingUpdate($id, $conn);
         $statusMsg = "✅ Booking #$id updated successfully.";
+        if ($waRes['success']) {
+            $statusMsg .= " 📱 WhatsApp API notification sent!";
+        } else if (!empty($waRes['customer_link']) && $waRes['customer_link'] !== '#') {
+            $statusMsg .= " &nbsp;📲 <a href='" . htmlspecialchars($waRes['customer_link']) . "' target='_blank' style='color:#00D4AA;font-weight:bold;text-decoration:underline;'>Click to Send WhatsApp Message to Customer</a>";
+        }
     } else {
         $statusMsg = "❌ Update failed: " . $conn->error;
         $msgType   = 'error';
@@ -78,7 +88,7 @@ $filterStatus = $conn->real_escape_string(trim($_GET['status'] ?? ''));
 $filterDate = $conn->real_escape_string(trim($_GET['date']   ?? ''));
 
 $where = "WHERE 1=1";
-if ($search)       $where .= " AND (name LIKE '%$search%' OR email LIKE '%$search%' OR Package LIKE '%$search%' OR id LIKE '%$search%')";
+if ($search)       $where .= " AND (name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' OR Package LIKE '%$search%' OR id LIKE '%$search%')";
 if ($filterStatus) $where .= " AND status = '$filterStatus'";
 if ($filterDate)   $where .= " AND DATE(start_date) = '$filterDate'";
 
@@ -439,6 +449,10 @@ $total_revenue   = array_sum(array_column($bookings, 'total'));
                 <button class="btn btn-ghost btn-sm" onclick='openEditModal(<?= json_encode($b) ?>)' title="Edit booking">
                   <span class="material-icons" style="font-size:16px;">edit</span>
                 </button>
+                <?php $waLink = generateWhatsAppClickLink($b['phone'] ?? '', buildBookingUpdateMessage($b)); ?>
+                <a href="<?= htmlspecialchars($waLink) ?>" target="_blank" class="btn btn-sm" style="background:#25D366;color:#ffffff;font-weight:600;" title="Send WhatsApp Message">
+                  <span class="material-icons" style="font-size:16px;">chat</span>WhatsApp
+                </a>
                 <a href="generate_doc.php?booking_id=<?= $b['id'] ?>" class="btn btn-accent btn-sm" title="Generate Word Document">
                   <span class="material-icons" style="font-size:16px;">description</span>Doc
                 </a>
@@ -474,6 +488,10 @@ $total_revenue   = array_sum(array_column($bookings, 'total'));
         <div class="form-group">
           <label>Email</label>
           <input type="email" name="email" id="e_email" required>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp / Phone Number</label>
+          <input type="text" name="phone" id="e_phone" placeholder="+94762087707">
         </div>
         <div class="form-group">
           <label>Start Date</label>
@@ -547,6 +565,7 @@ $total_revenue   = array_sum(array_column($bookings, 'total'));
     document.getElementById('e_id').value       = b.id;
     document.getElementById('e_name').value     = b.name        || '';
     document.getElementById('e_email').value    = b.email       || '';
+    document.getElementById('e_phone').value    = b.phone       || '';
     document.getElementById('e_start').value    = b.start_date  || '';
     document.getElementById('e_end').value      = b.end_date    || '';
     document.getElementById('e_adults').value   = b.num_adults  || 0;
