@@ -13,16 +13,22 @@ if (!file_exists(__DIR__ . '/config.php')) {
     require_once __DIR__ . '/config.php';
 }
 
-if (!defined('WHATSAPP_PROVIDER'))       define('WHATSAPP_PROVIDER', 'none');
-if (!defined('ADMIN_WHATSAPP_NUMBERS'))  define('ADMIN_WHATSAPP_NUMBERS', ['+94762087707', '+94713378264']);
-if (!defined('ADMIN_WHATSAPP_NUMBER'))   define('ADMIN_WHATSAPP_NUMBER', '+94762087707');
-if (!defined('ULTRAMSG_INSTANCE_ID'))   define('ULTRAMSG_INSTANCE_ID', '');
-if (!defined('ULTRAMSG_TOKEN'))         define('ULTRAMSG_TOKEN', '');
-if (!defined('TWILIO_ACCOUNT_SID'))     define('TWILIO_ACCOUNT_SID', '');
-if (!defined('TWILIO_AUTH_TOKEN'))      define('TWILIO_AUTH_TOKEN', '');
-if (!defined('TWILIO_WHATSAPP_NUMBER')) define('TWILIO_WHATSAPP_NUMBER', '');
-if (!defined('META_WHATSAPP_PHONE_ID'))     define('META_WHATSAPP_PHONE_ID', '');
-if (!defined('META_WHATSAPP_ACCESS_TOKEN'))define('META_WHATSAPP_ACCESS_TOKEN', '');
+if (!defined('WHATSAPP_PROVIDER'))        define('WHATSAPP_PROVIDER', 'green_api');
+if (!defined('ADMIN_WHATSAPP_NUMBERS'))   define('ADMIN_WHATSAPP_NUMBERS', ['+94762087707', '+94713378264']);
+if (!defined('ADMIN_WHATSAPP_NUMBER'))    define('ADMIN_WHATSAPP_NUMBER', '+94762087707');
+// CallMeBot API Keys — one per number (get from callmebot.com)
+// Format: ['+94762087707' => 'APIKEY1', '+94713378264' => 'APIKEY2']
+if (!defined('CALLMEBOT_API_KEYS'))      define('CALLMEBOT_API_KEYS', []);
+// Green API Credentials (https://green-api.com - 500 free messages/month)
+if (!defined('GREEN_API_INSTANCE_ID'))   define('GREEN_API_INSTANCE_ID', '');
+if (!defined('GREEN_API_TOKEN'))         define('GREEN_API_TOKEN', '');
+if (!defined('ULTRAMSG_INSTANCE_ID'))    define('ULTRAMSG_INSTANCE_ID', '');
+if (!defined('ULTRAMSG_TOKEN'))          define('ULTRAMSG_TOKEN', '');
+if (!defined('TWILIO_ACCOUNT_SID'))      define('TWILIO_ACCOUNT_SID', '');
+if (!defined('TWILIO_AUTH_TOKEN'))       define('TWILIO_AUTH_TOKEN', '');
+if (!defined('TWILIO_WHATSAPP_NUMBER'))  define('TWILIO_WHATSAPP_NUMBER', '');
+if (!defined('META_WHATSAPP_PHONE_ID'))      define('META_WHATSAPP_PHONE_ID', '');
+if (!defined('META_WHATSAPP_ACCESS_TOKEN')) define('META_WHATSAPP_ACCESS_TOKEN', '');
 
 /**
  * Format a phone number into international standard (E.164 without spaces/dashes)
@@ -102,9 +108,9 @@ function generateWhatsAppClickLink($phone, $message) {
 }
 
 /**
- * Send WhatsApp Message via API (Twilio, UltraMsg, or WhatsApp Cloud API)
+ * Send WhatsApp Message via API (CallMeBot, Twilio, UltraMsg, or WhatsApp Cloud API)
  */
-function sendWhatsAppApiMessage($toPhone, $messageText) {
+function sendWhatsAppApiMessage($toPhone, $messageText, $apiKeyOverride = null) {
     $formattedTo = formatWhatsAppNumber($toPhone);
     $provider    = strtolower(trim(WHATSAPP_PROVIDER));
 
@@ -112,7 +118,80 @@ function sendWhatsAppApiMessage($toPhone, $messageText) {
         return ['success' => false, 'message' => 'WhatsApp API provider disabled or empty recipient number.'];
     }
 
-    // 1. UltraMsg API Integration
+    // 0. CallMeBot API Integration (Simplest free WhatsApp API)
+    if ($provider === 'callmebot') {
+        // Look up API key for this number
+        $apiKeys = CALLMEBOT_API_KEYS;
+        $apiKey  = $apiKeyOverride ?? ($apiKeys[$formattedTo] ?? ($apiKeys[ltrim($formattedTo, '+')] ?? null));
+
+        if (empty($apiKey)) {
+            return ['success' => false, 'message' => "CallMeBot: No API key configured for $formattedTo. Add it in config.php under CALLMEBOT_API_KEYS."];
+        }
+
+        $cleanPhone = ltrim($formattedTo, '+');
+        $url = 'https://api.callmebot.com/whatsapp.php?phone=' . urlencode($cleanPhone)
+             . '&text='   . urlencode($messageText)
+             . '&apikey=' . urlencode($apiKey);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $err      = curl_error($ch);
+        curl_close($ch);
+
+        if ($err) {
+            return ['success' => false, 'message' => "CallMeBot cURL Error: $err"];
+        }
+        // CallMeBot returns 200 with "Message queued" on success
+        if ($httpCode === 200 && stripos($response, 'Message queued') !== false) {
+            return ['success' => true, 'message' => 'CallMeBot WhatsApp message sent successfully!'];
+        }
+        return ['success' => false, 'message' => "CallMeBot response (HTTP $httpCode): $response"];
+    }
+
+    // 1. Green API Integration (https://green-api.com - FREE 500 msgs/month)
+    if ($provider === 'green_api') {
+        $instanceId = GREEN_API_INSTANCE_ID;
+        $apiToken   = GREEN_API_TOKEN;
+
+        if (empty($instanceId) || empty($apiToken)) {
+            return ['success' => false, 'message' => 'Green API: Credentials not configured. Add GREEN_API_INSTANCE_ID and GREEN_API_TOKEN in config.php.'];
+        }
+
+        $cleanPhone = ltrim($formattedTo, '+') . '@c.us';
+        $url = "https://api.green-api.com/waInstance{$instanceId}/sendMessage/{$apiToken}";
+
+        $payload = json_encode([
+            'chatId'  => $cleanPhone,
+            'message' => $messageText
+        ]);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $err      = curl_error($ch);
+        curl_close($ch);
+
+        if ($err) {
+            return ['success' => false, 'message' => "Green API cURL Error: $err"];
+        }
+        $resData = json_decode($response, true);
+        if ($httpCode === 200 && isset($resData['idMessage'])) {
+            return ['success' => true, 'message' => 'Green API WhatsApp message sent! ID: ' . $resData['idMessage']];
+        }
+        return ['success' => false, 'message' => "Green API response (HTTP $httpCode): $response"];
+    }
+
+    // 2. UltraMsg API Integration
     if ($provider === 'ultramsg') {
         $instanceId = ULTRAMSG_INSTANCE_ID;
         $token      = ULTRAMSG_TOKEN;
