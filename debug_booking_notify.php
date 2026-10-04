@@ -1,25 +1,34 @@
 <?php
 // ── debug_booking_notify.php ──────────────────────────────────────────────
-// Simulates exactly what happens when a booking is placed
-// Visit: http://your-site/debug_booking_notify.php
 // DELETE THIS FILE AFTER TESTING
+error_reporting(0);
+ini_set('display_errors', 0);
+header('Content-Type: text/plain');
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/whatsapp_helper.php';
+echo "=== AsanTravels WhatsApp Debug Report ===\n\n";
 
-$results = [];
+// 1. config.php
+$configPath = __DIR__ . '/config.php';
+if (file_exists($configPath)) {
+    echo "1. config.php: YES - EXISTS on this server\n";
+    require_once $configPath;
+} else {
+    echo "1. config.php: MISSING! This is why WhatsApp is not working.\n";
+    echo "   You must manually upload config.php to the live server via FTP.\n\n";
+}
 
-// 1. Check if cURL is available on THIS server
-$results['curl_available'] = function_exists('curl_init') ? '✅ YES' : '❌ NO - cURL is disabled on this server!';
+// 2. cURL
+echo "2. cURL extension: " . (function_exists('curl_init') ? "YES - Available\n" : "NO - NOT available - server blocks outgoing API calls\n");
 
-// 2. Check provider setting
-$results['provider'] = WHATSAPP_PROVIDER;
+// 3. Provider
+echo "3. WhatsApp Provider: " . (defined('WHATSAPP_PROVIDER') ? WHATSAPP_PROVIDER : "NOT DEFINED (config.php missing)") . "\n";
 
-// 3. Check admin numbers
-$results['admin_numbers'] = ADMIN_WHATSAPP_NUMBERS;
+// 4. Green API Instance
+echo "4. GREEN_API_INSTANCE_ID: " . (defined('GREEN_API_INSTANCE_ID') ? (empty(GREEN_API_INSTANCE_ID) ? "EMPTY!" : "Set (" . substr(GREEN_API_INSTANCE_ID,0,4) . "...)") : "NOT DEFINED") . "\n";
+echo "5. GREEN_API_TOKEN: "       . (defined('GREEN_API_TOKEN')       ? (empty(GREEN_API_TOKEN)       ? "EMPTY!" : "Set")                                                                            : "NOT DEFINED") . "\n";
 
-// 4. Check Green API instance status
-if (function_exists('curl_init')) {
+// 5. Test Green API connection
+if (function_exists('curl_init') && defined('GREEN_API_INSTANCE_ID') && !empty(GREEN_API_INSTANCE_ID)) {
     $ch = curl_init("https://api.green-api.com/waInstance" . GREEN_API_INSTANCE_ID . "/getStateInstance/" . GREEN_API_TOKEN);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -27,33 +36,30 @@ if (function_exists('curl_init')) {
     $resp = curl_exec($ch);
     $err  = curl_error($ch);
     curl_close($ch);
-    $results['green_api_status'] = $err ? "❌ cURL Error: $err" : $resp;
+    echo "6. Green API State: " . ($err ? "Error: $err" : $resp) . "\n";
+
+    // 6. Send test message
+    if (defined('ADMIN_WHATSAPP_NUMBER')) {
+        require_once __DIR__ . '/whatsapp_helper.php';
+        $r = sendWhatsAppApiMessage(ADMIN_WHATSAPP_NUMBER, "Test from asantravels.lk - " . date('H:i:s'));
+        echo "7. Test Send to " . ADMIN_WHATSAPP_NUMBER . ": " . ($r['success'] ? "SENT!" : "Failed: " . $r['message']) . "\n";
+    }
 } else {
-    $results['green_api_status'] = '❌ cURL not available, cannot test';
+    echo "6. Green API Test: SKIPPED (cURL or config missing)\n";
 }
 
-// 5. Try sending a LIVE test message to admin number
-if (function_exists('curl_init')) {
-    $testMsg = "🧪 *LIVE TEST from AsanTravels server*\nIf you receive this, WhatsApp notifications are working!\nTime: " . date('d M Y H:i:s');
-    $sendResult = sendWhatsAppApiMessage(ADMIN_WHATSAPP_NUMBER, $testMsg);
-    $results['test_send_result'] = $sendResult;
-} else {
-    $results['test_send_result'] = ['success' => false, 'message' => 'cURL not available'];
-}
-
-// 6. Check DB connection to see last booking
-$conn = new mysqli("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
-if (!$conn->connect_error) {
-    $row = $conn->query("SELECT id, name, email, phone, status, booking_date FROM booking ORDER BY id DESC LIMIT 1")->fetch_assoc();
-    $results['last_booking'] = $row ?: 'No bookings found';
-    $conn->close();
-} else {
-    $results['last_booking'] = 'DB Error: ' . $conn->connect_error;
-}
-
-header('Content-Type: text/plain');
-echo "=== AsanTravels WhatsApp Debug Report ===\n\n";
-foreach ($results as $key => $val) {
-    echo strtoupper($key) . ":\n";
-    echo (is_array($val) ? print_r($val, true) : $val) . "\n\n";
+// 7. Last booking in DB
+echo "\n--- Last Booking in Database ---\n";
+try {
+    $conn = @new mysqli("sql206.infinityfree.com", "if0_42342516", "cpzbjidK5h1", "if0_42342516_asantravels_og");
+    if ($conn->connect_error) {
+        echo "DB: ERROR - " . $conn->connect_error . "\n";
+    } else {
+        $r = $conn->query("SELECT id, name, phone, status, booking_date FROM booking ORDER BY id DESC LIMIT 1");
+        $row = $r ? $r->fetch_assoc() : null;
+        echo $row ? print_r($row, true) : "No bookings yet\n";
+        $conn->close();
+    }
+} catch (Exception $e) {
+    echo "DB Error: " . $e->getMessage() . "\n";
 }
