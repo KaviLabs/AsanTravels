@@ -1333,7 +1333,7 @@ if (isset($_POST['submit'])) {
                     <p><i class="fas fa-map-marker-alt me-2" style="color:#C9A84C;"></i>Negombo, Sri Lanka</p>
                     <p><i class="fas fa-envelope me-2" style="color:#C9A84C;"></i>asantravels@gmail.com</p>
                     <p><i class="fas fa-phone me-2" style="color:#C9A84C;"></i>+94 76 208 7707</p>
-                    <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 77 337 8244</p>
+                    <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 71 337 8244</p>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <h4>Quick Links</h4>

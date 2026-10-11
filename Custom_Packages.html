@@ -476,11 +476,13 @@
                 height: 400px;
             }
         }
+
         @media (min-width: 576px) and (max-width: 767px) {
             #slt-map-wrap {
                 height: 460px;
             }
         }
+
         @media (min-width: 768px) and (max-width: 1023px) {
             #slt-map-wrap {
                 height: 500px;
@@ -874,6 +876,7 @@
             html {
                 overflow-x: hidden;
             }
+
             body {
                 overflow-x: hidden;
                 /* iOS momentum scrolling for smooth feel */
@@ -883,6 +886,7 @@
 
         /* ── 2. Navbar: Mobile hamburger + collapsed menu ────────────── */
         @media (max-width: 991px) {
+
             /* Brand name: prevent overflow on very narrow screens */
             .navbar-brand h1 {
                 font-size: 1.25rem !important;
@@ -951,6 +955,7 @@
 
         /* ── 3. Hero Section: General mobile layout ──────────────────── */
         @media (max-width: 1023px) {
+
             /* Use svh to account for iOS browser chrome (address bar) */
             .slt-hero {
                 min-height: 100svh;
@@ -992,6 +997,7 @@
 
         /* ── 4. Hero: Extra-small phones (≤430 px — iPhone SE, compact Androids) ── */
         @media (max-width: 430px) {
+
             /* Scale heading for very narrow screens */
             .slt-hero h1 {
                 font-size: clamp(1.7rem, 8.5vw, 2.3rem) !important;
@@ -1018,6 +1024,7 @@
 
         /* ── 5. Hero Stats Bar: Compact for very small screens (≤575 px) ── */
         @media (max-width: 575px) {
+
             /* Reduce padding so the bar doesn't crowd the content above */
             .hero-stat-item {
                 padding: 0.65rem 0 !important;
@@ -1047,15 +1054,18 @@
            (hover:none) + (pointer:coarse) reliably targets touch screens only,
            leaving desktop hover effects completely intact. */
         @media (hover: none) and (pointer: coarse) {
+
             /* Why-Visit cards: remove sticky hover state */
             .why-card:hover {
                 transform: none !important;
                 box-shadow: none !important;
                 border-color: #eef0f5 !important;
             }
+
             .why-card:hover::before {
                 transform: scaleX(0) !important;
             }
+
             .why-card:hover .why-icon {
                 background: linear-gradient(135deg, rgba(19, 53, 123, 0.08), rgba(19, 53, 123, 0.15)) !important;
                 color: #13357B !important;
@@ -1068,6 +1078,7 @@
                 border-color: rgba(201, 168, 76, 0.14) !important;
                 box-shadow: none !important;
             }
+
             .incl-card:hover .incl-icon-wrap {
                 background: linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.08)) !important;
                 color: #C9A84C !important;
@@ -1082,6 +1093,7 @@
 
         /* Fast-tap optimisation for all interactive elements on mobile */
         @media (max-width: 1023px) {
+
             .why-card,
             .incl-card,
             .btn-gold,
@@ -1162,6 +1174,7 @@
 
         /* ── 10. Leaflet Map: Small phones (≤480 px) ─────────────────── */
         @media (max-width: 480px) {
+
             /* Enough height to see the full Sri Lanka island */
             #slt-map-wrap {
                 height: 400px;
@@ -1179,6 +1192,7 @@
 
         /* ── 11. Leaflet Control Improvements: Mobile ────────────────── */
         @media (max-width: 1023px) {
+
             /* Zoom +/- buttons: larger fingertip-friendly touch areas */
             .leaflet-control-zoom a {
                 width: 36px !important;
@@ -1211,8 +1225,9 @@
 
         /* ── 13. Footer: Mobile ──────────────────────────────────────── */
         @media (max-width: 767px) {
+
             /* Social icon row: allow wrapping on very small screens */
-            .footer-item > .d-flex.align-items-center {
+            .footer-item>.d-flex.align-items-center {
                 flex-wrap: wrap;
                 gap: 0.4rem;
             }
@@ -1238,6 +1253,7 @@
 
         /* ── 15. Global Typography: Readability on mobile ───────────── */
         @media (max-width: 767px) {
+
             /* Clamp section headings to prevent overflow on narrow screens */
             .section-heading {
                 font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
@@ -1544,11 +1560,15 @@
             <div class="row g-5 pb-5">
                 <div class="col-md-6 col-lg-4">
                     <span class="site-footer-brand">Asan<span>Travels</span></span>
-                    <span class="site-footer-brand-sub">Your trusted partner for authentic, personalised Sri Lanka experiences. Expert local guide with 10+ years of unforgettable tours.</span>
+                    <span class="site-footer-brand-sub">Your trusted partner for authentic, personalised Sri Lanka
+                        experiences. Expert local guide with 10+ years of unforgettable tours.</span>
                     <div class="site-footer-social">
-                        <a href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&amp;utm_source=qr" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="http://www.tiktok.com/@asantravels" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/share/16T8gBySGv/?mibextid=wwXIfr" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/_asantravels_?igsh=MW1xamdpejN5Zmk5Mw%3D%3D&amp;utm_source=qr"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="http://www.tiktok.com/@asantravels" aria-label="TikTok"><i
+                                class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
@@ -1556,7 +1576,7 @@
                     <p><i class="fas fa-map-marker-alt me-2" style="color:#C9A84C;"></i>Negombo, Sri Lanka</p>
                     <p><i class="fas fa-envelope me-2" style="color:#C9A84C;"></i>asantravels@gmail.com</p>
                     <p><i class="fas fa-phone me-2" style="color:#C9A84C;"></i>+94 76 208 7707</p>
-                    <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 77 337 8244</p>
+                    <p><i class="fab fa-whatsapp me-2" style="color:#C9A84C;"></i>+94 71 337 8244</p>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <h4>Quick Links</h4>
@@ -1567,7 +1587,8 @@
                 </div>
             </div>
             <div class="site-footer-divider">
-                <p class="site-footer-copy">&copy; 2026 AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
+                <p class="site-footer-copy">&copy; 2026 AsanTravels. All Rights Reserved. &nbsp;|&nbsp; Designed by <a
+                        href="#" style="color:rgba(201,168,76,0.6);text-decoration:none;">Kavinu Rajapakse</a></p>
             </div>
         </div>
     </footer>
@@ -1847,7 +1868,7 @@
                     // Reposition any popup that is currently open
                     sltMap.eachLayer(function (layer) {
                         if (layer.getPopup && layer.getPopup() &&
-                                typeof layer.isPopupOpen === 'function' && layer.isPopupOpen()) {
+                            typeof layer.isPopupOpen === 'function' && layer.isPopupOpen()) {
                             repositionPopup(layer);
                         }
                     });
